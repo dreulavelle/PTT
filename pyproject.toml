@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "PTT"
+version = "0.1.0"
+description = "PTT"
+authors = ["PTT"]
+license = "MIT"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+regex = "^2023.12.25"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pyright = "^1.1.357"
+isort = "^5.13.2"
+black = "^24.3.0"
+ruff = "^0.3.5"
+coverage = "^7.4.4"
