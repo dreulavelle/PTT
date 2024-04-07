@@ -2,8 +2,8 @@ import regex
 from datetime import datetime
 
 
-def none(input):
-    return input
+def none(input_value: str) -> str:
+    return input_value
 
 def value(val):
     def inner(input_value, existing_value=None):
@@ -18,7 +18,7 @@ def integer(input_value):
     except ValueError:
         return None
 
-def boolean():
+def boolean(*args, **kwargs):
     return True
 
 def lowercase(input_value):
@@ -39,13 +39,26 @@ def date(date_format):
             return None
     return inner
 
-def range_func(input):
-    array = [int(x) for x in regex.sub(r"\D+", " ", input).strip().split() if x.isdigit()]
-    if len(array) == 2 and array[0] < array[1]:
-        return list(range(array[0], array[1] + 1))
-    if all(array[i] + 1 == array[i + 1] for i in range(len(array) - 1)):
-        return array
-    return None
+# def range_func(input):
+#     array = [int(x) for x in regex.sub(r"\D+", " ", input).strip().split() if x.isdigit()]
+#     if len(array) == 2 and array[0] < array[1]:
+#         return list(range(array[0], array[1] + 1))
+#     if all(array[i] + 1 == array[i + 1] for i in range(len(array) - 1)):
+#         return array
+#     return None
+
+def range_func(input_str):
+    # Extract numbers from the input string and convert them to integers
+    numbers = regex.sub(r"\D+", " ", input_str).strip().split()
+    int_nums = [int(x) for x in numbers if x.isdigit()]
+    print(int_nums)
+
+    if len(int_nums) == 2 and int_nums[0] < int_nums[1] and int_nums[1] - int_nums[0] == 1:
+        return int_nums
+    elif len(int_nums) == 2 and int_nums[0] < int_nums[1]:
+        return list(range(int_nums[0], int_nums[1] + 1))
+    else:
+        return int_nums
 
 def year_range(input_value):
     parts = regex.findall(r"\d+", input_value)
