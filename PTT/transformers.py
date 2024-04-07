@@ -6,8 +6,7 @@ def none(input):
     return input
 
 def value(val):
-    def inner(input_value, existing_value=None):  # Adjusted to accept an optional second argument
-        # Use `existing_value` as needed; in this simple case, it's ignored
+    def inner(input_value, existing_value=None):
         if isinstance(val, str):
             return val.replace("$1", input_value)
         return val
@@ -19,7 +18,7 @@ def integer(input_value):
     except ValueError:
         return None
 
-def boolean(input_value=None):
+def boolean():
     return True
 
 def lowercase(input_value):
@@ -75,9 +74,12 @@ def array(chain=None):
         return [chain(input_value) if chain else input_value]
     return inner
 
-def uniq_concat(chain=None):
-    def inner(input_value, result=None):
-        new_result = result or []
-        value = chain(input_value) if chain else input_value
-        return new_result if value in new_result else new_result + [value]
+def uniq_concat(chain):
+    def inner(input, result=None):
+        if result is None:
+            result = []
+        value = chain(input)
+        if value not in result:
+            result.append(value)
+        return result
     return inner
