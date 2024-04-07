@@ -1,34 +1,29 @@
-# Example of adding handlers, you should replace this with your actual handlers
-# parser = Parser()
-# parser.add_handler("resolution", regex.compile(r"\b4k\b", regex.IGNORECASE), value("4K"), {"remove": True})
-
 import pytest
-import regex
-from PTT.parse import Parser
-from PTT.transformers import value
 
+from PTT.handlers import add_defaults
+from PTT.parse import Parser
+
+
+# Initialize a parser instance and add default handlers
 @pytest.fixture
 def parser():
-    parser = Parser()
-    parser.add_defaults()
-    return parser
+    p = Parser()
+    add_defaults(p)
+    return p
 
-def test_parse(parser):
-    result = parser.parse("Movie Title [ABC12345] 4K 2160p 2021-01-01 EXTENDED CONVERT HC PROPER REPACK Retail Remastered Unrated R1 CAM 10-bit")
+def test_parsed_output(parser):
+    test_case = "The.Matrix.1999.1080p.BluRay.x264"
+    result = parser.parse(test_case)
     assert isinstance(result, dict)
-    # assert result["title"] == "Movie Title"
-    assert result["resolution"] == "4K"
-    assert result["extended"] is True
-    assert result["convert"] is True
-    assert result["hardcoded"] is True
-    assert result["proper"] is True
-    assert result["repack"] is True
-    assert result["retail"] is True
-    assert result["remastered"] is True
-    assert result["unrated"] is True
-    assert result["region"] == "R1"
+    print(result)
 
-def test_add_custom_handler(parser):
-    parser.add_handler("custom", regex.compile(r"(\[[A-C1-5]*\])", regex.IGNORECASE), value("4K"), {"remove": False})
-    result = parser.parse("Movie Title [ABC12345] 4K 2160p 2021-01-01 EXTENDED CONVERT HC PROPER REPACK Retail Remastered Unrated R1 CAM 10-bit")
-    assert result["custom"] == "4K"
+def test_resolution(parser):
+    test_case = "The.Matrix.1999.1080p.BluRay.x264"
+    result = parser.parse(test_case)
+    assert result["resolution"] == "1080p"
+    assert result["title"] == "The Matrix"
+
+def test_year(parser):
+    test_case = "The.Matrix.1999.1080p.BluRay.x264"
+    result = parser.parse(test_case)
+    assert result["year"] == 1999

@@ -1,39 +1,42 @@
+import regex
 from datetime import datetime
 
-import regex
 
 def none(input):
     return input
 
 def value(val):
-    def inner(input):
+    def inner(input_value, existing_value=None):  # Adjusted to accept an optional second argument
+        # Use `existing_value` as needed; in this simple case, it's ignored
         if isinstance(val, str):
-            return val.replace("$1", input)
+            return val.replace("$1", input_value)
         return val
     return inner
 
-def integer(input):
+def integer(input_value):
     try:
-        return int(input)
+        return int(input_value)
     except ValueError:
         return None
 
-def boolean(input):
+def boolean(input_value=None):
     return True
 
-def lowercase(input):
-    return input.lower()
+def lowercase(input_value):
+    return input_value.lower()
 
-def uppercase(input):
-    return input.upper()
+def uppercase(input_value):
+    return input_value.upper()
 
 def date(date_format):
-    def inner(input):
-        sanitized = regex.sub(r"\W+", " ", input).strip()
+    def inner(input_value):
+        sanitized = regex.sub(r"\W+", " ", input_value).strip()
         try:
-            date = datetime.strptime(sanitized, date_format)
-            return date.strftime("%Y-%m-%d")
+            # Attempting to parse the date according to the provided format
+            date_object = datetime.strptime(sanitized, date_format)
+            return date_object.strftime("%Y-%m-%d")
         except ValueError:
+            # Handling cases where parsing fails
             return None
     return inner
 
@@ -45,26 +48,36 @@ def range_func(input):
         return array
     return None
 
-def year_range(input):
-    parts = regex.split(r"\D+", input)
-    start = int(parts[0]) if parts[0].isdigit() else None
-    end = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else None
+def year_range(input_value):
+    parts = regex.findall(r"\d+", input_value)
+    if not parts:
+        return None  # Return None if no numeric parts are found
+
+    try:
+        start = int(parts[0])
+        end = int(parts[1]) if len(parts) > 1 else None
+    except ValueError:
+        return None  # Return None if conversion to integer fails
+
     if not end:
-        return str(start)
+        return str(start)  # If there's no end part, return the start as string
+    
     if end < 100:
-        end += start - start % 100 # type: ignore
-    if end <= start: # type: ignore
-        return None
+        end += start - start % 100  # Adjust for two-digit years
+    
+    if end <= start:
+        return None  # If the end year is not after the start year, it's not a valid range
+    
     return f"{start}-{end}"
 
-def array(chain):
-    def inner(input):
-        return [chain(input)] if chain else [input]
+def array(chain=None):
+    def inner(input_value):
+        return [chain(input_value) if chain else input_value]
     return inner
 
-def uniq_concat(chain):
-    def inner(input, result=None):
-        new_result = result if result is not None else []
-        value = chain(input)
+def uniq_concat(chain=None):
+    def inner(input_value, result=None):
+        new_result = result or []
+        value = chain(input_value) if chain else input_value
         return new_result if value in new_result else new_result + [value]
     return inner
