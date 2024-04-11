@@ -49,16 +49,24 @@ def date(date_format):
 
 def range_func(input_str):
     # Extract numbers from the input string and convert them to integers
-    numbers = regex.sub(r"\D+", " ", input_str).strip().split()
-    int_nums = [int(x) for x in numbers if x.isdigit()]
-    print(int_nums)
+    numbers = [int(x) for x in regex.findall(r'\d+', input_str)]
 
-    if len(int_nums) == 2 and int_nums[0] < int_nums[1] and int_nums[1] - int_nums[0] == 1:
-        return int_nums
-    elif len(int_nums) == 2 and int_nums[0] < int_nums[1]:
-        return list(range(int_nums[0], int_nums[1] + 1))
+    # Check if the extracted list of numbers forms a continuous, ascending sequence
+    if len(numbers) == 2:
+        # If exactly two numbers, generate a range if they form a valid range
+        if numbers[0] < numbers[1]:
+            return list(range(numbers[0], numbers[1] + 1))
+    elif len(numbers) > 2:
+        # If more than two numbers, check if they form a continuous, ascending sequence
+        if all(numbers[i] + 1 == numbers[i + 1] for i in range(len(numbers) - 1)):
+            return numbers
     else:
-        return int_nums
+        # Return the list as-is if it's a single number or empty
+        return numbers
+
+    # Return None if the sequence is not continuous or not just a single number
+    return None
+
 
 def year_range(input_value):
     parts = regex.findall(r"\d+", input_value)
