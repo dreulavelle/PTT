@@ -28,18 +28,38 @@ def parser():
     ("Buttobi!! CPU - 02 (DVDRip 720x480p x265 HEVC AC3x2 2.0x2)(Dual Audio)[sxales].mkv", "2.0"),
     ("[naiyas] Fate Stay Night - Unlimited Blade Works Movie [BD 1080P HEVC10 QAACx2 Dual Audio]", "aac"),
     ("Sakura Wars the Movie (2001) (BDRip 1920x1036p x265 HEVC FLACx2, AC3 2.0+5.1x2)(Dual Audio)[sxales].mkv", "2.0"),
-    (
-    "Macross ~ Do You Remember Love (1984) (BDRip 1920x1036p x265 HEVC DTS-HD MA, FLAC, AC3x2 5.1+2.0x3)(Dual Audio)[sxales].mkv",
-    "2.0"),
-    ("Escaflowne (2000) (BDRip 1896x1048p x265 HEVC TrueHD, FLACx3, AC3 5.1x2+2.0x3)(Triple Audio)[sxales].mkv", "2.0"),
-    ("[SAD] Inuyasha - The Movie 4 - Fire on the Mystic Island [BD 1920x1036 HEVC10 FLAC2.0x2] [84E9A4A1].mkv", "flac"),
-    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", "2.0"),
     ("Spider-Man.No.Way.Home.2021.2160p.BluRay.REMUX.HEVC.TrueHD.7.1.Atmos-FraMeSToR", "7.1 Atmos"),
 ])
-def test_audio_detection(release_name, expected_audio, parser):
+def test_audio_detection(parser, release_name, expected_audio):
     result = parser.parse(release_name)
     assert isinstance(result, dict)
     if expected_audio:
         assert result.get("audio") == expected_audio, f"Failed for {release_name}"
+    else:
+        assert "audio" not in result, f"Unexpected audio detection for {release_name}"
+
+@pytest.mark.parametrize("release_name, expected_audio", [
+    ("Macross ~ Do You Remember Love (1984) (BDRip 1920x1036p x265 HEVC DTS-HD MA, FLAC, AC3x2 5.1+2.0x3)(Dual Audio)[sxales].mkv", "2.0"),
+    ("Escaflowne (2000) (BDRip 1896x1048p x265 HEVC TrueHD, FLACx3, AC3 5.1x2+2.0x3)(Triple Audio)[sxales].mkv", "2.0"),
+    ("[SAD] Inuyasha - The Movie 4 - Fire on the Mystic Island [BD 1920x1036 HEVC10 FLAC2.0x2] [84E9A4A1].mkv", "flac"),
+])
+def test_audio_detection_without_episode(parser, release_name, expected_audio):
+    result = parser.parse(release_name)
+    assert isinstance(result, dict)
+    if expected_audio:
+        assert result.get("audio") == expected_audio, f"Failed for {release_name}"
+    else:
+        assert "audio" not in result, f"Unexpected audio detection for {release_name}"
+    assert "episodes" not in result, f"Unexpected episode detection for {release_name}"
+
+@pytest.mark.parametrize("release_name, expected_audio, expected_episode", [
+    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", "2.0", 23),
+])
+def test_audio_detection_with_episode(parser, release_name, expected_audio, expected_episode):
+    result = parser.parse(release_name)
+    assert isinstance(result, dict)
+    if expected_audio and expected_episode:
+        assert result.get("audio") == expected_audio, f"Failed for {release_name}"
+        assert result.get("episode") == expected_episode, f"Failed for {release_name}"
     else:
         assert "audio" not in result, f"Unexpected audio detection for {release_name}"

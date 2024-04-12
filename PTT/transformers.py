@@ -1,16 +1,20 @@
-import regex
 from datetime import datetime
+
+import regex
 
 
 def none(input_value: str) -> str:
     return input_value
 
+
 def value(val):
     def inner(input_value, existing_value=None):
-        if isinstance(val, str):
+        if isinstance(val, str) and isinstance(input_value, str):
             return val.replace("$1", input_value)
         return val
+
     return inner
+
 
 def integer(input_value):
     try:
@@ -18,14 +22,18 @@ def integer(input_value):
     except ValueError:
         return None
 
+
 def boolean(*args, **kwargs):
     return True
+
 
 def lowercase(input_value):
     return input_value.lower()
 
+
 def uppercase(input_value):
     return input_value.upper()
+
 
 def date(date_format):
     def inner(input_value):
@@ -37,7 +45,9 @@ def date(date_format):
         except ValueError:
             # Handling cases where parsing fails
             return None
+
     return inner
+
 
 # def range_func(input):
 #     array = [int(x) for x in regex.sub(r"\D+", " ", input).strip().split() if x.isdigit()]
@@ -81,19 +91,22 @@ def year_range(input_value):
 
     if not end:
         return str(start)  # If there's no end part, return the start as string
-    
+
     if end < 100:
         end += start - start % 100  # Adjust for two-digit years
-    
+
     if end <= start:
         return None  # If the end year is not after the start year, it's not a valid range
-    
+
     return f"{start}-{end}"
+
 
 def array(chain=None):
     def inner(input_value):
         return [chain(input_value) if chain else input_value]
+
     return inner
+
 
 def uniq_concat(chain):
     def inner(input, result=None):
@@ -103,4 +116,5 @@ def uniq_concat(chain):
         if value not in result:
             result.append(value)
         return result
+
     return inner
