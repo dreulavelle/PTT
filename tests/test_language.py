@@ -85,12 +85,12 @@ def parser():
     ("Subs/Brazilian.por.srt", ["portuguese"]),
     ("Brazilian Portuguese.por.srt", ["portuguese"]),
     ("[S0.E07] Gambit królowej - Gra końcowa.Portuguese Brazil.srt", ["portuguese"]),
-    ("The Hit List (2011) DVD NTSC WS (eng-fre-pt-spa) [Sk]", ["english", "french", "spanish"]),
+    ("The Hit List (2011) DVD NTSC WS (eng-fre-pt-spa) [Sk]", ["english", "french", "spanish"]), # TODO: does not include pt
     ("[POPAS] Neon Genesis Evangelion: The End of Evangelion [jp_PT-pt", ["japanese", "portuguese"]),
     ("Zola Maseko - Drum (2004) PT subs", ["portuguese"]),
-    ("Idrissa Ouedraogo - Yaaba (1989) EN ES FR PT", ["english", "french", "spanish"]),
+    ("Idrissa Ouedraogo - Yaaba (1989) EN ES FR PT", ["english", "french", "spanish"]), # TODO: does not include pt
     ("Metallica.Through.The.Never.2013 O Filme(leg.pt-pt)", ["portuguese"]),
-    ("Dinossauro (2000) --[ Ing / Pt / Esp ]", ["english", "spanish"]),
+    ("Dinossauro (2000) --[ Ing / Pt / Esp ]", ["english", "spanish"]), # TODO: does not include pt
     ("The Guard 2011.DK.EN.ES.HR.NL.PT.RO.Subtitles", ["english", "spanish", "romanian", "croatian", "dutch", "danish"]),
     ("Titan.A.E.2000 720p  HDTV DTS Eng Fra Hun Rom Rus multisub", ["multi subs", "english", "french", "russian", "hungarian", "romanian"]),
     ("Frieren - Beyond Journey's End - S01E01 - TBA WEBDL-1080p.Latin American es.ass", ["latino"]),
@@ -109,7 +109,7 @@ def parser():
     ("Aranyelet.S01.HUNGARIAN.1080p.WEBRip.DDP5.1.x264-SbR[rartv]", ["hungarian"]),
     ("Ponyo[2008]DvDrip-H264 Quad Audio[Eng Jap Fre Spa]AC3 5.1[DXO]", ["english", "japanese", "french", "spanish"]),
     ("The Mechanic [1972] Eng,Deu,Fra,Esp,Rus + multisub DVDrip", ["multi subs", "english", "french", "spanish", "german", "russian"]),
-    ("Mommie Dearest [1981 PAL DVD][En.De.Fr.It.Es Multisubs[18]", ["multi subs", "english", "french", "spanish", "german"]), # @TODO does not include it
+    ("Mommie Dearest [1981 PAL DVD][En.De.Fr.It.Es Multisubs[18]", ["multi subs", "english", "french", "spanish", "german"]), # TODO: does not include it
     ("Pasienio sargyba S01E03 (2016 WEBRip LT)", ["lithuanian"]),
     ("24_Lithuanian.srt", ["lithuanian"]),
     ("25_Latvian.srt", ["latvian"]),
@@ -134,7 +134,7 @@ def parser():
     ("A Freira (2018) Dublado HD-TS 720p", ["portuguese"]),
     ("Escobar El Patron Del Mal Capitulo 91 SD (2012-10-10) [SiRaDuDe]", ["portuguese"]),
     ("Bleach - 215 ao 220 - [DB-BR]", ["portuguese"]),
-    ("Joker.2019.MULTi.Bluray.1080p.Atmos.7.1.En.Fr.Sp.Pt-DDR[EtHD]", ["multi audio", "english", "french"]), # @TODO does not include sp,pt
+    ("Joker.2019.MULTi.Bluray.1080p.Atmos.7.1.En.Fr.Sp.Pt-DDR[EtHD]", ["multi audio", "english", "french"]), # TODO: does not include sp,pt
     ("Dilbert complete series + en subs", ["english"]),
     ("The Next Karate Kid (1994) NTSC WS -Eng/Fre/Spa/Por- [ctang]", ["english", "french", "spanish", "portuguese"]),
     ("arsenico por compasion 1944 Capra spanish castellano", ["spanish"]),
