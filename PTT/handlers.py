@@ -9,8 +9,8 @@ from PTT.transformers import (
 
 def add_defaults(parser: Parser):
     # Episode code
-    parser.add_handler("episodeCode", regex.compile(r"\[(\w{8})\](?=\.\w{1,5}$|$)"), uppercase, {"remove": True})
-    parser.add_handler("episodeCode", regex.compile(r"\[([A-Z0-9]{8})\]"), uppercase, {"remove": True})
+    parser.add_handler("episode_code", regex.compile(r"[[(]([a-zA-Z0-9]{8})[\])](?=\.[a-zA-Z0-9]{1,5}$|$)"), uppercase, {"remove": True})
+    parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
 
     # Resolution
     parser.add_handler("resolution", regex.compile(r"\b(?:\[?\]?4k[\])?]?)\b", regex.IGNORECASE), value("4k"), {"remove": True})
@@ -98,16 +98,16 @@ def add_defaults(parser: Parser):
     parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": True})
 
     # Video depth
-    parser.add_handler("bitDepth", regex.compile(r"(?:8|10|12)[- ]?bit", regex.IGNORECASE), lowercase, {"remove": True})
-    parser.add_handler("bitDepth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
-    parser.add_handler("bitDepth", regex.compile(r"\bhdr10\b", regex.IGNORECASE), value("10bit"))
-    parser.add_handler("bitDepth", regex.compile(r"\bhi10\b", regex.IGNORECASE), value("10bit"))
+    parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
+    parser.add_handler("bit_depth", regex.compile(r"(?:8|10|12)[- ]?bit", regex.IGNORECASE), lowercase, {"remove": True})
+    parser.add_handler("bit_depth", regex.compile(r"\bhdr10\b", regex.IGNORECASE), value("10bit"))
+    parser.add_handler("bit_depth", regex.compile(r"\bhi10\b", regex.IGNORECASE), value("10bit"))
     def handle_bit_depth(context):
         result = context['result']
         if 'bitDepth' in result:
             # Replace hyphens and spaces with nothing (effectively removing them)
-            result['bitDepth'] = result['bitDepth'].replace(" ", "").replace("-", "")
-    parser.add_handler("bitDepth", handle_bit_depth)
+            result['bit_depth'] = result['bit_depth'].replace(" ", "").replace("-", "")
+    parser.add_handler("bit_depth", handle_bit_depth)
 
     # HDR
     parser.add_handler("hdr", regex.compile(r"\bDV\b|dolby.?vision|\bDoVi\b", regex.IGNORECASE), uniq_concat(value("DV")), {"remove": True, "skipIfAlreadyFound": False})
@@ -190,11 +190,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"[^\w-](\d{1,2})-\d{2}(?=\.\w{2,4}$)"), array(integer))
     parser.add_handler("seasons", regex.compile(r"(?<!\bEp?(?:isode)? ?\d+\b.*)\b(\d{2})[ ._]\d{2}(?:.F)?\.\w{2,4}$"), array(integer))
     parser.add_handler("seasons", regex.compile(r"\bEp(?:isode)?\W+(\d{1,2})\.\d{1,3}\b", regex.IGNORECASE), array(integer))
-    def add_single_season_info(context):
-        result = context['result']
-        if 'seasons' in result and len(result['seasons']) == 1:
-            result['season'] = result['seasons'][0]
-    parser.add_handler("season", add_single_season_info)
 
     # Episodes
     parser.add_handler("episodes", regex.compile(r"(?:[\W\d]|^)e[ .]?[([]?(\d{1,3}(?:[ .-]*(?:[&+]|e){1,2}[ .]?\d{1,3})+)(?:\W|$)", regex.IGNORECASE), range_func)
@@ -210,18 +205,18 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"s\d{1,2}\s?\((\d{1,3}[ .]*-[ .]*\d{1,3})\)", regex.IGNORECASE), range_func)
     parser.add_handler("episodes", regex.compile(r"(?:^|\/)\d{1,2}-(\d{2})\b(?!-\d)"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<!\d-)\b\d{1,2}-(\d{2})(?=\.\w{2,4}$)"), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?<!seasons?|[Сс]езони?)\W(?:[ .([-]|^)(\d{1,3}(?:[ .]?[,&+~][ .]?\d{1,3})+)(?:[ .)\]-]|$)", regex.IGNORECASE), range_func)
-    parser.add_handler("episodes", regex.compile(r"(?<!seasons?|[Сс]езони?)\W(?:[ .([-]|^)(\d{1,3}(?:-\d{1,3})+)(?:[ .)(\]]|-\D|$)", regex.IGNORECASE), range_func)
+    parser.add_handler("episodes", regex.compile(r"(?<!(?:seasons?|[Сс]езони?)\W*)(?:[ .([-]|^)(\d{1,3}(?:[ .]?[,&+~][ .]?\d{1,3})+)(?:[ .)\]-]|$)", regex.IGNORECASE), range_func)
+    parser.add_handler("episodes", regex.compile(r"(?<!(?:seasons?|[Сс]езони?)\W*)(?:[ .([-]|^)(\d{1,3}(?:-\d{1,3})+)(?:[ .)(\]]|-\D|$)", regex.IGNORECASE), range_func)
     parser.add_handler("episodes", regex.compile(r"\bEp(?:isode)?\W+\d{1,2}\.(\d{1,3})\b", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?:\b[ée]p?(?:isode)?|[Ээ]пизод|[Сс]ер(?:ии|ия|\.)?|cap(?:itulo)?|epis[oó]dio)[. ]?[-:#№]?[. ]?(\d{1,4})(?:[abc]|v0?[1-4]|\W|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b(\d{1,3})(?:-?я)?[ ._-]*(?:ser(?:i?[iyj]a|\b)|[Сс]ер(?:ии|ия|\.)?)", regex.IGNORECASE), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?:\D|^)\d{1,2}[. ]?[xх][. ]?(\d{1,2})(?:[abc]|v0?[1-4]|\D|$)"), array(integer)) # Fixed: Was catching `1.x265` as episode.
+    parser.add_handler("episodes", regex.compile(r"(?:\D|^)\d{1,2}[. ]?[xх][. ]?(\d{1,3})(?:[abc]|v0?[1-4]|\D|$)"), array(integer)) # Fixed: Was catching `1.x265` as episode.
     parser.add_handler("episodes", regex.compile(r"[[(]\d{1,2}\.(\d{1,3})[)\]]"), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b[Ss]\d{1,2}[ .](\d{1,2})\b"), array(integer))
     parser.add_handler("episodes", regex.compile(r"-\s?\d{1,2}\.(\d{2,3})\s?-"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<=\D|^)(\d{1,3})[. ]?(?:of|из|iz)[. ]?\d{1,3}(?=\D|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})\](?!(?:\.\w{2,4})?$)"), array(integer))
+    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
     def handle_episodes(context):
         title = context['title']
         result = context.get('result', {})
@@ -260,14 +255,6 @@ def add_defaults(parser: Parser):
 
         return None
     parser.add_handler("episodes", handle_episodes)
-    def handle_episode(context):
-        result = context['result']
-        if 'episodes' in result and len(result['episodes']) == 1:
-            # If there's exactly one episode in the episodes list, add it as 'episode'
-            result['episode'] = result['episodes'][0]
-
-    # Add the handler to the parser
-    parser.add_handler("episode", handle_episode)
 
     # Complete
     parser.add_handler("complete", regex.compile(r"(?:\bthe\W)?(?:\bcomplete|collection|dvd)?\b[ .]?\bbox[ .-]?set\b", regex.IGNORECASE), boolean)

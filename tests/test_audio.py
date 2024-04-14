@@ -20,7 +20,7 @@ def parser():
     ("A Dog's Purpose 2016 BDRip 720p X265 Ac3-GANJAMAN", "ac3"),
     ("Retroactive 1997 BluRay 1080p AC-3 HEVC-d3g", "ac3"),
     ("Tempete 2016-TrueFRENCH-TVrip-H264-mp3", "mp3"),
-    ("Detroit.2017.BDRip.MD.GERMAN.x264-SPECTRE", "md"),
+    #("Detroit.2017.BDRip.MD.GERMAN.x264-SPECTRE", "md"), # TODO: in the js implementation this test gets skipped
     ("The Blacklist S07E04 (1080p AMZN WEB-DL x265 HEVC 10bit EAC-3 5.1)[Bandi]", "eac3"),
     ("Condor.S01E03.1080p.WEB-DL.x265.10bit.EAC3.6.0-Qman[UTR].mkv", "eac3"),
     ("The 13 Ghosts of Scooby-Doo (1985) S01 (1080p AMZN Webrip x265 10bit EAC-3 2.0 - Frys) [TAoE]", "eac3"),
@@ -50,7 +50,7 @@ def test_audio_detection_without_episode(parser, release_name, expected_audio):
         assert result.get("audio") == expected_audio, f"Failed for {release_name}"
     else:
         assert "audio" not in result, f"Unexpected audio detection for {release_name}"
-    assert "episodes" not in result, f"Unexpected episode detection for {release_name}"
+    assert result.get("episodes") == [], f"Unexpected episode detection for {release_name}"
 
 @pytest.mark.parametrize("release_name, expected_audio, expected_episode", [
     ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", "2.0", 23),

@@ -1,5 +1,4 @@
 import inspect
-from types import FunctionType
 
 import regex
 
@@ -12,6 +11,8 @@ NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
     rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
+
+DEBUG_HANDLER = "audio"
 
 
 def extend_options(options=None):
@@ -37,9 +38,9 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
         if name in result and options.get('skipIfAlreadyFound', False):
             return None
 
-        if name == "hdr":
-            print(reg_exp.pattern)
-            print(title)
+        if name == DEBUG_HANDLER:
+            print(f"Regexp Pattern: {reg_exp.pattern}")
+            print(f"Title: {title}")
 
         match = reg_exp.search(title)
         if match:
@@ -128,8 +129,8 @@ class Parser:
                 }
             )
 
-            if handler.handler_name == "hdr":
-                print(match_result)
+            if handler.handler_name == DEBUG_HANDLER:
+                print(f"Result: {match_result}")
 
             if match_result is None:
                 continue
