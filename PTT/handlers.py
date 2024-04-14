@@ -13,12 +13,12 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodeCode", regex.compile(r"\[([A-Z0-9]{8})\]"), uppercase, {"remove": True})
 
     # Resolution
-    parser.add_handler("resolution", regex.compile(r"\b(?:\[\]?4k[\])?]?)\b", regex.IGNORECASE), value("4k"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\b(?:\[?\]?4k[\])?]?)\b", regex.IGNORECASE), value("4k"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"21600?[pi]", regex.IGNORECASE), value("4k"), {"skipIfAlreadyFound": False, "remove": True})
-    parser.add_handler("resolution", regex.compile(r"\[\]?3840x\d{4}[\])?]?", regex.IGNORECASE), value("4k"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\[\]?1920x\d{3,4}[\])?]?", regex.IGNORECASE), value("1080p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\[\]?1280x\d{3}[\])?]?", regex.IGNORECASE), value("720p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\[\]?(\d{3,4}x\d{3,4})[\])?]?", regex.IGNORECASE), value("$1p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\[?\]?3840x\d{4}[\])?]?", regex.IGNORECASE), value("4k"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\[?\]?1920x\d{3,4}[\])?]?", regex.IGNORECASE), value("1080p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\[?\]?1280x\d{3}[\])?]?", regex.IGNORECASE), value("720p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\[?\]?(\d{3,4}x\d{3,4})[\])?]?", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(480|720|1080)0[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)(720|1080|2160)"), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(480|576|720|1080|2160)[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
@@ -139,29 +139,29 @@ def add_defaults(parser: Parser):
 
     # Volume
     parser.add_handler("volumes", regex.compile(r"\bvol(?:s|umes?)?[. -]*(?:\d{1,2}[., +/\\&-]+)+\d{1,2}\b", regex.IGNORECASE), range_func, {"remove": True})
-    parser.add_handler("volumes", regex.compile(r"\bvol(?:s|umes?)?[. -]*(\d{1,2})\b", regex.IGNORECASE), integer, {"remove": True})
+    # parser.add_handler("volumes", regex.compile(r"\bvol(?:s|umes?)?[. -]*(\d{1,2})\b", regex.IGNORECASE), integer, {"remove": True})
     def handle_volumes(context):
         title = context['title']
         result = context['result']
         matched = context['matched']
 
         # Determine the start index based on whether the year is matched
-        start_index = matched.get('year', {}).get('matchIndex', 0)
+        start_index = matched.get('year', {}).get('match_index', 0)
 
         # Regular expression to find volume numbers
         match = regex.search(r'\bvol(?:ume)?[. -]*(\d{1,2})', title[start_index:], regex.IGNORECASE)
 
         if match:
             # Update the matched information for volumes
-            matched['volumes'] = {'match': match.group(0), 'matchIndex': match.start()}
+            matched['volumes'] = {'match': match.group(0), 'match_index': match.start()}
 
             # Convert the captured group to an integer and store it in the result
             result['volumes'] = [int(match.group(1))]
 
             # Return a dictionary with details of the raw match and its index
             return {
-                'rawMatch': match.group(0),
-                'matchIndex': match.start() + start_index,
+                'raw_match': match.group(0),
+                'match_index': match.start() + start_index,
                 'remove': True
             }
         return None
@@ -229,10 +229,10 @@ def add_defaults(parser: Parser):
 
         if 'episodes' not in result:
             # Gather start indexes from relevant matched fields
-            start_indexes = [comp.get('matchIndex') for comp in [matched.get('year'), matched.get('seasons')] if comp and comp.get('matchIndex', None)]
-            end_indexes = [comp['matchIndex'] for comp in
+            start_indexes = [comp.get('match_index') for comp in [matched.get('year'), matched.get('seasons')] if comp and comp.get('match_index', None)]
+            end_indexes = [comp['match_index'] for comp in
                            [matched.get('resolution'), matched.get('source'), matched.get('codec'),
-                            matched.get('audio')] if comp and comp.get('matchIndex', None)]
+                            matched.get('audio')] if comp and comp.get('match_index', None)]
 
             # Define the range of the title to search based on detected components
             start_index = min(start_indexes) if start_indexes else 0
@@ -256,7 +256,7 @@ def add_defaults(parser: Parser):
                     # Extract episode numbers, remove non-digits and convert to integers
                     episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
                     result['episodes'] = episode_numbers
-                    return {'matchIndex': title.index(matches.group(0))}
+                    return {'match_index': title.index(matches.group(0))}
 
         return None
     parser.add_handler("episodes", handle_episodes)
@@ -386,12 +386,12 @@ def add_defaults(parser: Parser):
         matched = context['matched']
         if 'languages' not in result or not any(lang in result['languages'] for lang in ['portuguese', 'spanish']):
             # Checking if episode naming convention suggests Portuguese language
-            if (matched.get('episodes') and regex.search(r'capitulo|ao', matched['episodes'].get('rawMatch', ''),
+            if (matched.get('episodes') and regex.search(r'capitulo|ao', matched['episodes'].get('raw_match', ''),
                                                          regex.IGNORECASE)) or \
                     regex.search(r'dublado', title, regex.IGNORECASE):
                 result['languages'] = result.get('languages', []) + ['portuguese']
 
-        return {'matchIndex': 0}
+        return {'match_index': 0}
     parser.add_handler("languages", infer_language_based_on_naming)
 
     # Dubbed
@@ -400,7 +400,7 @@ def add_defaults(parser: Parser):
         result = context['result']
         if 'languages' in result and any(lang in ['multi audio', 'dual audio'] for lang in result['languages']):
             result['dubbed'] = True
-        return {'matchIndex': 0}
+        return {'match_index': 0}
     parser.add_handler("dubbed", handle_dubbed)
 
     # Group
@@ -409,15 +409,15 @@ def add_defaults(parser: Parser):
     def handle_group(context):
         result = context['result']
         matched = context['matched']
-        if 'group' in matched and matched['group'].get('rawMatch', '').startswith('[') and matched['group']['rawMatch'].endswith(']'):
-            end_index = matched['group']['matchIndex'] + len(matched['group']['rawMatch']) if 'group' in matched else 0
+        if 'group' in matched and matched['group'].get('raw_match', '').startswith('[') and matched['group']['raw_match'].endswith(']'):
+            end_index = matched['group']['match_index'] + len(matched['group']['raw_match']) if 'group' in matched else 0
 
             # Check if there's any overlap with other matched elements
-            if any(key != 'group' and matched[key]['matchIndex'] < end_index for key in matched if
-                   'matchIndex' in matched[key]):
+            if any(key != 'group' and matched[key]['match_index'] < end_index for key in matched if
+                   'match_index' in matched[key]):
                 if 'group' in result:
                     del result['group']
-        return {'matchIndex': 0}
+        return {'match_index': 0}
     parser.add_handler("group", handle_group)
 
     # Extension

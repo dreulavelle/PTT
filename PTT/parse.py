@@ -1,3 +1,4 @@
+import inspect
 from types import FunctionType
 
 import regex
@@ -36,11 +37,17 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
         if name in result and options.get('skipIfAlreadyFound', False):
             return None
 
+        if name == "hdr":
+            print(reg_exp.pattern)
+            print(title)
+
         match = reg_exp.search(title)
         if match:
             raw_match = match.group(0)
             clean_match = match.group(1) if len(match.groups()) >= 1 else raw_match
-            transformed = transformer(clean_match)
+            sig = inspect.signature(transformer)
+            param_count = len(sig.parameters)
+            transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
 
             before_title_match = regex.match(r'^\[([^\[\]]+)]', title)
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
@@ -51,7 +58,7 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             )
 
             if transformed is not None and not is_skip_if_first:
-                matched[name] = {'raw_match': raw_match, 'match_index': match.start()}
+                matched[name] = matched.get(name, {'raw_match': raw_match, 'match_index': match.start()})
                 result[name] = options.get('value', transformed)
                 return {
                     'raw_match': raw_match,
@@ -62,6 +69,7 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
         return None
 
     handler.__name__ = name
+    handler.handler_name = name
     return handler
 
 
@@ -90,14 +98,14 @@ class Parser:
 
     def add_handler(self, handler_name, handler, transformer=None, options=None):
 
-        if not handler and type(handler_name) == FunctionType:
+        if not handler and callable(handler_name):
             handler = handler_name
             handler.handler_name = "unknown"
         elif type(handler_name) == str and type(handler) == regex.Pattern:
-            transformer = transformer if type(transformer) == FunctionType else none
+            transformer = transformer if callable(transformer) else none
             options = extend_options(transformer if type(transformer) == dict else options)
             handler = create_handler_from_regexp(handler_name, handler, transformer, options)
-        elif type(handler_name) == str and type(handler) == FunctionType:
+        elif type(handler_name) == str and callable(handler):
             handler.handler_name = handler_name
         else:
             raise ValueError(
@@ -120,19 +128,22 @@ class Parser:
                 }
             )
 
+            if handler.handler_name == "hdr":
+                print(match_result)
+
             if match_result is None:
                 continue
 
             if match_result.get('remove', False):
                 title = title[:match_result['match_index']] + title[match_result['match_index'] + len(
                     match_result['raw_match']):]
-            if match_result.get('skip_from_title', False) and match_result['match_index'] and match_result[
+            if match_result.get('skip_from_title') and match_result.get('match_index') and match_result[
                 'match_index'] < end_of_title:
                 end_of_title = match_result['match_index']
-            if match_result.get('remove', False) and match_result['skip_from_title'] and match_result[
+            if match_result.get('remove') and match_result.get('skip_from_title') and match_result[
                 'match_index'] < end_of_title:
                 # adjust title index in case part of it should be removed and skipped
-                end_of_title -= match_result.rawMatch.length
+                end_of_title -= match_result.raw_match.length
 
             # if match_result:
             #     raw_match = match_result.group(0)
