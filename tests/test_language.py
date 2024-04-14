@@ -219,4 +219,4 @@ def test_languages_detection(parser, release_name, expected_languages):
         assert "languages" in result, f"Languages code key missing in result for {release_name}"
         assert set(result["languages"]) == set(expected_languages), f"Incorrect expected_languages detected for {release_name}"
     else:
-        assert "languages" not in result, f"Incorrectly detected expected_languages code for {release_name}"
+        assert result["languages"] == [], f"Incorrectly detected expected_languages code for {release_name}"
