@@ -53,13 +53,13 @@ def test_audio_detection_without_episode(parser, release_name, expected_audio):
     assert result.get("episodes") == [], f"Unexpected episode detection for {release_name}"
 
 @pytest.mark.parametrize("release_name, expected_audio, expected_episode", [
-    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", "2.0", 23),
+    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", "2.0", [23]),
 ])
 def test_audio_detection_with_episode(parser, release_name, expected_audio, expected_episode):
     result = parser.parse(release_name)
     assert isinstance(result, dict)
     if expected_audio and expected_episode:
         assert result.get("audio") == expected_audio, f"Failed for {release_name}"
-        assert result.get("episode") == expected_episode, f"Failed for {release_name}"
+        assert result.get("episodes") == expected_episode, f"Failed for {release_name}"
     else:
         assert "audio" not in result, f"Unexpected audio detection for {release_name}"

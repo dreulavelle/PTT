@@ -1,5 +1,5 @@
-from datetime import datetime
 
+import arrow
 import regex
 
 
@@ -38,13 +38,23 @@ def uppercase(input_value):
 def date(date_format):
     def inner(input_value):
         sanitized = regex.sub(r"\W+", " ", input_value).strip()
-        try:
-            # Attempting to parse the date according to the provided format
-            date_object = datetime.strptime(sanitized, date_format)
-            return date_object.strftime("%Y-%m-%d")
-        except ValueError:
-            # Handling cases where parsing fails
-            return None
+        print(f"Attempting to parse date: {sanitized}")
+        # Attempting to parse the date according to the provided format
+        # date_object = datetime.strptime(sanitized, date_format)
+        # return date_object.strftime("%Y-%m-%d")
+
+        if not isinstance(date_format, list):
+            formats = [date_format]
+        else:
+            formats = date_format
+
+        for fmt in formats:
+            try:
+                return arrow.get(sanitized, fmt).format("YYYY-MM-DD")
+            except ValueError as e:
+                print(f"Failed to parse date: {input_value} with format: {fmt}")
+                print(e)
+        return None
 
     return inner
 

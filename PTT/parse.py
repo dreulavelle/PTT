@@ -12,7 +12,7 @@ NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 
-DEBUG_HANDLER = "audio"
+DEBUG_HANDLER = None
 
 
 def extend_options(options=None):
@@ -43,6 +43,8 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             print(f"Title: {title}")
 
         match = reg_exp.search(title)
+        if name == DEBUG_HANDLER:
+            print(f"Match: {match}")
         if match:
             raw_match = match.group(0)
             clean_match = match.group(1) if len(match.groups()) >= 1 else raw_match
@@ -54,9 +56,12 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
+            if name == DEBUG_HANDLER:
+                print(f"Other Matches: {other_matches}")
             is_skip_if_first = options.get('skipIfFirst', False) and other_matches and all(
                 match.start() < other_matches[k]['match_index'] for k in other_matches
             )
+            # is_skip_if_first = False
 
             if transformed is not None and not is_skip_if_first:
                 matched[name] = matched.get(name, {'raw_match': raw_match, 'match_index': match.start()})
@@ -81,9 +86,11 @@ def clean_title(raw_title):
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
     cleaned_title = regex.sub(r"_", " ", cleaned_title)
-    cleaned_title = regex.sub(r"\[movie\]", "", cleaned_title, flags=regex.IGNORECASE)
+    cleaned_title = regex.sub(r"[[(]movie[)\]]", "", cleaned_title, flags=regex.IGNORECASE)
     cleaned_title = NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
     cleaned_title = RUSSIAN_CAST_REGEX.sub("", cleaned_title)
+    cleaned_title = regex.sub(r"^[[【★].*[\]】★][ .]?(.+)", r"\1", cleaned_title)
+    cleaned_title = regex.sub(r"(.+)[ .]?[[【★].*[\]】★]$", r"\1", cleaned_title)
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
