@@ -39,15 +39,7 @@ def date(date_format):
     def inner(input_value):
         sanitized = regex.sub(r"\W+", " ", input_value).strip()
         print(f"Attempting to parse date: {sanitized}")
-        # Attempting to parse the date according to the provided format
-        # date_object = datetime.strptime(sanitized, date_format)
-        # return date_object.strftime("%Y-%m-%d")
-
-        if not isinstance(date_format, list):
-            formats = [date_format]
-        else:
-            formats = date_format
-
+        formats = [date_format] if not isinstance(date_format, list) else date_format
         for fmt in formats:
             try:
                 return arrow.get(sanitized, fmt).format("YYYY-MM-DD")
