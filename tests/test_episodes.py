@@ -18,8 +18,7 @@ def parser():
     ("Bleach 10º Temporada - 215 ao 220 - [DB-BR]", list(range(215, 221))),
     ("Lost.[Perdidos].6x05.HDTV.XviD.[www.DivxTotaL.com]", [5]),
     ("4-13 Cursed (HD)", [13]),
-    ("Dragon Ball Z Movie - 09 - Bojack Unbound - 1080p BluRay x264 DTS 5.1 -DDR", []),
-    # Correct. This should not match, its a movie.
+    ("Dragon Ball Z Movie - 09 - Bojack Unbound - 1080p BluRay x264 DTS 5.1 -DDR", []), # Correct. This should not match, its a movie.
     ("The Simpsons S28E21 720p HDTV x264-AVS", [21]),
     ("breaking.bad.s01e01.720p.bluray.x264-reward", [1]),
     ("Dragon Ball Super S01 E23 French 1080p HDTV H264-Kesni", [23]),

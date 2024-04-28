@@ -8,9 +8,9 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.11"
 regex = "^2023.12.25"
+arrow = "^1.3.0"
 
 [tool.poetry.group.dev.dependencies]
-arrow = "^1.3.0"
 pyright = "^1.1.352"
 pyperf = "^2.2.0"
 ruff = "^0.3.0"
