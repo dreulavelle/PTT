@@ -1,5 +1,4 @@
 import inspect
-
 import regex
 
 from .transformers import none
