@@ -51,7 +51,7 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
 
-            before_title_match = regex.match(r'^\[([^\[\]]+)]', title)
+            before_title_match = regex.match(r'^\[([^[\]]+)]', title) # or '^\[([^\[\]]+)]'
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
@@ -85,14 +85,24 @@ def clean_title(raw_title):
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
     cleaned_title = regex.sub(r"_", " ", cleaned_title)
+    print(cleaned_title)
     cleaned_title = regex.sub(r"[[(]movie[)\]]", "", cleaned_title, flags=regex.IGNORECASE)
+    print(cleaned_title)
     cleaned_title = NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
+    print(cleaned_title)
     cleaned_title = RUSSIAN_CAST_REGEX.sub("", cleaned_title)
+    print(cleaned_title)
+    # maybe [\[\[【★].*[\]】★][ .]?(.+)
     cleaned_title = regex.sub(r"^[[【★].*[\]】★][ .]?(.+)", r"\1", cleaned_title)
+    print(cleaned_title)
     cleaned_title = regex.sub(r"(.+)[ .]?[[【★].*[\]】★]$", r"\1", cleaned_title)
+    print(cleaned_title)
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
+    print(cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
+    print(cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
+    print(cleaned_title)
 
     # Trim the resulting title
     cleaned_title = cleaned_title.strip()
@@ -138,7 +148,12 @@ class Parser:
             if handler.handler_name == DEBUG_HANDLER:
                 print(f"Result: {match_result}")
 
+            print(handler.handler_name)
+            print("Title before: " + title)
+
             if match_result is None:
+                print("Title after: " + title)
+                print(end_of_title)
                 continue
 
             if match_result.get('remove', False):
@@ -151,6 +166,9 @@ class Parser:
                 'match_index'] < end_of_title:
                 # adjust title index in case part of it should be removed and skipped
                 end_of_title -= match_result.raw_match.length
+
+            print("Title after: " + title)
+            print(end_of_title)
 
             # if match_result:
             #     raw_match = match_result.group(0)

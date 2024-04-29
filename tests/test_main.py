@@ -16,9 +16,7 @@ def parser():
         'title': 'sons of anarchy',
         'resolution': '480p',
         'seasons': [5],
-        'season': 5,
         'episodes': [10],
-        'episode': 10,
         'source': 'BluRay',
         'codec': 'x264',
         'group': 'GAnGSteR'
@@ -97,7 +95,6 @@ def parser():
     ("Game of Thrones - The Complete Season 3 [HDTV]", {
         'title': 'Game of Thrones',
         'seasons': [3],
-        'season': 3,
         'source': 'HDTV'
     }),
     ("The Sopranos: The Complete Series (Season 1,2,3,4,5&6) + Extras", {
@@ -122,7 +119,6 @@ def parser():
     ("You.[Uncut].S01.SweSub.1080p.x264-Justiso", {
         'title': 'You',
         'seasons': [1],
-        'season': 1,
         'languages': ['swedish'],
         'resolution': '1080p',
         'codec': 'x264',
@@ -136,7 +132,6 @@ def parser():
     }),
     ("House MD Season 7 Complete MKV", {
         'title': 'House MD',
-        'season': 7,
         'seasons': [7],
         'container': 'mkv'
     }),
@@ -149,7 +144,6 @@ def parser():
     ("【4月/悠哈璃羽字幕社】[UHA-WINGS][不要输！恶之军团][Makeruna!! Aku no Gundan!][04][1080p AVC_AAC][简繁外挂][sc_tc]", {
         'title': 'Makeruna!! Aku no Gundan!',
         'episodes': [4],
-        'episode': 4,
         'resolution': '1080p',
         'codec': 'avc',
         'audio': 'aac',
@@ -158,7 +152,6 @@ def parser():
         'title': 'The Westward Ⅱ',
         'year': 2019,
         'episodes': [17],
-        'episode': 17,
         'resolution': '1080p',
         'codec': 'avc',
         'group': 'GM-Team'
@@ -167,7 +160,6 @@ def parser():
         'title': 'Black Mirror',
         'year': 2017,
         'seasons': [4],
-        'season': 4,
         'episodes': [1, 2, 3, 4, 5, 6],
         'languages': ['english'],
         'resolution': '1080p',
@@ -176,7 +168,6 @@ def parser():
     ("[neoHEVC] Student Council's Discretion / Seitokai no Ichizon [Season 1] [BD 1080p x265 HEVC AAC]", {
         'title': "Student Council's Discretion / Seitokai no Ichizon",
         'seasons': [1],
-        'season': 1,
         'resolution': '1080p',
         'source': 'BDRip',
         'audio': 'aac',
@@ -186,7 +177,6 @@ def parser():
     ("[Commie] Chihayafuru 3 - 21 [BD 720p AAC] [5F1911ED].mkv", {
         'title': "Chihayafuru 3",
         'episodes': [21],
-        'episode': 21,
         'resolution': '720p',
         'source': 'BDRip',
         'audio': 'aac',
@@ -219,13 +209,11 @@ def parser():
     ("[720p] The God of Highschool Season 1", {
         'title': "The God of Highschool",
         'seasons': [1],
-        'season': 1,
         'resolution': '720p'
     }),
     ("Heidi Audio Latino DVDRip [cap. 3 Al 18]", {
         'title': "Heidi",
         'episodes': [3],
-        'episode': 3,
         'source': 'DVDRip',
         'languages': ['latino']
     })

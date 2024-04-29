@@ -15,7 +15,7 @@ def test_parsed_output(parser):
     result = parser.parse(test_case)
     assert isinstance(result, dict)
     assert "title" in result
-    assert "episodeCode" in result
+    assert "episode_code" in result
     assert "resolution" in result
     assert "codec" in result
     assert "audio" in result
@@ -53,7 +53,7 @@ def test_season_parser(parser):
 def test_episode_code(parser):
     test_case = "[Golumpa] Fairy Tail - 214 [FuniDub 720p x264 AAC] [5E46AC39]"
     result = parser.parse(test_case)
-    assert result["episodeCode"] == "5E46AC39"
+    assert result["episode_code"] == "5E46AC39"
 
 # def test_languages_parser(parser):
 #     test_cases = [
