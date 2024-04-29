@@ -229,7 +229,7 @@ def parser():
         'audio': 'aac',
         'container': 'mkv',
         'extension': 'mkv',
-        'episodeCode': "5F1911ED",
+        'episode_code': "5F1911ED",
         'group': "Commie",
         'languages': [],
         'seasons': [],
