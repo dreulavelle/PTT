@@ -1,4 +1,5 @@
 import inspect
+from typing import Any
 import regex
 
 from .transformers import none
@@ -15,6 +16,7 @@ DEBUG_HANDLER = None
 
 
 def extend_options(options=None):
+    """Extend the options dictionary with default values."""
     default_options = {
         "skipIfAlreadyFound": True,
         "skipFromTitle": False,
@@ -29,6 +31,7 @@ def extend_options(options=None):
 
 
 def create_handler_from_regexp(name, reg_exp, transformer, options):
+    """Create a handler function from a regular expression pattern."""
     def handler(context):
         title = context['title']
         result = context['result']
@@ -79,6 +82,7 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
 
 
 def clean_title(raw_title):
+    """Clean up a title string by removing unwanted characters and patterns."""
     cleaned_title = raw_title
 
     if " " not in cleaned_title and "." in cleaned_title:
@@ -100,8 +104,27 @@ def clean_title(raw_title):
 
 
 class Parser:
+    """
+    A parser that can parse release titles using a set of handlers.
+
+    The parser can be used to parse release titles using a set of handlers. Each handler is a function that takes a
+    title and returns a dictionary with the parsed data. The parser will iterate over all handlers and return the first
+    non-None result.
+
+    The parser can be extended with new handlers using the add_handler method. The handler can be a function or a
+    regular expression pattern. If a regular expression pattern is used, the parser will use the first group as the
+    match to be transformed by the transformer function.
+    
+    Example:
+        >>> parser = Parser()
+        >>> parser.add_handler("seasons", r"Season (\\d+)", int)
+        >>> parser.add_handler("episodes", r"Episode (\\d+)", int)
+        >>> parser.add_handler("languages", r"(English|Spanish|French)", str)
+        >>> result = parser.parse("The Simpsons Season 1 Episode 1 English")
+        >>> print(result)
+    """
     def __init__(self):
-        self.handlers = []
+        self.handlers: list = []
 
     def add_handler(self, handler_name, handler, transformer=None, options=None):
 
@@ -120,11 +143,12 @@ class Parser:
 
         self.handlers.append(handler)
 
-    def parse(self, title):
-        title = regex.sub(r"_+", " ", title)
-        result = {}
-        matched = {}
-        end_of_title = len(title)
+    def parse(self, title: str) -> dict: # type: ignore
+        """Parse a release title and return the parsed data as a dictionary."""
+        title: str = regex.sub(r"_+", " ", title)
+        result: dict[str, Any] = {}
+        matched: dict[str, Any] = {}
+        end_of_title: int = len(title)
 
         for handler in self.handlers:
             match_result = handler(
@@ -183,6 +207,6 @@ class Parser:
             result["languages"] = []
 
         # Clean the title up to end_of_title before further processing.
-        title = title[:end_of_title]
+        title: str = title[:end_of_title]
         result["title"] = clean_title(title)
         return result

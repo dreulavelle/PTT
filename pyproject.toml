@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parsett"
-version = "0.2.0"
+version = "0.2.1"
 description = "PTT"
 authors = ["Dreu LaVelle <dreu.lavelle@gmail.com>"]
 license = "MIT"
