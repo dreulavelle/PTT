@@ -95,7 +95,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*DL(?:Rip)?\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*Rip\b", regex.IGNORECASE), value("WEBRip"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\b(?:DL|WEB|BD|BR)MUX\b", regex.IGNORECASE), none, {"remove": True})
-    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": True}) # TODO: In the js implementation it's true. But then a test case fails in our implementation and i'm not sure why
+    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": False}) # TODO: In the js implementation it's true. But then a test case fails in our implementation and i'm not sure why
 
     # Video depth
     parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
@@ -136,7 +136,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\bQ?AAC(?:[. ]?2[. ]0|x2)?\b", regex.IGNORECASE), value("aac"), {"remove": True})
 
     # Group
-    parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": True})
+    parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": False}) # TODO: I js implementation, it's True, but doesn't get removed?!....
 
     # Container
     parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
@@ -241,21 +241,13 @@ def add_defaults(parser: Parser):
             beginning_title = title[:end_index]
             middle_title = title[start_index:end_index]
 
-            # Regex patterns to capture episode information, avoiding common prefixes like "movie" or "film"
-            regex_patterns = [
-                r'(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)',
-                r'^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)'
-            ]
+            matches = regex.search(r'(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', beginning_title, regex.IGNORECASE) or regex.search(r'^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', middle_title, regex.IGNORECASE)
 
-            # Attempt to match episodes within the defined sections of the title
-            for pattern in regex_patterns:
-                matches = regex.search(pattern, beginning_title, regex.IGNORECASE) or regex.search(pattern, middle_title,
-                                                                                          regex.IGNORECASE)
-                if matches:
-                    # Extract episode numbers, remove non-digits and convert to integers
-                    episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
-                    result['episodes'] = episode_numbers
-                    return {'match_index': title.index(matches.group(0))}
+            if matches:
+                # Extract episode numbers, remove non-digits and convert to integers
+                episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
+                result['episodes'] = episode_numbers
+                return {'match_index': title.index(matches.group(0))}
 
         return None
     parser.add_handler("episodes", handle_episodes)

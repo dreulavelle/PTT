@@ -85,24 +85,15 @@ def clean_title(raw_title):
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
     cleaned_title = regex.sub(r"_", " ", cleaned_title)
-    print(cleaned_title)
     cleaned_title = regex.sub(r"[[(]movie[)\]]", "", cleaned_title, flags=regex.IGNORECASE)
-    print(cleaned_title)
     cleaned_title = NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
-    print(cleaned_title)
     cleaned_title = RUSSIAN_CAST_REGEX.sub("", cleaned_title)
-    print(cleaned_title)
     # maybe [\[\[【★].*[\]】★][ .]?(.+)
     cleaned_title = regex.sub(r"^[[【★].*[\]】★][ .]?(.+)", r"\1", cleaned_title)
-    print(cleaned_title)
     cleaned_title = regex.sub(r"(.+)[ .]?[[【★].*[\]】★]$", r"\1", cleaned_title)
-    print(cleaned_title)
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
-    print(cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
-    print(cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
-    print(cleaned_title)
 
     # Trim the resulting title
     cleaned_title = cleaned_title.strip()
@@ -148,12 +139,14 @@ class Parser:
             if handler.handler_name == DEBUG_HANDLER:
                 print(f"Result: {match_result}")
 
-            print(handler.handler_name)
-            print("Title before: " + title)
+            if DEBUG_HANDLER:
+                print(handler.handler_name)
+                print("Title before: " + title)
 
             if match_result is None:
-                print("Title after: " + title)
-                print(end_of_title)
+                if DEBUG_HANDLER:
+                    print("Title after: " + title)
+                    print(end_of_title)
                 continue
 
             if match_result.get('remove', False):
@@ -167,8 +160,9 @@ class Parser:
                 # adjust title index in case part of it should be removed and skipped
                 end_of_title -= len(match_result.get("raw_match", ""))
 
-            print("Title after: " + title)
-            print(end_of_title)
+            if DEBUG_HANDLER:
+                print("Title after: " + title)
+                print(end_of_title)
 
             # if match_result:
             #     raw_match = match_result.group(0)
