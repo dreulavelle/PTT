@@ -58,7 +58,6 @@ def date(date_format):
     def inner(input_value):
         sanitized = regex.sub(r"\W+", " ", input_value).strip()
         sanitized = convert_months(sanitized)
-        print(f"Attempting to parse date: {sanitized}")
         formats = [date_format] if not isinstance(date_format, list) else date_format
         for fmt in formats:
             try:

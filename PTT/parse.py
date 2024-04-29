@@ -11,7 +11,7 @@ NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 
-DEBUG_HANDLER = None
+DEBUG_HANDLER = "seasons"
 
 
 def extend_options(options=None):
@@ -37,13 +37,13 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
         if name in result and options.get('skipIfAlreadyFound', False):
             return None
 
-        if name == DEBUG_HANDLER:
-            print(f"Regexp Pattern: {reg_exp.pattern}")
-            print(f"Title: {title}")
+        # if name == DEBUG_HANDLER:
+        #     print(f"Regexp Pattern: {reg_exp.pattern}")
+        #     print(f"Title: {title}")
 
         match = reg_exp.search(title)
-        if name == DEBUG_HANDLER:
-            print(f"Match: {match}")
+        # if name == DEBUG_HANDLER:
+        #     print(f"Match: {match}")
         if match:
             raw_match = match.group(0)
             clean_match = match.group(1) if len(match.groups()) >= 1 else raw_match
@@ -55,8 +55,8 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
-            if name == DEBUG_HANDLER:
-                print(f"Other Matches: {other_matches}")
+            # if name == DEBUG_HANDLER:
+            #     print(f"Other Matches: {other_matches}")
             is_skip_if_first = options.get('skipIfFirst', False) and other_matches and all(
                 match.start() < other_matches[k]['match_index'] for k in other_matches
             )
@@ -136,17 +136,17 @@ class Parser:
                 }
             )
 
-            if handler.handler_name == DEBUG_HANDLER:
-                print(f"Result: {match_result}")
-
-            if DEBUG_HANDLER:
-                print(handler.handler_name)
-                print("Title before: " + title)
+            # if handler.handler_name == DEBUG_HANDLER:
+            #     print(f"Result: {match_result}")
+            #
+            # if DEBUG_HANDLER:
+            #     print(handler.handler_name)
+            #     print("Title before: " + title)
 
             if match_result is None:
-                if DEBUG_HANDLER:
-                    print("Title after: " + title)
-                    print(end_of_title)
+                # if DEBUG_HANDLER:
+                #     print("Title after: " + title)
+                #     print(end_of_title)
                 continue
 
             if match_result.get('remove', False):
@@ -160,32 +160,9 @@ class Parser:
                 # adjust title index in case part of it should be removed and skipped
                 end_of_title -= len(match_result.get("raw_match", ""))
 
-            if DEBUG_HANDLER:
-                print("Title after: " + title)
-                print(end_of_title)
-
-            # if match_result:
-            #     raw_match = match_result.group(0)
-            #     clean_match = match_result.group(1) if len(match_result.groups()) >= 1 else None
-            #     transformed_match = raw_match if clean_match is None else clean_match
-            #     if handler["transformer"]:
-            #         transformed = handler["transformer"](transformed_match)
-            #     else:
-            #         transformed = transformed_match
-            #
-            #     # If the handler demands removal, adjust the title and end_of_title accordingly.
-            #     if options.get("remove", False) and match_result.start() < end_of_title:
-            #         title = title[:match_result.start()] + title[match_result.end():]
-            #         end_of_title -= len(raw_match)
-            #
-            #     # Save matched data and result.
-            #     matched[handler["name"]] = {"raw_match": raw_match, "match_index": match_result.start()}
-            #     result[handler["name"]] = transformed
-            #
-            #     # If skipping from title, adjust the title and potentially end_of_title.
-            #     if options.get("skipFromTitle", False) and match_result.start() < end_of_title:
-            #         title = title.replace(raw_match, "", 1)
-            #         end_of_title = min(end_of_title, match_result.start())
+            # if DEBUG_HANDLER:
+            #     print("Title after: " + title)
+            #     print(end_of_title)
 
         if not result.get("episodes"):
             result["episodes"] = []
