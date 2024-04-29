@@ -165,7 +165,7 @@ class Parser:
             if match_result.get('remove') and match_result.get('skip_from_title') and match_result[
                 'match_index'] < end_of_title:
                 # adjust title index in case part of it should be removed and skipped
-                end_of_title -= match_result.raw_match.length
+                end_of_title -= len(match_result.get("raw_match", ""))
 
             print("Title after: " + title)
             print(end_of_title)
