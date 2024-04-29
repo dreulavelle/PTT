@@ -1,5 +1,3 @@
-import re
-
 import arrow
 import regex
 
@@ -53,7 +51,7 @@ month_mapping = {
 
 def convert_months(date_str):
     for month, shortened in month_mapping.items():
-        date_str = re.sub(month, shortened, date_str)
+        date_str = regex.sub(month, shortened, date_str, flags=regex.IGNORECASE)
     return date_str
 
 def date(date_format):
