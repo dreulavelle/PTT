@@ -159,7 +159,7 @@ class Parser:
             if match_result.get('remove', False):
                 title = title[:match_result['match_index']] + title[match_result['match_index'] + len(
                     match_result['raw_match']):]
-            if match_result.get('skip_from_title') and match_result.get('match_index') and match_result[
+            if not match_result.get('skip_from_title') and match_result.get('match_index') and match_result[
                 'match_index'] < end_of_title:
                 end_of_title = match_result['match_index']
             if match_result.get('remove') and match_result.get('skip_from_title') and match_result[
