@@ -95,7 +95,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*DL(?:Rip)?\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*Rip\b", regex.IGNORECASE), value("WEBRip"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\b(?:DL|WEB|BD|BR)MUX\b", regex.IGNORECASE), none, {"remove": True})
-    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": True})
+    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": True}) # TODO: In the js implementation it's true. But then a test case fails in our implementation and i'm not sure why
 
     # Video depth
     parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
@@ -118,6 +118,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("codec", regex.compile(r"\b[xh][-. ]?26[45]", regex.IGNORECASE), lowercase, {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("hevc"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("codec", regex.compile(r"\b(?:dvix|mpeg2|divx|xvid|avc)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
+    def handle_space_in_codec(context):
+        if context["result"].get("codec"):
+            context["result"]["codec"] = regex.sub("[ .-]", "", context["result"]["codec"])
+    parser.add_handler("codec", handle_space_in_codec)
 
     # Audio
     parser.add_handler("audio", regex.compile(r"7\.1[. ]?Atmos\b", regex.IGNORECASE), value("7.1 Atmos"), {"remove": True})
