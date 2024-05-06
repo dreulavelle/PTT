@@ -40,13 +40,14 @@ def parser():
     ("Orange Is The New Black Season 5 Episodes 1-10 INCOMPLETE (LEAKED)", list(range(1, 11))),
     ("Vikings.Season.05.Ep(01-10).720p.WebRip.2Ch.x265.PSA", list(range(1, 11))),
     ("Naruto Shippuden Ep 107 - Strange Bedfellows.mkv", [107]),
-
-    ("Friends - [7x23-24] - The One with Monica and Chandler's Wedding + Audio Commentary.mkv", [23, 24]),
+    ("Friends - [7x23-24] - The One with Monica and Chandler's Wedding + Audio Commentary.mkv", list(range(23, 25))),
     ("Yu-Gi-Oh 3x089 - Awakening of Evil (Part 4).avi", [89]),
     ("611-612 - Desperate Measures, Means & Ends.mp4", [611, 612]),
     ("[TBox] Dragon Ball Z Full 1-291(Subbed Jap Vers)", list(range(1, 292))),
     ("Naruto Shippuden - 107 - Strange Bedfellows.mkv", [107]),
-    ("[AnimeRG] Naruto Shippuden - 107 [720p] [x265] [pseudo].mkv", [107])
+    ("[AnimeRG] Naruto Shippuden - 107 [720p] [x265] [pseudo].mkv", [107]),
+    ("Game.of.Thrones.S01.e01-02.2160p.UHD.BluRay.x265-Morpheus", list(range(1, 3))),
+    ("Breaking Bad S03e01-13 (1080p Ita Eng Spa h265 SubS) 2ndREPACK byMe7alh", list(range(1, 14))),
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

@@ -29,7 +29,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?(?:0[1-9]|[12][0-9]|3[01])([. \-/\\])(?:0[1-9]|1[012])\2(?:19[6-9]|20[01])[0-9][\])]?)(?:\W|$)"), date("DD MM YYYY"), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W)(\[?\]?(?:0[1-9]|1[012])([. \-/\\])(?:0[1-9]|[12][0-9]|3[01])\2(?:[0][1-9]|[0126789][0-9])[\])]?)(?:\W|$)"), date("MM DD YY"), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W)(\[?\]?(?:0[1-9]|[12][0-9]|3[01])([. \-/\\])(?:0[1-9]|1[012])\2(?:[0][1-9]|[0126789][0-9])[\])]?)(?:\W|$)"), date("DD MM YY"), {"remove": True})
-    parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-\/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:19[7-9]|20[012])[0-9][\])]?)(?:\W|$)", regex.IGNORECASE), date(["DD MMM YYYY", "Do MMM YYYY", "Do MMMM YYYY"]), {"remove": True})
+    parser.add_handler("date", regex.compile(r"(?:\W|^)([([]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:19[7-9]|20[012])[0-9][)\]]?)(?=\W|$)", regex.IGNORECASE), date(["DD MMM YYYY", "Do MMM YYYY", "Do MMMM YYYY"]), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-\/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:0[1-9]|[0126789][0-9])[\])]?)(?:\W|$)", regex.IGNORECASE), date("DD MMM YY"), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?20[012][0-9](?:0[1-9]|1[012])(?:0[1-9]|[12][0-9]|3[01])[\])]?)(?:\W|$)"), date("YYYYMMDD"), {"remove": True})
 
@@ -95,7 +95,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*DL(?:Rip)?\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\bWEB[ .-]*Rip\b", regex.IGNORECASE), value("WEBRip"), {"remove": True})
     parser.add_handler("source", regex.compile(r"\b(?:DL|WEB|BD|BR)MUX\b", regex.IGNORECASE), none, {"remove": True})
-    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": True})
+    parser.add_handler("source", regex.compile(r"\b(DivX|XviD)\b"), none, {"remove": False}) # TODO: In the js implementation it's true. But then a test case fails in our implementation and i'm not sure why
 
     # Video depth
     parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
@@ -118,6 +118,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("codec", regex.compile(r"\b[xh][-. ]?26[45]", regex.IGNORECASE), lowercase, {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("hevc"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("codec", regex.compile(r"\b(?:dvix|mpeg2|divx|xvid|avc)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
+    def handle_space_in_codec(context):
+        if context["result"].get("codec"):
+            context["result"]["codec"] = regex.sub("[ .-]", "", context["result"]["codec"])
+    parser.add_handler("codec", handle_space_in_codec)
 
     # Audio
     parser.add_handler("audio", regex.compile(r"7\.1[. ]?Atmos\b", regex.IGNORECASE), value("7.1 Atmos"), {"remove": True})
@@ -132,7 +136,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\bQ?AAC(?:[. ]?2[. ]0|x2)?\b", regex.IGNORECASE), value("aac"), {"remove": True})
 
     # Group
-    parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": True})
+    parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": False}) # TODO: I js implementation, it's True, but doesn't get removed?!....
 
     # Container
     parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
@@ -170,9 +174,9 @@ def add_defaults(parser: Parser):
     # Seasons
     parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)((?:s\d{1,2}[., +/\\&-]+)+s\d{1,2}\b)", regex.IGNORECASE), range_func, { "remove": True })
     parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)[([]?(s\d{2,}-\d{2,}\b)[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
-    parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)[([]?(s[1-9]-[2-9]\b)[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
+    parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)[([]?(s[1-9]-[2-9])[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:seasons?|[Сс]езони?|temporadas?)[. ]?[-:]?[. ]?[([]?((?:\d{1,2}[., /\\&]+)+\d{1,2}\b)[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
-    parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:seasons|[Сс]езони?|temporadas?)[. ]?[-:]?[. ]?[([]?((?:\d{1,2}[. -]+)+[1-9]\d?\b)[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
+    parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:seasons?|[Сс]езони?|temporadas?)[. ]?[-:]?[. ]?[([]?((?:\d{1,2}[.-]+)+[1-9]\d?\b)[)\]]?", regex.IGNORECASE), range_func, { "remove": True })
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?season[. ]?[([]?((?:\d{1,2}[. -]+)+[1-9]\d?\b)[)\]]?(?!.*\.\w{2,4}$)", regex.IGNORECASE), range_func, { "remove": True })
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?\bseasons?\b[. -]?(\d{1,2}[. -]?(?:to|thru|and|\+|:)[. -]?\d{1,2})\b", regex.IGNORECASE), range_func, { "remove": True })
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:saison|seizoen|season|series|temp(?:orada)?):?[. ]?(\d{1,2})", regex.IGNORECASE), array(integer))
@@ -237,21 +241,13 @@ def add_defaults(parser: Parser):
             beginning_title = title[:end_index]
             middle_title = title[start_index:end_index]
 
-            # Regex patterns to capture episode information, avoiding common prefixes like "movie" or "film"
-            regex_patterns = [
-                r'(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)',
-                r'^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)'
-            ]
+            matches = regex.search(r'(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', beginning_title, regex.IGNORECASE) or regex.search(r'^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', middle_title, regex.IGNORECASE)
 
-            # Attempt to match episodes within the defined sections of the title
-            for pattern in regex_patterns:
-                matches = regex.search(pattern, beginning_title, regex.IGNORECASE) or regex.search(pattern, middle_title,
-                                                                                          regex.IGNORECASE)
-                if matches:
-                    # Extract episode numbers, remove non-digits and convert to integers
-                    episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
-                    result['episodes'] = episode_numbers
-                    return {'match_index': title.index(matches.group(0))}
+            if matches:
+                # Extract episode numbers, remove non-digits and convert to integers
+                episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
+                result['episodes'] = episode_numbers
+                return {'match_index': title.index(matches.group(0))}
 
         return None
     parser.add_handler("episodes", handle_episodes)

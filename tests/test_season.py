@@ -40,6 +40,22 @@ def parser():
     ("Stargate Atlantis ALL Seasons - S01 / S02 / S03 / S04 / S05", list(range(1, 6))),
     ("Stargate Atlantis Complete (Season 1 2 3 4 5) 720p HEVC x265", list(range(1, 6))),
     ("Skam.S01-S02-S03.SweSub.720p.WEB-DL.H264", list(range(1, 4))),
+    ("Игра престолов / Game of Thrones [S1-8] (2011-2019) Blu-Ray Remux 2160p | 4K | HEVC | HDR | Dolby Vision | D, P", list(range(1, 9))),
+    ("Игра престолов / Game of Thrones (2011-2019) BDRemux [H.264/1080p] (S1-8E1-73 of 73) AlexFilm, LostFilm, FoxLife, Ren-TV, Kravec, Jaskier, FocusStudio, NewStudio, FOX, AMS, OmskBird", list(range(1, 9))),
+    ("Game.of.Thrones.S01-07.LostFilm.AlexFilm.Dub.Eng.BDRip.1080p", list(range(1, 8))),
+    ("Game.of.Thrones.S01.2160p.UHD.BluRay.x265-SpaceHD13", [1]),
+    ("Game_Of_Thrones_Season 01", [1]),
+    ("Game.of.Thrones.S01.e01-02.2160p.UHD.BluRay.x265-Morpheus", [1]),
+    ("Spongebob Squarepants Season 1-8 DvdRip", list(range(1, 9))),
+    ("[DBDRaws][海绵宝宝 第一季spongebob squarepants Season 1][0120TV][1080P][WebRip][HEVC10bit][AC3][MKV]", [1]),
+    ("Supernatural_s15_LostFilm_1080p", [15]),
+    ("Supernatural (2005) Season 15 S15 (1080p BluRay x265 HEVC 10bit AAC 5.1 Silence)", [15]),
+    ("Supernatural Season 1-10 1 2 3 4 5 6 7 8 9 10 Complete HD {KURD}", list(range(1, 11))),
+    ("Breaking Bad - Complete Season 1,2,3,4,5 + Extras - BluRay 1080p", list(range(1, 6))),
+    ("Breaking Bad Season 1, 2 & 3 + Extras Blu-ray BDRip TSV", list(range(1, 4))),
+    ("Silo.Season.1.2160p.DV.H265-MIXED", [1]),
+    ("Stranger.Things.S01-S04.1080p.WEB-DL.DDP5.1.x264-AOC", list(range(1, 5))),
+    ("Stranger.Things.Netflix.S01 S04.Complete.1080p 720p.MKV.MP4.AAC.WEB-DL [62.1GB]", list(range(1, 5))),
 ])
 def test_season_detection(parser, release_name, expected_seasons):
     result = parser.parse(release_name)
