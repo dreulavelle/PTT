@@ -12,7 +12,7 @@ lint:
 	@poetry run isort --check-only $(SRC_DIR)
 
 # Format code
-format:
+sort:
 	@poetry run isort $(SRC_DIR)
 
 # Type checking

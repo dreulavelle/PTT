@@ -1,5 +1,5 @@
-from .parse import Parser
 from .handlers import add_defaults
+from .parse import Parser
 
 __all__ = [
     "Parser",

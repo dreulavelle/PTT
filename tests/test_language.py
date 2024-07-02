@@ -21,7 +21,7 @@ def parser():
     ("After Earth 2013 VFF BDrip x264 YJ", ["french"]),
     ("127.Heures.FRENCH.DVDRip.AC3.XViD-DVDFR", ["french"]),
     ("Color.Of.Night.Unrated.DC.VostFR.BRrip.x264", ["french"]),
-    ("Le Labyrinthe 2014 Multi-VF2 1080p BluRay x264-PopHD", ["multi audio"]),
+    ("Le Labyrinthe 2014 Multi-VF2 1080p BluRay x264-PopHD", ["multi audio", "french"]),
     ("Maman, j'ai raté l'avion 1990 VFI 1080p BluRay DTS x265-HTG", ["french"]),
     ("South.Park.S21E10.iTALiAN.FiNAL.AHDTV.x264-NTROPiC", ["italian"]),
     ("2- English- {SDH}.srt", ["english"]),

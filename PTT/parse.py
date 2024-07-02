@@ -1,5 +1,6 @@
 import inspect
 from typing import Any
+
 import regex
 
 from .transformers import none

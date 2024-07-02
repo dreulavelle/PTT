@@ -2,8 +2,17 @@ import regex
 
 from PTT.parse import Parser
 from PTT.transformers import (
-    none, value, integer, boolean, lowercase, uppercase, date,
-    range_func, year_range, array, uniq_concat
+    array,
+    boolean,
+    date,
+    integer,
+    lowercase,
+    none,
+    range_func,
+    uniq_concat,
+    uppercase,
+    value,
+    year_range,
 )
 
 
@@ -284,6 +293,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\bCH[IT]\b", regex.IGNORECASE), uniq_concat(value("chinese")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(chinese|chin[eê]s|chi)\b", regex.IGNORECASE), uniq_concat(value("chinese")), {"skipIfFirst": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bzh-hans\b", regex.IGNORECASE), uniq_concat(value("chinese")), {"skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\bFR(?:ench|a|e|anc[eê]s)?\b", regex.IGNORECASE), uniq_concat(value("french")), {"skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\b(VOST(?:FR?|A)?)\b", regex.IGNORECASE), uniq_concat(value("french")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(VF[FQIB2]?|(TRUE|SUB)?.?FRENCH|(VOST)?FR2?)\b", regex.IGNORECASE), uniq_concat(value("french")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bspanish\W?latin|american\W*(?:spa|esp?)", regex.IGNORECASE), uniq_concat(value("latino")), { "skipFromTitle": True, "skipIfAlreadyFound": False, "remove": True })
     parser.add_handler("languages", regex.compile(r"\b(?:audio.)?lat(?:i|ino)?\b", regex.IGNORECASE), uniq_concat(value("latino")), { "skipIfAlreadyFound": False })
