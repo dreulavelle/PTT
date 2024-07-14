@@ -1,13 +1,6 @@
 import pytest
 
-from PTT.handlers import add_defaults
-from PTT.parse import Parser
-
-@pytest.fixture
-def parser():
-    p = Parser()
-    add_defaults(p)
-    return p
+import PTT
 
 @pytest.mark.parametrize("release_name, expected_title", [
     ("La famille bélier", "La famille bélier"),
@@ -35,8 +28,11 @@ def parser():
     ("[NC-Raws] 间谍过家家 / SPY×FAMILY - 04 (B-Global 1920x1080 HEVC AAC MKV)", "SPY×FAMILY"),
     ("GTO (Great Teacher Onizuka) (Ep. 1-43) Sub 480p lakshay", "GTO (Great Teacher Onizuka)"),
     ("Книгоноши / Кнiганошы (1987) TVRip от AND03AND | BLR", "Кнiганошы"),
-    ("Yurusarezaru_mono2.srt", "Yurusarezaru mono2")
+    ("Yurusarezaru_mono2.srt", "Yurusarezaru mono2"),
+    ("www.1TamilMV.world - Ayalaan (2024) Tamil PreDVD - 1080p - x264 - HQ Clean Aud - 2.5GB.mkv", "Ayalaan"),
+    ("www.Torrenting.com   -    Anatomy Of A Fall (2023)", "Anatomy Of A Fall"),
+    ("[www.arabp2p.net]_-_تركي مترجم ومدبلج Last.Call.for.Istanbul.2023.1080p.NF.WEB-DL.DDP5.1.H.264.MKV.torrent", "Last Call for Istanbul"),
 ])
-def test_title_detection(parser, release_name, expected_title):
-    result = parser.parse(release_name)
+def test_title_detection(release_name, expected_title):
+    result = PTT.parse_title(release_name)
     assert result["title"] == expected_title, f"Title detection failed for {release_name}"
