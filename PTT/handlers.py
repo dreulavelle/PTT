@@ -369,9 +369,8 @@ def add_defaults(parser: Parser):
         title = context["title"]
         result = context["result"]
         matched = context["matched"]
-        if "languages" not in result or not any(lang in result["languages"] for lang in ["portuguese", "spanish"]):
-            if (matched.get("episodes") and regex.search(r"capitulo|ao", matched["episodes"].get("raw_match", ""), regex.IGNORECASE)) or regex.search(r"dublado", title, regex.IGNORECASE):
-                result["languages"] = result.get("languages", []) + ["portuguese"]
+        if ("languages" not in result or not any(lang in result["languages"] for lang in ["portuguese", "spanish"])) and ((matched.get("episodes") and regex.search(r"capitulo|ao", matched["episodes"].get("raw_match", ""), regex.IGNORECASE)) or regex.search(r"dublado", title, regex.IGNORECASE)):
+            result["languages"] = result.get("languages", []) + ["portuguese"]
 
         return {"match_index": 0}
 
@@ -399,9 +398,8 @@ def add_defaults(parser: Parser):
             end_index = matched["group"]["match_index"] + len(matched["group"]["raw_match"]) if "group" in matched else 0
 
             # Check if there's any overlap with other matched elements
-            if any(key != "group" and matched[key]["match_index"] < end_index for key in matched if "match_index" in matched[key]):
-                if "group" in result:
-                    del result["group"]
+            if any(key != "group" and matched[key]["match_index"] < end_index for key in matched if "match_index" in matched[key]) and "group" in result:
+                del result["group"]
         return {"match_index": 0}
 
     parser.add_handler("group", handle_group)
