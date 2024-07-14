@@ -150,6 +150,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\b5\.1ch\b", regex.IGNORECASE), value("ac3"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bDD5[. ]?1\b", regex.IGNORECASE), value("dd5.1"), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bQ?AAC(?:[. ]?2[. ]0|x2)?\b", regex.IGNORECASE), value("aac"), {"remove": True})
+    parser.add_handler("audio", regex.compile(r"\bHQ(?:\s+Clean)?\s+Aud(?:io)?\b", regex.IGNORECASE), value("hq audio"), {"remove": True})
 
     # Group
     parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": False})
