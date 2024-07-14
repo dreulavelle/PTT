@@ -21,8 +21,7 @@ NON_ENGLISH_CHARS = (
 )
 RUSSIAN_CAST_REGEX = regex.compile(r"\([^)]*[\u0400-\u04ff][^)]*\)$|(?<=\/.*)\(.*\)$")
 ALT_TITLES_REGEX = regex.compile(rf"[^/|(]*[{NON_ENGLISH_CHARS}][^/|]*[/|]|[/|][^/|(]*[{NON_ENGLISH_CHARS}][^/|]*")
-NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
-    rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
+NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 
@@ -59,12 +58,13 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
     :param options: Additional options for the handler.
     :return: The handler function.
     """
-    def handler(context: Dict[str, Any]) -> Union[Dict[str, Any], None]:
-        title = context['title']
-        result = context['result']
-        matched = context['matched']
 
-        if name in result and options.get('skipIfAlreadyFound', False):
+    def handler(context: Dict[str, Any]) -> Union[Dict[str, Any], None]:
+        title = context["title"]
+        result = context["result"]
+        matched = context["matched"]
+
+        if name in result and options.get("skipIfAlreadyFound", False):
             return None
 
         match = reg_exp.search(title)
@@ -75,23 +75,16 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
 
-            before_title_match = regex.match(r'^\[([^[\]]+)]', title)
+            before_title_match = regex.match(r"^\[([^[\]]+)]", title)
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
-            is_skip_if_first = options.get('skipIfFirst', False) and other_matches and all(
-                match.start() < other_matches[k]['match_index'] for k in other_matches
-            )
+            is_skip_if_first = options.get("skipIfFirst", False) and other_matches and all(match.start() < other_matches[k]["match_index"] for k in other_matches)
 
             if transformed is not None and not is_skip_if_first:
-                matched[name] = matched.get(name, {'raw_match': raw_match, 'match_index': match.start()})
-                result[name] = options.get('value', transformed)
-                return {
-                    'raw_match': raw_match,
-                    'match_index': match.start(),
-                    'remove': options.get('remove', False),
-                    'skip_from_title': is_before_title or options.get('skipFromTitle', False)
-                }
+                matched[name] = matched.get(name, {"raw_match": raw_match, "match_index": match.start()})
+                result[name] = options.get("value", transformed)
+                return {"raw_match": raw_match, "match_index": match.start(), "remove": options.get("remove", False), "skip_from_title": is_before_title or options.get("skipFromTitle", False)}
         return None
 
     handler.__name__ = name
@@ -148,6 +141,7 @@ class Parser:
         >>> result = parser.parse("The Simpsons Season 1 Episode 1 English")
         >>> print(result)
     """
+
     def __init__(self):
         self.handlers: List[Callable] = []
 
@@ -162,7 +156,7 @@ class Parser:
         """
         if handler is None and callable(handler_name):
             handler = handler_name
-            handler.handler_name = handler_name.__name__ if hasattr(handler_name, '__name__') else "unknown"
+            handler.handler_name = handler_name.__name__ if hasattr(handler_name, "__name__") else "unknown"
         elif isinstance(handler_name, str) and isinstance(handler, regex.Pattern):
             transformer = transformer if callable(transformer) else none
             options = extend_options(options if isinstance(options, dict) else {})
@@ -187,20 +181,16 @@ class Parser:
         end_of_title = len(title)
 
         for handler in self.handlers:
-            match_result = handler({
-                "title": title,
-                "result": result,
-                "matched": matched
-            })
+            match_result = handler({"title": title, "result": result, "matched": matched})
 
             if match_result is None:
                 continue
 
-            if match_result.get('remove', False):
-                title = title[:match_result['match_index']] + title[match_result['match_index'] + len(match_result['raw_match']):]
-            if not match_result.get('skip_from_title') and match_result.get('match_index') and match_result['match_index'] < end_of_title:
-                end_of_title = match_result['match_index']
-            if match_result.get('remove') and match_result.get('skip_from_title') and match_result['match_index'] < end_of_title:
+            if match_result.get("remove", False):
+                title = title[: match_result["match_index"]] + title[match_result["match_index"] + len(match_result["raw_match"]) :]
+            if not match_result.get("skip_from_title") and match_result.get("match_index") and match_result["match_index"] < end_of_title:
+                end_of_title = match_result["match_index"]
+            if match_result.get("remove") and match_result.get("skip_from_title") and match_result["match_index"] < end_of_title:
                 end_of_title -= len(match_result.get("raw_match", ""))
 
         if not result.get("episodes"):

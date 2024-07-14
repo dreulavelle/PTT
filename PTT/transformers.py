@@ -131,7 +131,7 @@ def range_func(input_str: str) -> Optional[List[int]]:
     :param input_str: The input string.
     :return: A list of integers representing the range, or None if invalid.
     """
-    numbers = [int(x) for x in regex.findall(r'\d+', input_str)]
+    numbers = [int(x) for x in regex.findall(r"\d+", input_str)]
 
     if len(numbers) == 2 and numbers[0] < numbers[1]:
         return list(range(numbers[0], numbers[1] + 1))

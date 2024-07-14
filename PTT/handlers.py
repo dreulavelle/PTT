@@ -1,9 +1,6 @@
 import regex
 from PTT.parse import Parser
-from PTT.transformers import (
-    array, boolean, date, integer, lowercase, none, range_func,
-    uniq_concat, uppercase, value, year_range
-)
+from PTT.transformers import array, boolean, date, integer, lowercase, none, range_func, uniq_concat, uppercase, value, year_range
 
 
 def add_defaults(parser: Parser):
@@ -35,8 +32,18 @@ def add_defaults(parser: Parser):
     parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?(?:0[1-9]|[12][0-9]|3[01])([. \-/\\])(?:0[1-9]|1[012])\2(?:19[6-9]|20[01])[0-9][\])]?)(?:\W|$)"), date("DD MM YYYY"), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W)(\[?\]?(?:0[1-9]|1[012])([. \-/\\])(?:0[1-9]|[12][0-9]|3[01])\2(?:[0][1-9]|[0126789][0-9])[\])]?)(?:\W|$)"), date("MM DD YY"), {"remove": True})
     parser.add_handler("date", regex.compile(r"(?:\W)(\[?\]?(?:0[1-9]|[12][0-9]|3[01])([. \-/\\])(?:0[1-9]|1[012])\2(?:[0][1-9]|[0126789][0-9])[\])]?)(?:\W|$)"), date("DD MM YY"), {"remove": True})
-    parser.add_handler("date", regex.compile(r"(?:\W|^)([([]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:19[7-9]|20[012])[0-9][)\]]?)(?=\W|$)", regex.IGNORECASE), date(["DD MMM YYYY", "Do MMM YYYY", "Do MMMM YYYY"]), {"remove": True})
-    parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-\/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:0[1-9]|[0126789][0-9])[\])]?)(?:\W|$)", regex.IGNORECASE), date("DD MMM YY"), {"remove": True})
+    parser.add_handler(
+        "date",
+        regex.compile(r"(?:\W|^)([([]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:19[7-9]|20[012])[0-9][)\]]?)(?=\W|$)", regex.IGNORECASE),
+        date(["DD MMM YYYY", "Do MMM YYYY", "Do MMMM YYYY"]),
+        {"remove": True},
+    )
+    parser.add_handler(
+        "date",
+        regex.compile(r"(?:\W|^)(\[?\]?(?:0?[1-9]|[12][0-9]|3[01])[. ]?(?:st|nd|rd|th)?([. \-\/\\])(?:feb(?:ruary)?|jan(?:uary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\2(?:0[1-9]|[0126789][0-9])[\])]?)(?:\W|$)", regex.IGNORECASE),
+        date("DD MMM YY"),
+        {"remove": True},
+    )
     parser.add_handler("date", regex.compile(r"(?:\W|^)(\[?\]?20[012][0-9](?:0[1-9]|1[012])(?:0[1-9]|[12][0-9]|3[01])[\])]?)(?:\W|$)"), date("YYYYMMDD"), {"remove": True})
 
     # Year
@@ -110,9 +117,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("bit_depth", regex.compile(r"\bhi10\b", regex.IGNORECASE), value("10bit"))
 
     def handle_bit_depth(context):
-        result = context['result']
-        if 'bitDepth' in result:
-            result['bit_depth'] = result['bit_depth'].replace(" ", "").replace("-", "")
+        result = context["result"]
+        if "bitDepth" in result:
+            result["bit_depth"] = result["bit_depth"].replace(" ", "").replace("-", "")
+
     parser.add_handler("bit_depth", handle_bit_depth)
 
     # HDR
@@ -128,6 +136,7 @@ def add_defaults(parser: Parser):
     def handle_space_in_codec(context):
         if context["result"].get("codec"):
             context["result"]["codec"] = regex.sub("[ .-]", "", context["result"]["codec"])
+
     parser.add_handler("codec", handle_space_in_codec)
 
     # Audio
@@ -152,22 +161,19 @@ def add_defaults(parser: Parser):
     parser.add_handler("volumes", regex.compile(r"\bvol(?:s|umes?)?[. -]*(?:\d{1,2}[., +/\\&-]+)+\d{1,2}\b", regex.IGNORECASE), range_func, {"remove": True})
 
     def handle_volumes(context):
-        title = context['title']
-        result = context['result']
-        matched = context['matched']
+        title = context["title"]
+        result = context["result"]
+        matched = context["matched"]
 
-        start_index = matched.get('year', {}).get('match_index', 0)
-        match = regex.search(r'\bvol(?:ume)?[. -]*(\d{1,2})', title[start_index:], regex.IGNORECASE)
+        start_index = matched.get("year", {}).get("match_index", 0)
+        match = regex.search(r"\bvol(?:ume)?[. -]*(\d{1,2})", title[start_index:], regex.IGNORECASE)
 
         if match:
-            matched['volumes'] = {'match': match.group(0), 'match_index': match.start()}
-            result['volumes'] = [int(match.group(1))]
-            return {
-                'raw_match': match.group(0),
-                'match_index': match.start() + start_index,
-                'remove': True
-            }
+            matched["volumes"] = {"match": match.group(0), "match_index": match.start()}
+            result["volumes"] = [int(match.group(1))]
+            return {"raw_match": match.group(0), "match_index": match.start() + start_index, "remove": True}
         return None
+
     parser.add_handler("volumes", handle_volumes)
 
     # Seasons
@@ -222,13 +228,13 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
 
     def handle_episodes(context):
-        title = context['title']
-        result = context.get('result', {})
-        matched = context.get('matched', {})
+        title = context["title"]
+        result = context.get("result", {})
+        matched = context.get("matched", {})
 
-        if 'episodes' not in result:
-            start_indexes = [comp.get('match_index') for comp in [matched.get('year'), matched.get('seasons')] if comp and comp.get('match_index', None)]
-            end_indexes = [comp['match_index'] for comp in [matched.get('resolution'), matched.get('source'), matched.get('codec'), matched.get('audio')] if comp and comp.get('match_index', None)]
+        if "episodes" not in result:
+            start_indexes = [comp.get("match_index") for comp in [matched.get("year"), matched.get("seasons")] if comp and comp.get("match_index", None)]
+            end_indexes = [comp["match_index"] for comp in [matched.get("resolution"), matched.get("source"), matched.get("codec"), matched.get("audio")] if comp and comp.get("match_index", None)]
 
             start_index = min(start_indexes) if start_indexes else 0
             end_index = min(end_indexes + [len(title)])
@@ -236,14 +242,15 @@ def add_defaults(parser: Parser):
             beginning_title = title[:end_index]
             middle_title = title[start_index:end_index]
 
-            matches = regex.search(r'(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', beginning_title, regex.IGNORECASE) or regex.search(r'^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)', middle_title, regex.IGNORECASE)
+            matches = regex.search(r"(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)", beginning_title, regex.IGNORECASE) or regex.search(r"^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)", middle_title, regex.IGNORECASE)
 
             if matches:
-                episode_numbers = [int(num) for num in regex.findall(r'\d+', matches.group(1))]
-                result['episodes'] = episode_numbers
-                return {'match_index': title.index(matches.group(0))}
+                episode_numbers = [int(num) for num in regex.findall(r"\d+", matches.group(1))]
+                result["episodes"] = episode_numbers
+                return {"match_index": title.index(matches.group(0))}
 
         return None
+
     parser.add_handler("episodes", handle_episodes)
 
     # Complete
@@ -359,24 +366,26 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\b(persian|persa)\b", regex.IGNORECASE), uniq_concat(value("persian")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
 
     def infer_language_based_on_naming(context):
-        title = context['title']
-        result = context['result']
-        matched = context['matched']
-        if 'languages' not in result or not any(lang in result['languages'] for lang in ['portuguese', 'spanish']):
-            if (matched.get('episodes') and regex.search(r'capitulo|ao', matched['episodes'].get('raw_match', ''), regex.IGNORECASE)) or regex.search(r'dublado', title, regex.IGNORECASE):
-                result['languages'] = result.get('languages', []) + ['portuguese']
+        title = context["title"]
+        result = context["result"]
+        matched = context["matched"]
+        if "languages" not in result or not any(lang in result["languages"] for lang in ["portuguese", "spanish"]):
+            if (matched.get("episodes") and regex.search(r"capitulo|ao", matched["episodes"].get("raw_match", ""), regex.IGNORECASE)) or regex.search(r"dublado", title, regex.IGNORECASE):
+                result["languages"] = result.get("languages", []) + ["portuguese"]
 
-        return {'match_index': 0}
+        return {"match_index": 0}
+
     parser.add_handler("languages", infer_language_based_on_naming)
 
     # Dubbed
     parser.add_handler("dubbed", regex.compile(r"\b(?:DUBBED|dublado|dubbing|DUBS?)\b", regex.IGNORECASE), boolean)
 
     def handle_dubbed(context):
-        result = context['result']
-        if 'languages' in result and any(lang in ['multi audio', 'dual audio'] for lang in result['languages']):
-            result['dubbed'] = True
-        return {'match_index': 0}
+        result = context["result"]
+        if "languages" in result and any(lang in ["multi audio", "dual audio"] for lang in result["languages"]):
+            result["dubbed"] = True
+        return {"match_index": 0}
+
     parser.add_handler("dubbed", handle_dubbed)
 
     # Group
@@ -384,17 +393,17 @@ def add_defaults(parser: Parser):
     parser.add_handler("group", regex.compile(r"\(([\w-]+)\)(?:$|\.\w{2,4}$)"))
 
     def handle_group(context):
-        result = context['result']
-        matched = context['matched']
-        if 'group' in matched and matched['group'].get('raw_match', '').startswith('[') and matched['group']['raw_match'].endswith(']'):
-            end_index = matched['group']['match_index'] + len(matched['group']['raw_match']) if 'group' in matched else 0
+        result = context["result"]
+        matched = context["matched"]
+        if "group" in matched and matched["group"].get("raw_match", "").startswith("[") and matched["group"]["raw_match"].endswith("]"):
+            end_index = matched["group"]["match_index"] + len(matched["group"]["raw_match"]) if "group" in matched else 0
 
             # Check if there's any overlap with other matched elements
-            if any(key != 'group' and matched[key]['match_index'] < end_index for key in matched if
-                   'match_index' in matched[key]):
-                if 'group' in result:
-                    del result['group']
-        return {'match_index': 0}
+            if any(key != "group" and matched[key]["match_index"] < end_index for key in matched if "match_index" in matched[key]):
+                if "group" in result:
+                    del result["group"]
+        return {"match_index": 0}
+
     parser.add_handler("group", handle_group)
 
     # Site
