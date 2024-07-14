@@ -10,6 +10,7 @@ def parser():
     add_defaults(p)
     return p
 
+
 def test_parsed_output(parser):
     test_case = "[Golumpa] Fairy Tail - 214 [FuniDub 720p x264 AAC] [5E46AC39]"
     result = parser.parse(test_case)
@@ -20,6 +21,7 @@ def test_parsed_output(parser):
     assert "codec" in result
     assert "audio" in result
 
+
 def test_basic_parsed(parser):
     test_case = "The.Matrix.1999.1080p.BluRay.x264"
     result = parser.parse(test_case)
@@ -27,8 +29,9 @@ def test_basic_parsed(parser):
     assert result["title"] == "The Matrix"
     assert result["resolution"] == "1080p"
     assert result["year"] == 1999
-    assert result["source"] == "BluRay"
+    assert result["quality"] == "BluRay"
     assert result["codec"] == "x264"
+
 
 def test_season_parser(parser):
     test_cases = [
@@ -42,7 +45,7 @@ def test_season_parser(parser):
         ("Dragon Ball Z Movie - 09 - Bojack Unbound - 1080p BluRay x264 DTS 5.1 -DDR", []),  # Correct. This should not match, its a movie.
         ("BoJack Horseman [06x01-08 of 16] (2019-2020) WEB-DLRip 720p", [6]),
         ("[HR] Boku no Hero Academia 87 (S4-24) [1080p HEVC Multi-Subs] HR-GZ", [4]),
-        ("The Simpsons S28E21 720p HDTV x264-AVS", [28])
+        ("The Simpsons S28E21 720p HDTV x264-AVS", [28]),
     ]
 
     for test_case, expected in test_cases:
@@ -50,10 +53,12 @@ def test_season_parser(parser):
         assert isinstance(result, dict)
         assert result["seasons"] == expected, f"Failed for {test_case}"
 
+
 def test_episode_code(parser):
     test_case = "[Golumpa] Fairy Tail - 214 [FuniDub 720p x264 AAC] [5E46AC39]"
     result = parser.parse(test_case)
     assert result["episode_code"] == "5E46AC39"
+
 
 # def test_languages_parser(parser):
 #     test_cases = [

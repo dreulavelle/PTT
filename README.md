@@ -45,7 +45,7 @@ Here are some examples of parsed torrent titles:
 ```json
 {
     "resolution": "1080p",
-    "source": "BluRay",
+    "quality": "BluRay",
     "bit_depth": "10bit",
     "codec": "hevc",
     "audio": "aac",
@@ -66,7 +66,7 @@ Here are some examples of parsed torrent titles:
 {
     "resolution": "720p",
     "year": 2021,
-    "source": "HDRip",
+    "quality": "HDRip",
     "codec": "x264",
     "seasons": [1],
     "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
@@ -84,7 +84,7 @@ Here are some examples of parsed torrent titles:
 
 ```json
 {
-    "source": "HDTV",
+    "quality": "HDTV",
     "codec": "x264",
     "group": "AMB3R",
     "container": "mkv",
@@ -113,7 +113,7 @@ Here are the fields that are currently supported by the default handlers, along 
 - `remastered`: `bool`
 - `unrated`: `bool`
 - `region`: `str`
-- `source`: `str`
+- `quality`: `str`
 - `bit_depth`: `str`
 - `hdr`: `str`
 - `codec`: `str`
