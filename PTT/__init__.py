@@ -15,4 +15,4 @@ def parse_title(input_string: str) -> dict:
     return _parser.parse(input_string)
 
 
-__all__ = ["Parser", "add_defaults", "parse"]
+__all__ = ["Parser", "add_defaults", "parse", "parse_title", "handlers", "transformers"]
