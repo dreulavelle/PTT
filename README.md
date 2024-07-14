@@ -26,9 +26,9 @@ pip install parsett
 To parse a torrent title using the default handlers, simply call `parsett.parse()`:
 
 ```python
-import PTN
+import PTT
 
-result = PTN.parse_title("The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole")
+result = PTT.parse_title("The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole")
 print(result)
 ```
 
@@ -135,7 +135,7 @@ Here are the fields that are currently supported by the default handlers, along 
 You can create and customize your own parser instance if needed:
 
 ```python
-from PTN import Parser, add_defaults
+from PTT import Parser, add_defaults
 
 # Create a new parser instance
 parser = Parser()
@@ -158,7 +158,7 @@ A handler is a function that processes a specific pattern in the input string. H
 
 ```python
 import regex
-from PTN.parse import Parser
+from PTT.parse import Parser
 
 def hashtag_handler(input_string):
     hashtags = regex.findall(r"#(\w+)", input_string)
