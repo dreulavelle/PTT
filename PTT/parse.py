@@ -186,19 +186,21 @@ class Parser:
             if match_result is None:
                 continue
 
-            if match_result.get("remove", False):
-                title = title[: match_result["match_index"]] + title[match_result["match_index"] + len(match_result["raw_match"]) :]
-            if not match_result.get("skip_from_title") and match_result.get("match_index") and match_result["match_index"] < end_of_title:
-                end_of_title = match_result["match_index"]
-            if match_result.get("remove") and match_result.get("skip_from_title") and match_result["match_index"] < end_of_title:
-                end_of_title -= len(match_result.get("raw_match", ""))
+            match_index = match_result.get("match_index")
+            raw_match = match_result.get("raw_match", "")
+            remove = match_result.get("remove", False)
+            skip_from_title = match_result.get("skip_from_title", False)
 
-        if not result.get("episodes"):
-            result["episodes"] = []
-        if not result.get("seasons"):
-            result["seasons"] = []
-        if not result.get("languages"):
-            result["languages"] = []
+            if remove:
+                title = title[:match_index] + title[match_index + len(raw_match) :]
+            if not skip_from_title and match_index and match_index < end_of_title:
+                end_of_title = match_index
+            if remove and skip_from_title and match_index < end_of_title:
+                end_of_title -= len(raw_match)
+
+        result.setdefault("episodes", [])
+        result.setdefault("seasons", [])
+        result.setdefault("languages", [])
 
         # Clean the title up to end_of_title before further processing.
         title = title[:end_of_title]
