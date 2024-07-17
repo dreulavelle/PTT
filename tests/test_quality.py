@@ -11,7 +11,7 @@ def parser():
     return p
 
 
-@pytest.mark.parametrize("release_name, expected_source", [
+@pytest.mark.parametrize("release_name, expected_quality", [
     ("Nocturnal Animals 2016 VFF 1080p BluRay DTS HEVC-HD2", "BluRay"),
     ("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov", "HDTV"),
     ("Rebecca.1940.720p.HDTVRip.HDCLUB", "HDTV"),
@@ -72,6 +72,6 @@ def parser():
     ("Criminal (2016) Hindi Dubbed HDTCRip", "TeleCine"),
     ("Avatar La Voie de l'eau.FRENCH.CAMHD.H264.AAC", "CAM")
 ])
-def test_source_detection(parser, release_name, expected_source):
+def test_source_detection(parser, release_name, expected_quality):
     result = parser.parse(release_name)
-    assert result.get("source") == expected_source, f"Source detection failed for {release_name}"
+    assert result.get("quality") == expected_quality, f"Source detection failed for {release_name}"

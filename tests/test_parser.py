@@ -27,7 +27,7 @@ def test_basic_parsed(parser):
     assert result["title"] == "The Matrix"
     assert result["resolution"] == "1080p"
     assert result["year"] == 1999
-    assert result["source"] == "BluRay"
+    assert result["quality"] == "BluRay"
     assert result["codec"] == "x264"
 
 def test_season_parser(parser):

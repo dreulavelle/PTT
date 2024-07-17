@@ -1,11 +1,55 @@
 import inspect
-from typing import Any
+from typing import Any, Callable, Dict, List, Union
 
 import regex
 
 from .transformers import none
 
-NON_ENGLISH_CHARS = "\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f\u0400-\u04ff"
+NON_ENGLISH_CHARS = (
+    "\u3040-\u30ff"  # Japanese characters
+    "\u3400-\u4dbf"  # Chinese characters
+    "\u4e00-\u9fff"  # Chinese characters
+    "\uf900-\ufaff"  # CJK Compatibility Ideographs
+    "\uff66-\uff9f"  # Halfwidth Katakana Japanese characters
+    "\u0400-\u04ff"  # Cyrillic characters (Russian)
+    "\u0600-\u06ff"  # Arabic characters
+    "\u0750-\u077f"  # Arabic characters
+    "\u0c80-\u0cff"  # Kannada characters
+    "\u0d00-\u0d7f"  # Malayalam characters
+    "\u0e00-\u0e7f"  # Thai characters
+    "\u1000-\u109f"  # Myanmar characters
+    "\u10a0-\u10ff"  # Georgian characters
+    "\u1100-\u11ff"  # Georgian characters
+    "\u1200-\u137f"  # Ethiopic characters
+    "\u1380-\u167f"  # Ethiopic characters
+    "\u1680-\u169f"  # Ethiopic characters
+    "\u16a0-\u16ff"  # Ethiopic characters
+    "\u1700-\u171f"  # Ethiopic characters
+    "\u1720-\u173f"  # Ethiopic characters
+    "\u1740-\u175f"  # Ethiopic characters
+    "\u1760-\u177f"  # Ethiopic characters
+    "\u1780-\u17bf"  # Ethiopic characters
+    "\u17c0-\u17df"  # Ethiopic characters
+    "\u17e0-\u17ff"  # Ethiopic characters
+    "\u1800-\u180f"  # Ethiopic characters
+    "\u1810-\u181f"  # Ethiopic characters
+    "\u1820-\u184f"  # Ethiopic characters
+    "\u1850-\u187f"  # Ethiopic characters
+    "\u1880-\u18af"  # Ethiopic characters
+    "\u18b0-\u18df"  # Ethiopic characters
+    "\U0001F600-\U0001F64F"  # Emoticons
+    "\U0001F300-\U0001F5FF"  # Miscellaneous Symbols and Pictographs
+    "\U0001F680-\U0001F6FF"  # Transport and Map Symbols
+    "\U0001F700-\U0001F77F"  # Alchemical Symbols
+    "\U0001F780-\U0001F7FF"  # Geometric Shapes Extended
+    "\U0001F800-\U0001F8FF"  # Supplemental Arrows-C
+    "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
+    "\U0001FA00-\U0001FA6F"  # Chess Symbols
+    "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
+    "\U00002702-\U000027B0"  # Dingbats
+    "\U000024C2-\U0001F251"  # Enclosed Characters
+)
+
 RUSSIAN_CAST_REGEX = regex.compile(r"\([^)]*[\u0400-\u04ff][^)]*\)$|(?<=\/.*)\(.*\)$")
 ALT_TITLES_REGEX = regex.compile(rf"[^/|(]*[{NON_ENGLISH_CHARS}][^/|]*[/|]|[/|][^/|(]*[{NON_ENGLISH_CHARS}][^/|]*")
 NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
@@ -16,8 +60,12 @@ REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGL
 DEBUG_HANDLER = "seasons"
 
 
-def extend_options(options=None):
-    """Extend the options dictionary with default values."""
+def extend_options(options: Dict[str, Any] = None) -> Dict[str, Any]:
+    """
+    Extend the options dictionary with default values.
+    :param options: The original options dictionary.
+    :return: The extended options dictionary.
+    """
     default_options = {
         "skipIfAlreadyFound": True,
         "skipFromTitle": False,
@@ -31,23 +79,26 @@ def extend_options(options=None):
     return options
 
 
-def create_handler_from_regexp(name, reg_exp, transformer, options):
-    """Create a handler function from a regular expression pattern."""
-    def handler(context):
-        title = context['title']
-        result = context['result']
-        matched = context['matched']
+def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: Callable, options: Dict[str, Any]) -> Callable:
+    """
+    Create a handler function from a regular expression pattern.
 
-        if name in result and options.get('skipIfAlreadyFound', False):
+    :param name: The name of the handler.
+    :param reg_exp: The regular expression pattern.
+    :param transformer: The transformer function to process the match.
+    :param options: Additional options for the handler.
+    :return: The handler function.
+    """
+
+    def handler(context: Dict[str, Any]) -> Union[Dict[str, Any], None]:
+        title = context["title"]
+        result = context["result"]
+        matched = context["matched"]
+
+        if name in result and options.get("skipIfAlreadyFound", False):
             return None
 
-        # if name == DEBUG_HANDLER:
-        #     print(f"Regexp Pattern: {reg_exp.pattern}")
-        #     print(f"Title: {title}")
-
         match = reg_exp.search(title)
-        # if name == DEBUG_HANDLER:
-        #     print(f"Match: {match}")
         if match:
             raw_match = match.group(0)
             clean_match = match.group(1) if len(match.groups()) >= 1 else raw_match
@@ -55,25 +106,23 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
 
-            before_title_match = regex.match(r'^\[([^[\]]+)]', title) # or '^\[([^\[\]]+)]'
+            before_title_match = regex.match(r"^\[([^[\]]+)]", title) # or "^\[([^\[\]]+)]"
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
-            # if name == DEBUG_HANDLER:
-            #     print(f"Other Matches: {other_matches}")
-            is_skip_if_first = options.get('skipIfFirst', False) and other_matches and all(
-                match.start() < other_matches[k]['match_index'] for k in other_matches
+
+            is_skip_if_first = options.get("skipIfFirst", False) and other_matches and all(
+                match.start() < other_matches[k]["match_index"] for k in other_matches
             )
-            # is_skip_if_first = False
 
             if transformed is not None and not is_skip_if_first:
-                matched[name] = matched.get(name, {'raw_match': raw_match, 'match_index': match.start()})
-                result[name] = options.get('value', transformed)
+                matched[name] = matched.get(name, {"raw_match": raw_match, "match_index": match.start()})
+                result[name] = options.get("value", transformed)
                 return {
-                    'raw_match': raw_match,
-                    'match_index': match.start(),
-                    'remove': options.get('remove', False),
-                    'skip_from_title': is_before_title or options.get('skipFromTitle', False)
+                    "raw_match": raw_match,
+                    "match_index": match.start(),
+                    "remove": options.get("remove", False),
+                    "skip_from_title": is_before_title or options.get("skipFromTitle", False)
                 }
         return None
 
@@ -82,8 +131,13 @@ def create_handler_from_regexp(name, reg_exp, transformer, options):
     return handler
 
 
-def clean_title(raw_title):
-    """Clean up a title string by removing unwanted characters and patterns."""
+def clean_title(raw_title: str) -> str:
+    """
+    Clean up a title string by removing unwanted characters and patterns.
+
+    :param raw_title: The raw title string.
+    :return: The cleaned title string.
+    """
     cleaned_title = raw_title
 
     if " " not in cleaned_title and "." in cleaned_title:
@@ -93,14 +147,15 @@ def clean_title(raw_title):
     cleaned_title = regex.sub(r"[[(]movie[)\]]", "", cleaned_title, flags=regex.IGNORECASE)
     cleaned_title = NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
     cleaned_title = RUSSIAN_CAST_REGEX.sub("", cleaned_title)
-    # maybe [\[\[【★].*[\]】★][ .]?(.+)
     cleaned_title = regex.sub(r"^[[【★].*[\]】★][ .]?(.+)", r"\1", cleaned_title)
     cleaned_title = regex.sub(r"(.+)[ .]?[[【★].*[\]】★]$", r"\1", cleaned_title)
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
 
-    # Trim the resulting title
+    if " " not in cleaned_title and "." in cleaned_title:
+        cleaned_title = regex.sub(r"\.", " ", cleaned_title)
+
     cleaned_title = cleaned_title.strip()
     return cleaned_title
 
@@ -125,78 +180,68 @@ class Parser:
         >>> result = parser.parse("The Simpsons Season 1 Episode 1 English")
         >>> print(result)
     """
+
     def __init__(self):
-        self.handlers: list = []
+        self.handlers: List[Callable] = []
 
-    def add_handler(self, handler_name, handler, transformer=None, options=None):
+    def add_handler(self, handler_name: str, handler: Union[Callable, regex.Pattern] = None, transformer: Callable = None, options: Dict[str, Any] = None):
+        """
+        Add a handler to the parser. The handler can be a function or a regular expression pattern.
 
-        if not handler and callable(handler_name):
+        :param handler_name: The name of the handler.
+        :param handler: The handler function or regex pattern.
+        :param transformer: The transformer function to process the match.
+        :param options: Additional options for the handler.
+        """
+        if handler is None and callable(handler_name):
             handler = handler_name
-            handler.handler_name = "unknown"
-        elif type(handler_name) == str and type(handler) == regex.Pattern:
+            handler.handler_name = handler_name.__name__ if hasattr(handler_name, "__name__") else "unknown"
+        elif isinstance(handler_name, str) and isinstance(handler, regex.Pattern):
             transformer = transformer if callable(transformer) else none
-            options = extend_options(transformer if type(transformer) == dict else options)
+            options = extend_options(options if isinstance(options, dict) else {})
             handler = create_handler_from_regexp(handler_name, handler, transformer, options)
-        elif type(handler_name) == str and callable(handler):
+        elif isinstance(handler_name, str) and callable(handler):
             handler.handler_name = handler_name
         else:
-            raise ValueError(
-                f"Handler for {handler_name} should be either a regex pattern or a function. Got {type(handler)}")
+            raise ValueError(f"Handler for {handler_name} should be either a regex pattern or a function. Got {type(handler)}")
 
         self.handlers.append(handler)
 
-    def parse(self, title: str) -> dict: # type: ignore
-        """Parse a release title and return the parsed data as a dictionary."""
-        title: str = regex.sub(r"_+", " ", title)
-        result: dict[str, Any] = {}
-        matched: dict[str, Any] = {}
-        end_of_title: int = len(title)
+    def parse(self, title: str) -> Dict[str, Any]:
+        """
+        Parse a release title and return the parsed data as a dictionary.
+
+        :param title: The release title to parse.
+        :return: A dictionary containing the parsed data.
+        """
+        title = regex.sub(r"_+", " ", title)
+        result: Dict[str, Any] = {}
+        matched: Dict[str, Any] = {}
+        end_of_title = len(title)
 
         for handler in self.handlers:
-            match_result = handler(
-                {
-                    "title": title,
-                    "result": result,
-                    "matched": matched
-                }
-            )
-
-            # if handler.handler_name == DEBUG_HANDLER:
-            #     print(f"Result: {match_result}")
-            #
-            # if DEBUG_HANDLER:
-            #     print(handler.handler_name)
-            #     print("Title before: " + title)
+            match_result = handler({"title": title, "result": result, "matched": matched})
 
             if match_result is None:
-                # if DEBUG_HANDLER:
-                #     print("Title after: " + title)
-                #     print(end_of_title)
                 continue
 
-            if match_result.get('remove', False):
-                title = title[:match_result['match_index']] + title[match_result['match_index'] + len(
-                    match_result['raw_match']):]
-            if not match_result.get('skip_from_title') and match_result.get('match_index') and match_result[
-                'match_index'] < end_of_title:
-                end_of_title = match_result['match_index']
-            if match_result.get('remove') and match_result.get('skip_from_title') and match_result[
-                'match_index'] < end_of_title:
-                # adjust title index in case part of it should be removed and skipped
-                end_of_title -= len(match_result.get("raw_match", ""))
+            match_index = match_result.get("match_index")
+            raw_match = match_result.get("raw_match", "")
+            remove = match_result.get("remove", False)
+            skip_from_title = match_result.get("skip_from_title", False)
 
-            # if DEBUG_HANDLER:
-            #     print("Title after: " + title)
-            #     print(end_of_title)
+            if remove:
+                title = title[:match_index] + title[match_index + len(raw_match) :]
+            if not skip_from_title and match_index and match_index < end_of_title:
+                end_of_title = match_index
+            if remove and skip_from_title and match_index < end_of_title:
+                end_of_title -= len(raw_match)
 
-        if not result.get("episodes"):
-            result["episodes"] = []
-        if not result.get("seasons"):
-            result["seasons"] = []
-        if not result.get("languages"):
-            result["languages"] = []
+        result.setdefault("episodes", [])
+        result.setdefault("seasons", [])
+        result.setdefault("languages", [])
 
         # Clean the title up to end_of_title before further processing.
-        title: str = title[:end_of_title]
+        title = title[:end_of_title]
         result["title"] = clean_title(title)
         return result

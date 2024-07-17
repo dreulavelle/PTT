@@ -210,14 +210,11 @@ def parser():
     ("Dan Browns The Lost Symbol S01E03 1080p WEB H264-GLHF", []),
     ("Ben.Ara.2015.1080p.WEBRip.x265-RARBG.mp4", []),
     ("Ara.(A.Break).2008.DVDRip", []),
+    ("www.1TamilMV.cz - Mirzapur (2020) S02 EP (01-10) - HQ HDRip - [Tam+ Tel] - x264 - AAC - 1GB - ESub", ["telugu", "tamil"]),
+    ("www.1TamilMV.cz - The Game of Chathurangam (2023) WEB-DL - 1080p - AVC - (AAC 2.0) [Tamil + Malayalam] - 1.2GB.mkv", ["tamil", "malayalam"]),
+    ("www.1TamilMV.yt - Anchakkallakokkan (2024) Malayalam HQ HDRip - 720p - HEVC - (DD+5.1 - 192Kbps & AAC) - 750MB - ESub.mkv", ["malayalam"]),
 ])
 def test_languages_detection(release_name, expected_languages, parser):
     result = parser.parse(release_name)
-    # if expected_languages:
-    #     assert "languages" in result, f"Languages code key missing in result for {release_name}"
-    #     assert set(result["languages"]) == set(expected_languages), f"Incorrect expected_languages detected for {release_name}"
-    # else:
-    #     assert result["languages"] == [], f"Incorrectly detected expected_languages code for {release_name}"
-
     assert isinstance(result, dict)
     assert result.get("languages") == expected_languages, f"Failed for {release_name}"
