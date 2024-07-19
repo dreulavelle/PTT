@@ -5,6 +5,7 @@ import regex
 
 from .transformers import none
 
+# Non-English characters range
 NON_ENGLISH_CHARS = (
     "\u3040-\u30ff"  # Japanese characters
     "\u3400-\u4dbf"  # Chinese characters
@@ -17,43 +18,11 @@ NON_ENGLISH_CHARS = (
     "\u0c80-\u0cff"  # Kannada characters
     "\u0d00-\u0d7f"  # Malayalam characters
     "\u0e00-\u0e7f"  # Thai characters
-    "\u1000-\u109f"  # Myanmar characters
-    "\u10a0-\u10ff"  # Georgian characters
-    "\u1100-\u11ff"  # Georgian characters
-    "\u1200-\u137f"  # Ethiopic characters
-    "\u1380-\u167f"  # Ethiopic characters
-    "\u1680-\u169f"  # Ethiopic characters
-    "\u16a0-\u16ff"  # Ethiopic characters
-    "\u1700-\u171f"  # Ethiopic characters
-    "\u1720-\u173f"  # Ethiopic characters
-    "\u1740-\u175f"  # Ethiopic characters
-    "\u1760-\u177f"  # Ethiopic characters
-    "\u1780-\u17bf"  # Ethiopic characters
-    "\u17c0-\u17df"  # Ethiopic characters
-    "\u17e0-\u17ff"  # Ethiopic characters
-    "\u1800-\u180f"  # Ethiopic characters
-    "\u1810-\u181f"  # Ethiopic characters
-    "\u1820-\u184f"  # Ethiopic characters
-    "\u1850-\u187f"  # Ethiopic characters
-    "\u1880-\u18af"  # Ethiopic characters
-    "\u18b0-\u18df"  # Ethiopic characters
-    "\U0001F600-\U0001F64F"  # Emoticons
-    "\U0001F300-\U0001F5FF"  # Miscellaneous Symbols and Pictographs
-    "\U0001F680-\U0001F6FF"  # Transport and Map Symbols
-    "\U0001F700-\U0001F77F"  # Alchemical Symbols
-    "\U0001F780-\U0001F7FF"  # Geometric Shapes Extended
-    "\U0001F800-\U0001F8FF"  # Supplemental Arrows-C
-    "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
-    "\U0001FA00-\U0001FA6F"  # Chess Symbols
-    "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
-    "\U00002702-\U000027B0"  # Dingbats
-    "\U000024C2-\U0001F251"  # Enclosed Characters
 )
 
 RUSSIAN_CAST_REGEX = regex.compile(r"\([^)]*[\u0400-\u04ff][^)]*\)$|(?<=\/.*)\(.*\)$")
 ALT_TITLES_REGEX = regex.compile(rf"[^/|(]*[{NON_ENGLISH_CHARS}][^/|]*[/|]|[/|][^/|(]*[{NON_ENGLISH_CHARS}][^/|]*")
-NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(
-    rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
+NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 
@@ -63,6 +32,7 @@ DEBUG_HANDLER = "seasons"
 def extend_options(options: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     Extend the options dictionary with default values.
+
     :param options: The original options dictionary.
     :return: The extended options dictionary.
     """
@@ -106,24 +76,16 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
 
-            before_title_match = regex.match(r"^\[([^[\]]+)]", title) # or "^\[([^\[\]]+)]"
+            before_title_match = regex.match(r"^\[([^[\]]+)]", title)
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
-
-            is_skip_if_first = options.get("skipIfFirst", False) and other_matches and all(
-                match.start() < other_matches[k]["match_index"] for k in other_matches
-            )
+            is_skip_if_first = options.get("skipIfFirst", False) and other_matches and all(match.start() < other_matches[k]["match_index"] for k in other_matches)
 
             if transformed is not None and not is_skip_if_first:
                 matched[name] = matched.get(name, {"raw_match": raw_match, "match_index": match.start()})
                 result[name] = options.get("value", transformed)
-                return {
-                    "raw_match": raw_match,
-                    "match_index": match.start(),
-                    "remove": options.get("remove", False),
-                    "skip_from_title": is_before_title or options.get("skipFromTitle", False)
-                }
+                return {"raw_match": raw_match, "match_index": match.start(), "remove": options.get("remove", False), "skip_from_title": is_before_title or options.get("skipFromTitle", False)}
         return None
 
     handler.__name__ = name
@@ -171,7 +133,7 @@ class Parser:
     The parser can be extended with new handlers using the add_handler method. The handler can be a function or a
     regular expression pattern. If a regular expression pattern is used, the parser will use the first group as the
     match to be transformed by the transformer function.
-    
+
     Example:
         >>> parser = Parser()
         >>> parser.add_handler("seasons", r"Season (\\d+)", int)

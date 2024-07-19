@@ -54,7 +54,7 @@ def parser():
     ("Thor- Love and Thunder (2022) Original Hindi Dubbed 1080p HQ PreDVD Rip x264 AAC [1.7 GB]- CineVood.mkv", "SCR"),
     ("Black Panther Wakanda Forever 2022 Hindi 1080p PDVDRip x264 AAC CineVood.mkv", "SCR"),
     ("Vampire in Vegas (2009) NL Subs DVDR DivXNL-Team", "DVD"),
-    ("Звонок из прошлого / Kol / The Call (2020) WEB-DLRip | ViruseProject", "WEB-DL"),
+    ("Звонок из прошлого / Kol / The Call (2020) WEB-DLRip | ViruseProject", "WEB-DLRip"),
     ("La nube (2020) [BluRay Rip][AC3 5.1 Castellano][www.maxitorrent.com]", "BRRip"),
     ("Joker.2019.2160p.BluRay.REMUX.HEVC.DTS-HD.MA.TrueHD.7.1.Atmos-FGT", "BluRay REMUX"),
     ("Warcraft 2016 1080p Blu-ray Remux AVC TrueHD Atmos-KRaLiMaRKo", "BluRay REMUX"),
@@ -67,7 +67,7 @@ def parser():
     ("Структура момента (Расим Исмайлов) [1980, Драма, VHSRip]", "DVDRip"),
     ("Мужчины без женщин (Альгимантас Видугирис) [1981, Драма, VHS]", "DVD"),
     ("Преферанс по пятницам (Игорь Шешуков) [1984, Детектив, DVB]", "HDTV"),
-    ("Соперницы (Алексей Дмитриев) [1929, драма, WEB-DLRip]", "WEB-DL"),
+    ("Соперницы (Алексей Дмитриев) [1929, драма, WEB-DLRip]", "WEB-DLRip"),
     ("Dragon Blade (2015) HDTSRip Exclusive", "TeleSync"),
     ("Criminal (2016) Hindi Dubbed HDTCRip", "TeleCine"),
     ("Avatar La Voie de l'eau.FRENCH.CAMHD.H264.AAC", "CAM")

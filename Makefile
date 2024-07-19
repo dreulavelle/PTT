@@ -1,10 +1,16 @@
-.PHONY: install lint sort test coverage pr-ready publish
+.PHONY: install lint sort test coverage pr-ready publish clean
 
 SRC_DIR := ./PTT
 
 # Install dependencies (with dev deps for development)
 install:
 	@poetry install --with dev
+
+clean:
+	@find . -type f -name '*.pyc' -exec rm -f {} +
+	@find . -type d -name '__pycache__' -exec rm -rf {} +
+	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
+	@find . -type d -name '.ruff_cache' -exec rm -rf {} +
 
 # Run linters
 lint:

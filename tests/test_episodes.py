@@ -187,6 +187,8 @@ def parser():
     ("Проклятие острова ОУК_ 5-й сезон 09-я серия_ Прорыв Дэна.avi", [9]),
     ("Разрушители легенд. MythBusters. Сезон 15. Эпизод 09. Скрытая угроза (2015).avi", [9]),
     ("Серия 11.mkv", [11]),
+    ("Anatomia De Grey - Temporada 19 [HDTV][Cap.1905][Castellano][www.AtomoHD.nu].avi", [19]),
+    ("[SubsPlease] Fairy Tail - 100 Years Quest - 05 (1080p) [1107F3A9].mkv", [5]),
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

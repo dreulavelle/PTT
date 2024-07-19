@@ -28,7 +28,7 @@ def parser():
     ("[H3] Hunter x Hunter - 38 [1280x720] [x264]", "H3"),
     ("[KNK E MMS Fansubs] Nisekoi - 20 Final [PT-BR].mkv", "KNK E MMS Fansubs"),
     ("[ToonsHub] JUJUTSU KAISEN - S02E01 (Japanese 2160p x264 AAC) [Multi-Subs].mkv", "ToonsHub"),
-    ("[HD-ELITE.NET] -  The.Art.Of.The.Steal.2014.DVDRip.XviD.Dual.Aud", None), # Should not be detected as group
+    ("[HD-ELITE.NET] -  The.Art.Of.The.Steal.2014.DVDRip.XviD.Dual.Aud", "HD-ELITE.NET"), # Should not be detected as group
     ("[Russ]Lords.Of.London.2014.XviD.H264.AC3-BladeBDP", "BladeBDP"),
     ("Jujutsu Kaisen S02E01 2160p WEB H.265 AAC -Tsundere-Raws (B-Global).mkv", "B-Global"),
     ("[DVD-RIP] Kaavalan (2011) Sruthi XVID [700Mb] [TCHellRaiser]", None),
