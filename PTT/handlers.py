@@ -130,7 +130,7 @@ def add_defaults(parser: Parser):
 
     # Codec
     parser.add_handler("codec", regex.compile(r"\b[xh][\. \-]?264\b", regex.IGNORECASE), lowercase, {"remove": True})
-    parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?|[xh][\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?\b|\b[xh][\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("x265"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("codec", regex.compile(r"\b(?:dvix|mpeg2|divx|xvid|avc|av1)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
     def handle_space_in_codec(context):
@@ -264,8 +264,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", handle_episodes)
 
     # Site before languages to get rid of domain name with country code.
-    parser.add_handler("site", regex.compile(r"^(www\.[\w-]+\.[\w-]+(?:\.[\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("site", regex.compile(r"^((?:www\.)?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
+    parser.add_handler("site", regex.compile(r"^(www?[\.,][\w-]+\.[\w-]+(?:\.[\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
 
     # Languages
     parser.add_handler("languages", regex.compile(r"\bmulti(?:ple)?[ .-]*(?:su?$|sub\w*|dub\w*)\b|msub", regex.IGNORECASE), uniq_concat(value("multi subs")), {"skipIfAlreadyFound": False, "remove": True})
@@ -385,7 +385,7 @@ def add_defaults(parser: Parser):
                     regex.search(r"dublado", title, regex.IGNORECASE):
                 result["languages"] = result.get("languages", []) + ["portuguese"]
 
-        return {"match_index": 0}
+        return None
     parser.add_handler("languages", infer_language_based_on_naming)
 
     # Subbed
@@ -399,7 +399,7 @@ def add_defaults(parser: Parser):
         result = context["result"]
         if "languages" in result and any(lang in ["multi audio", "dual audio"] for lang in result["languages"]):
             result["dubbed"] = True
-        return {"match_index": 0}
+        return None
     parser.add_handler("dubbed", handle_dubbed)
 
     # Group
@@ -415,7 +415,7 @@ def add_defaults(parser: Parser):
             # Check if there's any overlap with other matched elements
             if any(key != "group" and matched[key]["match_index"] < end_index for key in matched if "match_index" in matched[key]) and "group" in result:
                 del result["group"]
-        return {"match_index": 0}
+        return None
 
     parser.add_handler("group", handle_group)
 
