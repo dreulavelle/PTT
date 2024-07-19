@@ -19,13 +19,19 @@ NON_ENGLISH_CHARS = (
     "\u0d00-\u0d7f"  # Malayalam characters
     "\u0e00-\u0e7f"  # Thai characters
 )
+
+CURLY_BRACKETS = ["{", "}"]
+SQUARE_BRACKETS = ["[", "]"]
+PARENTHESES = ["(", ")"]
+BRACKETS = [CURLY_BRACKETS, SQUARE_BRACKETS, PARENTHESES]
+
 RUSSIAN_CAST_REGEX = regex.compile(r"\([^)]*[\u0400-\u04ff][^)]*\)$|(?<=\/.*)\(.*\)$")
 ALT_TITLES_REGEX = regex.compile(rf"[^/|(]*[{NON_ENGLISH_CHARS}][^/|]*[/|]|[/|][^/|(]*[{NON_ENGLISH_CHARS}][^/|]*")
 NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 
-DEBUG_HANDLER = "seasons"
+DEBUG_HANDLER = False
 
 
 def extend_options(options: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -74,6 +80,8 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
             sig = inspect.signature(transformer)
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
+            if type(transformed) is str:
+                transformed = transformed.strip()
 
             before_title_match = regex.match(r"^\[([^[\]]+)]", title)
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
@@ -113,6 +121,13 @@ def clean_title(raw_title: str) -> str:
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
+
+    # Remove brackets if only one is present
+    for brackets in BRACKETS:
+        only_one_bracket = not all(bracket in cleaned_title for bracket in brackets)
+        if only_one_bracket:
+            for bracket in brackets:
+                cleaned_title = cleaned_title.replace(bracket, "")
 
     if " " not in cleaned_title and "." in cleaned_title:
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
@@ -182,6 +197,9 @@ class Parser:
 
         for handler in self.handlers:
             match_result = handler({"title": title, "result": result, "matched": matched})
+
+            if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in handler.handler_name):
+                print(handler.handler_name, match_result, title)
 
             if match_result is None:
                 continue
