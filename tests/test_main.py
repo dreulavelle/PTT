@@ -416,6 +416,22 @@ def parser():
         "channels": "5.1",
         "codec": "avc",
         "group": "LEGi0N"
+    }),
+    ("The.Lord.of.the.Rings.The.Fellowship.of.the.Ring.2001.EXTENDED.2160p.UHD.BluRay.x265.10bit.HDR.TrueHD.7.1.Atmos-BOREDOR", {
+        "title": "The Lord of the Rings The Fellowship of the Ring",
+        "year": 2001,
+        "resolution": "4k",
+        "edition": "Extended Edition",
+        "languages": [],
+        "seasons": [],
+        "episodes": [],
+        "quality": "BluRay",
+        "codec": "x265",
+        "bit_depth": "10bit",
+        "audio": "7.1 Atmos",
+        "channels": "7.1",
+        "hdr": ["HDR"],
+        "group": "BOREDOR"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
