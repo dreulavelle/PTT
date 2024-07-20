@@ -304,7 +304,7 @@ def parser():
         "year": 2024,
         "quality": "BluRay REMUX",
         "resolution": "4k",
-        "audio": "truehd",
+        "audio": ["hd"],
         "codec": "x265",
         "languages": [],
         "seasons": [],
@@ -330,7 +330,7 @@ def parser():
         "quality": "BluRay REMUX",
         "resolution": "1080p",
         "audio": "dd5.1",
-        "channels": "5.1",
+        "channels": ["5.1"],
         "codec": "avc",
         "group": "NOGRP"
     }),
@@ -353,7 +353,7 @@ def parser():
         "resolution": "1080p",
         "bit_depth": "10bit",
         "audio": "dd5.1",
-        "channels": "5.1",
+        "channels": ["5.1"],
         "codec": "x265",
         "seasons": [],
         "episodes": [],
@@ -369,7 +369,7 @@ def parser():
         "codec": "x265",
         "bit_depth": "10bit",
         "audio": "aac",
-        "channels": "5.1"
+        "channels": ["5.1"]
     }),
     ("[DB]_Bleach_264_[012073FE].avi", {
         "title": "Bleach",
@@ -413,7 +413,7 @@ def parser():
         "quality": "BluRay REMUX",
         "resolution": "1080p",
         "audio": "dts-hd",
-        "channels": "5.1",
+        "channels": ["5.1"],
         "codec": "avc",
         "group": "LEGi0N"
     }),
@@ -428,10 +428,43 @@ def parser():
         "quality": "BluRay",
         "codec": "x265",
         "bit_depth": "10bit",
-        "audio": "7.1 Atmos",
-        "channels": "7.1",
+        "audio": ["atmos"],
+        "channels": ["7.1"],
         "hdr": ["HDR"],
         "group": "BOREDOR"
+    }),
+    ("Escaflowne (2000) (BDRip 1896x1048p x265 HEVC TrueHD, FLACx3, AC3 5.1x2+2.0x3)(Triple Audio)[sxales].mkv", {
+        "title": "Escaflowne",
+        "year": 2000,
+        "languages": ["multi audio"],
+        "seasons": [],
+        "episodes": [],
+        "quality": "BDRip",
+        "codec": "x265",
+        "resolution": "1896x1048p",  # this needs to be 1080p instead probably
+        "audio": ["truehd"],
+        "channels": ["5.1"],
+        "group": "sxales",
+        "dubbed": True,
+        "extension": "mkv"
+    }),
+    ("[www.1TamilMV.pics]_The.Great.Indian.Suicide.2023.Tamil.TRUE.WEB-DL.4K.SDR.HEVC.(DD+5.1.384Kbps.&.AAC).3.2GB.ESub.mkv", {
+        "title": "The Great Indian Suicide",
+        "year": 2023,
+        "languages": ["tamil"],
+        "seasons": [],
+        "episodes": [],
+        "quality": "WEB-DL",
+        "resolution": "4k",
+        "hdr": ["SDR"],
+        "codec": "x265",
+        "site": "www.1TamilMV.pics",
+        "size": "3.2GB",
+        "container": "mkv",
+        "extension": "mkv",
+        "bitrate": "384kbps",
+        "audio": ["true"],
+        "channels": ["5.1"],
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
