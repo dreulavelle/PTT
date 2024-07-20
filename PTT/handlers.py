@@ -1,18 +1,7 @@
 import regex
 
 from PTT.parse import Parser
-from PTT.transformers import (
-    array,
-    boolean,
-    date,
-    integer,
-    lowercase,
-    none,
-    range_func,
-    uniq_concat,
-    uppercase,
-    value
-)
+from PTT.transformers import array, boolean, date, integer, lowercase, none, range_func, uniq_concat, uppercase, value
 
 
 def add_defaults(parser: Parser):
