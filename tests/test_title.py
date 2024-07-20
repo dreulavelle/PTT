@@ -58,6 +58,7 @@ def parser():
         ("Too Many Cooks _ Adult Swim.mp4", "Too Many Cooks"),
         ("О мышах и людях (Of Mice and Men) 1992 BDRip 1080p.mkv", "Of Mice and Men"),
         ("Wonder Woman 1984 (2020) [UHDRemux 2160p DoVi P8 Es-DTSHD AC3 En-AC3].mkv", "Wonder Woman 1984"),
+        ("www.TamilBlasters.cam - Titanic (1997)[1080p BDRip - Org Auds - [Tamil + Telugu + Hindi + Eng] - x264 - DD5.1 (448 Kbps) - 4.7GB - ESubs].mkv", "Titanic"),
     ],
 )
 def test_title_detection(parser, release_name, expected_title):

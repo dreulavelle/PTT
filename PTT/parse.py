@@ -31,7 +31,7 @@ NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 REDUNDANT_SYMBOLS_AT_END = regex.compile(r"[ \-:./\\]+$")
-EMPTY_BRACKETS_REGEX = regex.compile(r"\(\)|\[\]|\{\}")
+EMPTY_BRACKETS_REGEX = regex.compile(r"\(\s*\)|\[\s*\]|\{\s*\}")
 
 DEBUG_HANDLER = False
 
@@ -213,7 +213,7 @@ class Parser:
 
             if remove:
                 title = title[:match_index] + title[match_index + len(raw_match) :]
-            if not skip_from_title and match_index and match_index < end_of_title:
+            if not skip_from_title and match_index and 1 < match_index < end_of_title:
                 end_of_title = match_index
             if remove and skip_from_title and match_index < end_of_title:
                 end_of_title -= len(raw_match)
