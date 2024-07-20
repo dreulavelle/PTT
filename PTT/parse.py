@@ -30,6 +30,8 @@ ALT_TITLES_REGEX = regex.compile(rf"[^/|(]*[{NON_ENGLISH_CHARS}][^/|]*[/|]|[/|][
 NOT_ONLY_NON_ENGLISH_REGEX = regex.compile(rf"(?<=[a-zA-Z][^{NON_ENGLISH_CHARS}]+)[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}]|[{NON_ENGLISH_CHARS}].*[{NON_ENGLISH_CHARS}](?=[^{NON_ENGLISH_CHARS}]+[a-zA-Z])")
 NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#[【★]+|[ \-:/\\[|{{(#$&^]+$")
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
+REDUNDANT_SYMBOLS_AT_END = regex.compile(r"[ \-:./\\]+$")
+EMPTY_BRACKETS_REGEX = regex.compile(r"\(\s*\)|\[\s*\]|\{\s*\}")
 
 DEBUG_HANDLER = False
 
@@ -121,17 +123,17 @@ def clean_title(raw_title: str) -> str:
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
+    cleaned_title = EMPTY_BRACKETS_REGEX.sub("", cleaned_title)
 
     # Remove brackets if only one is present
-    for brackets in BRACKETS:
-        only_one_bracket = not all(bracket in cleaned_title for bracket in brackets)
-        if only_one_bracket:
-            for bracket in brackets:
-                cleaned_title = cleaned_title.replace(bracket, "")
+    for open_bracket, close_bracket in BRACKETS:
+        if cleaned_title.count(open_bracket) != cleaned_title.count(close_bracket):
+            cleaned_title = cleaned_title.replace(open_bracket, "").replace(close_bracket, "")
 
     if " " not in cleaned_title and "." in cleaned_title:
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
+    cleaned_title = REDUNDANT_SYMBOLS_AT_END.sub("", cleaned_title)
     cleaned_title = cleaned_title.strip()
     return cleaned_title
 
@@ -211,7 +213,7 @@ class Parser:
 
             if remove:
                 title = title[:match_index] + title[match_index + len(raw_match) :]
-            if not skip_from_title and match_index and match_index < end_of_title:
+            if not skip_from_title and match_index and 1 < match_index < end_of_title:
                 end_of_title = match_index
             if remove and skip_from_title and match_index < end_of_title:
                 end_of_title -= len(raw_match)

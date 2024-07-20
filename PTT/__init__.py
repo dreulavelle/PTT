@@ -5,7 +5,7 @@ _parser = Parser()
 add_defaults(_parser)
 
 
-def parse(raw_title: str) -> dict:
+def parse_title(raw_title: str) -> dict:
     """
     Parse the given input string using the initialized parser instance.
     :param raw_title: The input raw torrent title to parse.

@@ -13,7 +13,7 @@ import PTT
     ],
 )
 def test_group_detection(release_name, expected_size):
-    result = PTT.parse(release_name)
+    result = PTT.parse_title(release_name)
     if expected_size:
         assert result.get("size") == expected_size, f"Incorrect site detected for {release_name}"
     else:
