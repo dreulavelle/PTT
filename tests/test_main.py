@@ -330,6 +330,7 @@ def parser():
         "quality": "BluRay REMUX",
         "resolution": "1080p",
         "audio": "dd5.1",
+        "channels": "5.1",
         "codec": "avc",
         "group": "NOGRP"
     }),
@@ -352,6 +353,7 @@ def parser():
         "resolution": "1080p",
         "bit_depth": "10bit",
         "audio": "dd5.1",
+        "channels": "5.1",
         "codec": "x265",
         "seasons": [],
         "episodes": [],
@@ -367,6 +369,7 @@ def parser():
         "codec": "x265",
         "bit_depth": "10bit",
         "audio": "aac",
+        "channels": "5.1"
     }),
     ("[DB]_Bleach_264_[012073FE].avi", {
         "title": "Bleach",
@@ -377,6 +380,58 @@ def parser():
         "episodes": [264],
         "languages": [],
         "group": "DB"
+    }),
+    ("[SubsPlease] One Piece - 1111 (480p) [2E05E658].mkv", {
+        "title": "One Piece",
+        "container": "mkv",
+        "resolution": "480p",
+        "extension": "mkv",
+        "episode_code": "2E05E658",
+        "seasons": [],
+        "episodes": [1111],
+        "languages": [],
+        "group": "SubsPlease"
+    }),
+    ("One Piece S01E1056 VOSTFR 1080p WEB x264 AAC -Tsundere-Raws (CR) mkv", {
+        "title": "One Piece",
+        "seasons": [1],
+        "episodes": [1056],
+        "languages": ["french"],
+        "container": "mkv",
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "codec": "x264",
+        "audio": "aac",
+    }),
+    ("Mary.Poppins.1964.50th.ANNIVERSARY.EDITION.REMUX.1080p.Bluray.AVC.DTS-HD.MA.5.1-LEGi0N", {
+        "title": "Mary Poppins",
+        "year": 1964,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "edition": "Anniversary Edition",
+        "quality": "BluRay REMUX",
+        "resolution": "1080p",
+        "audio": "dts-hd",
+        "channels": "5.1",
+        "codec": "avc",
+        "group": "LEGi0N"
+    }),
+    ("The.Lord.of.the.Rings.The.Fellowship.of.the.Ring.2001.EXTENDED.2160p.UHD.BluRay.x265.10bit.HDR.TrueHD.7.1.Atmos-BOREDOR", {
+        "title": "The Lord of the Rings The Fellowship of the Ring",
+        "year": 2001,
+        "resolution": "4k",
+        "edition": "Extended Edition",
+        "languages": [],
+        "seasons": [],
+        "episodes": [],
+        "quality": "BluRay",
+        "codec": "x265",
+        "bit_depth": "10bit",
+        "audio": "7.1 Atmos",
+        "channels": "7.1",
+        "hdr": ["HDR"],
+        "group": "BOREDOR"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):

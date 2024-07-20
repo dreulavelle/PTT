@@ -58,8 +58,17 @@ def add_defaults(parser: Parser):
     parser.add_handler("year", regex.compile(r"[([]?(?!^)(?<!\d|Cap[. ]?)((?:19\d|20[012])\d)(?!\d|kbps)[)\]]?", regex.IGNORECASE), integer, {"remove": True})
     parser.add_handler("year", regex.compile(r"^[([]?((?:19\d|20[012])\d)(?!\d|kbps)[)\]]?", regex.IGNORECASE), integer, {"remove": True})
 
-    # Extended
-    parser.add_handler("extended", regex.compile(r"(custom.?)?extended", regex.IGNORECASE), boolean, {"remove": True})
+    # Edition
+    parser.add_handler("edition", regex.compile(r"\b\d{2,3}(th)?[\.\s\-\+_\/(),]Anniversary[\.\s\-\+_\/(),](Edition|Ed)?\b", regex.IGNORECASE), value("Anniversary Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bUltimate[\.\s\-\+_\/(),]Edition\b", regex.IGNORECASE), value("Ultimate Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bExtended[\.\s\-\+_\/(),]Director\"?s\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\b(custom.?)?Extended\b", regex.IGNORECASE), value("Extended Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bDirector\"?s[\.\s\-\+_\/(),]Cut\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bCollector\"?s\b", regex.IGNORECASE), value("Collectors Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bTheatrical\b", regex.IGNORECASE), value("Theatrical"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bUncut\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bDiamond\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
 
     # Convert
     parser.add_handler("convert", regex.compile(r"CONVERT"), boolean)
@@ -152,6 +161,13 @@ def add_defaults(parser: Parser):
 
     parser.add_handler("codec", handle_space_in_codec)
 
+    # Channels
+    parser.add_handler("channels", regex.compile(r"\b(?:5\.1|DDP?5[ \.\_]1)\b", regex.IGNORECASE), value("5.1"), {"remove": False})
+    parser.add_handler("channels", regex.compile(r"\b7\.1\b", regex.IGNORECASE), value("7.1"), {"remove": False})
+    parser.add_handler("channels", regex.compile(r"\b2\.0\b", regex.IGNORECASE), value("2.0"), {"remove": False})
+    parser.add_handler("channels", regex.compile(r"\bstereo\b", regex.IGNORECASE), value("stereo"), {"remove": False})
+    parser.add_handler("channels", regex.compile(r"\bmono\b", regex.IGNORECASE), value("mono"), {"remove": False})
+
     # Audio
     parser.add_handler("audio", regex.compile(r"7\.1[. ]?Atmos\b", regex.IGNORECASE), value("7.1 Atmos"), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\b(?:mp3|Atmos|DTS(?:-HD)?|TrueHD)\b", regex.IGNORECASE), lowercase)
@@ -215,6 +231,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"t(\d{1,3})(?:[ex]+|$)", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete)?(?:\W|^)s(\d{1,3})(?:[\Wex]|\d{2}\b|$)", regex.IGNORECASE), array(integer), {"skipIfAlreadyFound": False})
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:\W|^)(\d{1,2})[. ]?(?:st|nd|rd|th)[. ]*season", regex.IGNORECASE), array(integer))
+    parser.add_handler("seasons", regex.compile(r"(?<=S)\d{2}(?=E\d+)"), array(integer))
     parser.add_handler("seasons", regex.compile(r"(?:\D|^)(\d{1,2})[xх]\d{1,3}(?:\D|$)"), array(integer))
     parser.add_handler("seasons", regex.compile(r"\bSn([1-9])(?:\D|$)"), array(integer))
     parser.add_handler("seasons", regex.compile(r"[[(](\d{1,2})\.\d{1,3}[)\]]"), array(integer))
@@ -244,12 +261,14 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"(?:\b[ée]p?(?:isode)?|[Ээ]пизод|[Сс]ер(?:ии|ия|\.)?|cap(?:itulo)?|epis[oó]dio)[. ]?[-:#№]?[. ]?(\d{1,4})(?:[abc]|v0?[1-4]|\W|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b(\d{1,3})(?:-?я)?[ ._-]*(?:ser(?:i?[iyj]a|\b)|[Сс]ер(?:ии|ия|\.)?)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?:\D|^)\d{1,2}[. ]?[xх][. ]?(\d{1,3})(?:[abc]|v0?[1-4]|\D|$)"), array(integer))  # Fixed: Was catching `1.x265` as episode.
+    parser.add_handler("episodes", regex.compile(r"(?<=S\d{2}E)\d+", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"[[(]\d{1,2}\.(\d{1,3})[)\]]"), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b[Ss]\d{1,2}[ .](\d{1,2})\b"), array(integer))
     parser.add_handler("episodes", regex.compile(r"-\s?\d{1,2}\.(\d{2,3})\s?-"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<=\D|^)(\d{1,3})[. ]?(?:of|из|iz)[. ]?\d{1,3}(?=\D|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
+    parser.add_handler("episodes", regex.compile(r"(\d+)(?=.?\[([A-Z0-9]{8})])", regex.IGNORECASE), array(integer))
 
     def handle_episodes(context):
         title = context["title"]
@@ -463,18 +482,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("network", regex.compile(r"\bHallmark\b", regex.IGNORECASE), value("Hallmark"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bAdult.?Swim\b", regex.IGNORECASE), value("Adult Swim"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bAnimal.?Planet|ANPL\b", regex.IGNORECASE), value("Animal Planet"), {"remove": True})
-
-    # Edition
-    parser.add_handler("edition", regex.compile(r"\b\d{{2,3}}(th)?[\.\s\-\+_\/(),]Anniversary[\.\s\-\+_\/(),](Edition|Ed)?\b", regex.IGNORECASE), value("Anniversary Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bUltimate[\.\s\-\+_\/(),]Edition\b", regex.IGNORECASE), value("Ultimate Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bExtended[\.\s\-\+_\/(),]Director\"?s\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bExtended\b", regex.IGNORECASE), value("Extended Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bDirector\"?s[\.\s\-\+_\/(),]Cut\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bCollector\"?s\b", regex.IGNORECASE), value("Collectors Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bTheatrical\b", regex.IGNORECASE), value("Theatrical"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bUncut\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bDiamond\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
 
     # Extension
     parser.add_handler("extension", regex.compile(r"\.(3g2|3gp|avi|flv|mkv|mk3d|mov|mp2|mp4|m4v|mpe|mpeg|mpg|mpv|webm|wmv|ogm|divx|ts|m2ts|iso|vob|sub|idx|ttxt|txt|smi|srt|ssa|ass|vtt|nfo|html)$", regex.IGNORECASE), lowercase)
