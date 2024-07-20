@@ -1,4 +1,4 @@
-.PHONY: install lint sort test coverage pr-ready publish clean
+.PHONY: install format sort test coverage pr-ready publish clean
 
 SRC_DIR := ./PTT
 
@@ -12,11 +12,11 @@ clean:
 	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
 	@find . -type d -name '.ruff_cache' -exec rm -rf {} +
 
-# Run linters
-lint:
-	@poetry run ruff check $(SRC_DIR)
+# Run black
+format:
+	@poetry run black $(SRC_DIR)
 
-# Format code
+# Sort imports
 sort:
 	@poetry run isort $(SRC_DIR)
 
@@ -28,7 +28,7 @@ test:
 coverage:
 	@poetry run pytest --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
 
-pr-ready: sort lint test
+pr-ready: sort format test
 
 publish:
 	@poetry publish --build

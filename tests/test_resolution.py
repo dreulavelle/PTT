@@ -23,9 +23,9 @@ def parser():
     ("UFC 187 PPV 720i HDTV X264-KYR", "720p"),
     ("IT Chapter Two.2019.7200p.AMZN WEB-DL.H264.[Eng Hin Tam Tel]DDP 5.1.MSubs.D0T.Telly", "720p"),
     ("Dumbo (1941) BRRip XvidHD 10800p-NPW", "1080p"),
-    ("BluesBrothers2M1080.www.newpct.com.mkv", "1080p"),
-    ("BenHurParte2BD1080.www.newpct.com.mkv", "1080p"),
-    ("1993720p_101_WWW.NEWPCT1.COM.mkvv", "720p"),
+    ("The Boys S04E01 E02 E03 4k to 1080p AMZN WEBrip x265 DDP5 1 D0c", "1080p"),
+    ("Batman Returns 1992 4K Remastered BluRay 1080p DTS AC3 x264-MgB", "1080p"),
+    ("Life After People (2008) [1080P.BLURAY] [720p] [BluRay] [YTS.MX]", "720p"),
 ])
 def test_resolution_detection(parser, release_name, expected_resolution):
     result = parser.parse(release_name)
