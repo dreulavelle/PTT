@@ -15,6 +15,10 @@ def add_defaults(parser: Parser):
     # Torrent extension
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
 
+    # PPV
+    parser.add_handler("ppv", regex.compile(r"\bPPV\b", regex.IGNORECASE), boolean, {"skipFromTitle": True, "remove": True})
+    parser.add_handler("ppv", regex.compile(r"\b\W?Fight.?Nights?\W?\b", regex.IGNORECASE), boolean, {"skipFromTitle": True, "remove": False})
+
     # Site before languages to get rid of domain name with country code.
     parser.add_handler("site", regex.compile(r"^(www?[\.,][\w-]+\.[\w-]+(?:\.[\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
