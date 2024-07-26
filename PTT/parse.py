@@ -32,6 +32,7 @@ NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 REDUNDANT_SYMBOLS_AT_END = regex.compile(r"[ \-:./\\]+$")
 EMPTY_BRACKETS_REGEX = regex.compile(r"\(\s*\)|\[\s*\]|\{\s*\}")
+MULTIPLE_SPACES_REGEX = regex.compile(r"\s+")
 
 DEBUG_HANDLER = False
 
@@ -134,6 +135,7 @@ def clean_title(raw_title: str) -> str:
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
     cleaned_title = REDUNDANT_SYMBOLS_AT_END.sub("", cleaned_title)
+    cleaned_title = MULTIPLE_SPACES_REGEX.sub(" ", cleaned_title)
     cleaned_title = cleaned_title.strip()
     return cleaned_title
 
