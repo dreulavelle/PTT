@@ -37,7 +37,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)1080p?"), value("1080p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)720p?"), value("720p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)480p?"), value("480p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\b(?:(4k|2160p|1080p|720p|480p))4k|2160p|1080p|720p|480p\b", regex.IGNORECASE), transform_resolution, {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\b(?:4k|2160p|1080p|720p|480p)(?!.*\b(?:4k|2160p|1080p|720p|480p)\b)", regex.IGNORECASE), transform_resolution, {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("2160p"), {"remove": True})
     # parser.add_handler("resolution", regex.compile(r"21600?[pi]", regex.IGNORECASE), value("4k"), {"skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:^|\D)(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
@@ -195,8 +195,8 @@ def add_defaults(parser: Parser):
     #parser.add_handler("audio", regex.compile(r"\bAC-?3(?:[.-]5\.1|[x ]2\.?0?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bAC-?3(x2)?(?:[ .-](5\.1)?[x+]2\.?0?x?3?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\b5\.1ch\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\bDD[\+P]?5.?1\b", regex.IGNORECASE), uniq_concat(value("dd5.1")), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("aac")), {"remove": True})
+    parser.add_handler("audio", regex.compile(r"\bDD[\+P]?5.?1\b", regex.IGNORECASE), uniq_concat(value("dd5.1")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("aac")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bHQ.?(Clean)?.?(Aud(io)?)?\b", regex.IGNORECASE), uniq_concat(value("hq audio")), {"remove": True})
 
     # Group

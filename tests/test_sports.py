@@ -13,7 +13,7 @@ def parser():
 
 @pytest.mark.parametrize("release_name, expected", [
     ("UFC.239.PPV.Jones.Vs.Santos.HDTV.x264-PUNCH[TGx]", {
-        "title": "UFC 239  Jones Vs Santos",
+        "title": "UFC 239 Jones Vs Santos",
         "seasons": [],
         "episodes": [],
         "languages": [],
@@ -33,7 +33,7 @@ def parser():
         "ppv": True,
     }),
     ("UFC 226 PPV Miocic vs Cormier HDTV x264-Ebi [TJET]", {
-        "title": "UFC 226  Miocic vs Cormier",
+        "title": "UFC 226 Miocic vs Cormier",
         "seasons": [],
         "episodes": [],
         "languages": [],
