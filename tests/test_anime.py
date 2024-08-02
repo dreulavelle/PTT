@@ -5,7 +5,7 @@ from PTT import parse_title
 
 @pytest.mark.parametrize("release_name, expected", [
     ("Sword.Art.Online.Alternative.S01.v2.1080p.Blu-Ray.10-Bit.Dual-Audio.LPCM.x265-iAHD", {
-        "title": "Sword Art Online Alternative: Gun Gale Online",
+        "title": "Sword Art Online Alternative",
         "seasons": [1],
         "episodes": [],
         "languages": ["dual audio"],
