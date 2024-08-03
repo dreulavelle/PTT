@@ -32,6 +32,14 @@ NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}
 REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END = regex.compile(rf"^[^\w{NON_ENGLISH_CHARS}#]+|]$")
 REDUNDANT_SYMBOLS_AT_END = regex.compile(r"[ \-:./\\]+$")
 EMPTY_BRACKETS_REGEX = regex.compile(r"\(\s*\)|\[\s*\]|\{\s*\}")
+PARANTHESES_WITHOUT_CONTENT = regex.compile(r"\(\W*\)|\[\W*\]|\{\W*\}")
+MOVIE_REGEX = regex.compile(r"[[(]movie[)\]]", flags=regex.IGNORECASE)
+STAR_REGEX_1 = regex.compile(r"^[[【★].*[\]】★][ .]?(.+)")
+STAR_REGEX_2 = regex.compile(r"(.+)[ .]?[[【★].*[\]】★]$")
+MP3_REGEX = regex.compile(r"\bmp3$")
+SPACING_REGEX = regex.compile(r"\s+")
+
+BEFORE_TITLE_MATCH_REGEX = regex.compile(r"^\[([^[\]]+)]")
 
 DEBUG_HANDLER = False
 
@@ -74,8 +82,11 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
 
         if name in result and options.get("skipIfAlreadyFound", False):
             return None
-
+        if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in name):
+            print(name, "Try to match " + title, "To " + reg_exp.pattern)
         match = reg_exp.search(title)
+        if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in name):
+            print("Matched " + str(match))
         if match:
             raw_match = match.group(0)
             clean_match = match.group(1) if len(match.groups()) >= 1 else raw_match
@@ -85,7 +96,7 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
             if type(transformed) is str:
                 transformed = transformed.strip()
 
-            before_title_match = regex.match(r"^\[([^[\]]+)]", title)
+            before_title_match = BEFORE_TITLE_MATCH_REGEX.match(title)
             is_before_title = before_title_match is not None and raw_match in before_title_match.group(1)
 
             other_matches = {k: v for k, v in matched.items() if k != name}
@@ -110,20 +121,18 @@ def clean_title(raw_title: str) -> str:
     :return: The cleaned title string.
     """
     cleaned_title = raw_title
-
-    if " " not in cleaned_title and "." in cleaned_title:
-        cleaned_title = regex.sub(r"\.", " ", cleaned_title)
-
-    cleaned_title = regex.sub(r"_", " ", cleaned_title)
-    cleaned_title = regex.sub(r"[[(]movie[)\]]", "", cleaned_title, flags=regex.IGNORECASE)
+    cleaned_title = cleaned_title.replace("_", " ")
+    cleaned_title = MOVIE_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
     cleaned_title = RUSSIAN_CAST_REGEX.sub("", cleaned_title)
-    cleaned_title = regex.sub(r"^[[【★].*[\]】★][ .]?(.+)", r"\1", cleaned_title)
-    cleaned_title = regex.sub(r"(.+)[ .]?[[【★].*[\]】★]$", r"\1", cleaned_title)
+    cleaned_title = STAR_REGEX_1.sub(r"\1", cleaned_title)
+    cleaned_title = STAR_REGEX_2.sub(r"\1", cleaned_title)
     cleaned_title = ALT_TITLES_REGEX.sub("", cleaned_title)
     cleaned_title = NOT_ONLY_NON_ENGLISH_REGEX.sub("", cleaned_title)
     cleaned_title = REMAINING_NOT_ALLOWED_SYMBOLS_AT_START_AND_END.sub("", cleaned_title)
     cleaned_title = EMPTY_BRACKETS_REGEX.sub("", cleaned_title)
+    cleaned_title = MP3_REGEX.sub("", cleaned_title)
+    cleaned_title = PARANTHESES_WITHOUT_CONTENT.sub("", cleaned_title)
 
     # Remove brackets if only one is present
     for open_bracket, close_bracket in BRACKETS:
@@ -134,6 +143,7 @@ def clean_title(raw_title: str) -> str:
         cleaned_title = regex.sub(r"\.", " ", cleaned_title)
 
     cleaned_title = REDUNDANT_SYMBOLS_AT_END.sub("", cleaned_title)
+    cleaned_title = SPACING_REGEX.sub(" ", cleaned_title)
     cleaned_title = cleaned_title.strip()
     return cleaned_title
 

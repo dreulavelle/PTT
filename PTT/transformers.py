@@ -203,3 +203,30 @@ def uniq_concat(chain: Callable[[str], Union[str, int]]) -> Callable[[str, Optio
         return result
 
     return inner
+
+def transform_resolution(input_value: str) -> str:
+    """
+    Transform the resolution string to a standardized format.
+
+    :param input_value: The input resolution string.
+    :return: The standardized resolution string.
+    """
+
+    input_value = lowercase(input_value)
+    print(input_value)
+
+    if "2160" in input_value or "4k" in input_value:
+        return "2160p"
+    if "1440" in input_value or "2k" in input_value:
+        return "1440p"
+    if "1080" in input_value:
+        return "1080p"
+    if "720" in input_value:
+        return "720p"
+    if "480" in input_value:
+        return "480p"
+    if "360" in input_value:
+        return "360p"
+    if "240" in input_value:
+        return "240p"
+    return input_value

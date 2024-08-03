@@ -1,7 +1,7 @@
 import regex
 
 from PTT.parse import Parser
-from PTT.transformers import array, boolean, date, integer, lowercase, none, range_func, uniq_concat, uppercase, value
+from PTT.transformers import array, boolean, date, integer, lowercase, none, range_func, transform_resolution, uniq_concat, uppercase, value
 
 
 def add_defaults(parser: Parser):
@@ -28,17 +28,17 @@ def add_defaults(parser: Parser):
     parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
 
     # Resolution
-    parser.add_handler("resolution", regex.compile(r"\[?\]?3840x\d{4}[\])?]?", regex.IGNORECASE), value("4k"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\[?\]?3840x\d{4}[\])?]?", regex.IGNORECASE), value("2160p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\[?\]?1920x\d{3,4}[\])?]?", regex.IGNORECASE), value("1080p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\[?\]?1280x\d{3}[\])?]?", regex.IGNORECASE), value("720p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\[?\]?(\d{3,4}x\d{3,4})[\])?]?p?", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(480|720|1080)0[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)(2160p?|4k)"), value("4k"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)(2160p?|4k)"), value("2160p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)1080p?"), value("1080p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)720p?"), value("720p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)480p?"), value("480p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\b(?:(4k|2160p|1080p|720p|480p))4k|2160p|1080p|720p|480p\b", regex.IGNORECASE), lowercase, {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("4k"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\b(?:4k|2160p|1080p|720p|480p)(?!.*\b(?:4k|2160p|1080p|720p|480p)\b)", regex.IGNORECASE), transform_resolution, {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("2160p"), {"remove": True})
     # parser.add_handler("resolution", regex.compile(r"21600?[pi]", regex.IGNORECASE), value("4k"), {"skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:^|\D)(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
@@ -169,7 +169,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("codec", regex.compile(r"\b[xh][\. \-]?264\b", regex.IGNORECASE), lowercase, {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?\b|\b[xh][\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("x265"), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("codec", regex.compile(r"\b(?:mpe?g(\d+)?|divx|xvid|avc|av1)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("codec", regex.compile(r"\b(?:mpe?g\d*|divx|xvid|avc|av1)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
 
     def handle_space_in_codec(context):
         if context["result"].get("codec"):
@@ -188,14 +188,15 @@ def add_defaults(parser: Parser):
     parser.add_handler("channels", regex.compile(r"\b2\.0(?:x[2-4])\b", regex.IGNORECASE), uniq_concat(value("2.0")), {"remove": True})
 
     # Audio
-    parser.add_handler("audio", regex.compile(r"\b(Dolby.?)?Atmos\b", regex.IGNORECASE), uniq_concat(lowercase), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\b(?:mp3|DTS(?:-HD)?|True(HD)?)\b", regex.IGNORECASE), uniq_concat(lowercase), {"remove": True})
+    parser.add_handler("audio", regex.compile(r"\b(Dolby.?)?Atmos\b", regex.IGNORECASE), uniq_concat(value("atmos")), {"remove": True})
+    parser.add_handler("audio", regex.compile(r"\b(?:DTS(?:-HD)?|True(HD)?)\b", regex.IGNORECASE), uniq_concat(value("truehd")), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bFLAC(?:\+?2\.0)?(?:x[2-4])?\b", regex.IGNORECASE), uniq_concat(value("flac")), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bEAC-?3(?:[. -]?[256]\.[01])?", regex.IGNORECASE), uniq_concat(value("eac3")), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\bAC-?3(?:[.-]5\.1|x2\.?0?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True})
+    #parser.add_handler("audio", regex.compile(r"\bAC-?3(?:[.-]5\.1|[x ]2\.?0?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\bAC-?3(x2)?(?:[ .-](5\.1)?[x+]2\.?0?x?3?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\b5\.1ch\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\bDD[\+P]?5.?1\b", regex.IGNORECASE), uniq_concat(value("dd5.1")), {"remove": True})
-    parser.add_handler("audio", regex.compile(r"\bQ?AAC\b", regex.IGNORECASE), uniq_concat(value("aac")), {"remove": True})
+    parser.add_handler("audio", regex.compile(r"\bDD[\+P]?5.?1\b", regex.IGNORECASE), uniq_concat(value("dd5.1")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("aac")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bHQ.?(Clean)?.?(Aud(io)?)?\b", regex.IGNORECASE), uniq_concat(value("hq audio")), {"remove": True})
 
     # Group
