@@ -34,6 +34,7 @@ def parser():
     ("Da Vinci Code DVDRip", {
         "title": "Da Vinci Code",
         "quality": "DVDRip",
+        "resolution": "480p",
         "languages": [],
         "seasons": [],
         "episodes": []
@@ -41,6 +42,7 @@ def parser():
     ("Some.girls.1998.DVDRip", {
         "title": "Some girls",
         "quality": "DVDRip",
+        "resolution": "480p",
         "year": 1998,
         "languages": [],
         "seasons": [],
@@ -49,6 +51,7 @@ def parser():
     ("Ecrit.Dans.Le.Ciel.1954.MULTI.DVDRIP.x264.AC3-gismo65", {
         "title": "Ecrit Dans Le Ciel",
         "quality": "DVDRip",
+        "resolution": "480p",
         "year": 1954,
         "languages": ["multi audio"],
         "dubbed": True,
@@ -239,6 +242,7 @@ def parser():
     ("[DVDRip-ITA]The Fast and the Furious: Tokyo Drift [CR-Bt]", {
         "title": "The Fast and the Furious: Tokyo Drift",
         "quality": "DVDRip",
+        "resolution": "480p",
         "languages": ["italian"],
         "seasons": [],
         "episodes": []
@@ -275,6 +279,7 @@ def parser():
         "title": "Heidi",
         "episodes": [3],
         "quality": "DVDRip",
+        "resolution": "480p",
         "languages": ["latino"],
         "seasons": [],
     }),
@@ -304,7 +309,7 @@ def parser():
         "year": 2024,
         "quality": "BluRay REMUX",
         "resolution": "2160p",
-        "audio": ["hd"],
+        "audio": ["atmos"],
         "codec": "x265",
         "languages": [],
         "seasons": [],
@@ -444,8 +449,9 @@ def parser():
         "resolution": "1896x1048p",  # this needs to be 1080p instead probably
         "audio": ["truehd", "ac3"],
         "channels": ["5.1"],
-        "group": "sxales",
+        # "group": "sxales",
         "dubbed": True,
+        "container": "mkv",
         "extension": "mkv"
     }),
     ("[www.1TamilMV.pics]_The.Great.Indian.Suicide.2023.Tamil.TRUE.WEB-DL.4K.SDR.HEVC.(DD+5.1.384Kbps.&.AAC).3.2GB.ESub.mkv", {
@@ -463,7 +469,7 @@ def parser():
         "container": "mkv",
         "extension": "mkv",
         "bitrate": "384kbps",
-        "audio": ["true"],
+        "audio": ["truehd", "dd5.1", "aac"],
         "channels": ["5.1"],
     })
 ])

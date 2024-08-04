@@ -42,6 +42,9 @@ def add_defaults(parser: Parser):
     # parser.add_handler("resolution", regex.compile(r"21600?[pi]", regex.IGNORECASE), value("4k"), {"skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:^|\D)(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
+    
+    # Classify unknown resolutions with their quality counterpart. (normalize qualities to resolution) - DO NOT REMOVE HERE!
+    parser.add_handler("resolution", regex.compile(r"\bDVD(.*Rip|.*Mux)?\b", regex.IGNORECASE), value("480p"), {"remove": False})
 
     # Date
     parser.add_handler("date", regex.compile(r"(?:\W|^)([[(]?(?:19[6-9]|20[012])[0-9]([. \-/\\])(?:0[1-9]|1[012])\2(?:0[1-9]|[12][0-9]|3[01])[])]?)(?:\W|$)"), date("YYYY MM DD"), {"remove": True})
@@ -128,11 +131,11 @@ def add_defaults(parser: Parser):
     parser.add_handler("quality", regex.compile(r"\b(?:BR|Blu[ .-]*Ray)[ .-]*Rip\b", regex.IGNORECASE), value("BRRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bBD[ .-]*Rip\b|\bBDR\b|\bBD-RM\b|[[(]BD[\]) .,-]", regex.IGNORECASE), value("BDRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?DVD[ .-]*Rip\b", regex.IGNORECASE), value("DVDRip"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bVHS[ .-]*Rip\b", regex.IGNORECASE), value("DVDRip"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bVHS[ .-]*Rip?\b", regex.IGNORECASE), value("VHSRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bP(?:re)?DVD(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bDVD(?:R\d?)?\b", regex.IGNORECASE), value("DVD"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bVHS\b", regex.IGNORECASE), value("DVD"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bDVD(?:R\d?|.*Mux)?\b", regex.IGNORECASE), value("DVD"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bVHS\b", regex.IGNORECASE), value("VHS"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bPPVRip\b", regex.IGNORECASE), value("PPVRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bHD[ .-]*TV(?:Rip)?\b", regex.IGNORECASE), value("HDTV"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bDVB[ .-]*(?:Rip)?\b", regex.IGNORECASE), value("HDTV"), {"remove": True})
@@ -287,6 +290,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(\d+)(?=.?\[([A-Z0-9]{8})])", regex.IGNORECASE), array(integer))
+    parser.add_handler("episodes", regex.compile(r"\b264|265\b", regex.IGNORECASE), array(integer), {"remove": True})
+    parser.add_handler("episodes", regex.compile(r"(?<!\bMovie\s-\s)(?<=\s-\s)\d+(?=\s[-(\s])"), array(integer), {"remove": True, "skipIfAlreadyFound": True})
 
     def handle_episodes(context):
         title = context["title"]
@@ -324,7 +329,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\beng?sub[A-Z]*\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bing(?:l[eéê]s)?\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\benglish\W+(?:subs?|sdh|hi)\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
-    parser.add_handler("languages", regex.compile(r"\bEN\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\beng?\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\benglish?\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfFirst": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(?:JP|JAP|JPN)\b", regex.IGNORECASE), uniq_concat(value("japanese")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(japanese|japon[eê]s)\b", regex.IGNORECASE), uniq_concat(value("japanese")), {"skipIfFirst": True, "skipIfAlreadyFound": False})
@@ -356,7 +361,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\bPT[. -]*(?:PT|ENG?|sub(?:s|titles?))\b", regex.IGNORECASE), uniq_concat(value("portuguese")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bpt(?=\.(?:ass|ssa|srt|sub|idx)$)", regex.IGNORECASE), uniq_concat(value("portuguese")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bpor\b", regex.IGNORECASE), uniq_concat(value("portuguese")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
-    parser.add_handler("languages", regex.compile(r"\bITA\b", regex.IGNORECASE), uniq_concat(value("italian")), {"skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\b-?ITA\b", regex.IGNORECASE), uniq_concat(value("italian")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(?<!w{3}\.\w+\.)IT(?=[ .,/-]+(?:[a-zA-Z]{2}[ .,/-]+){2,})\b"), uniq_concat(value("italian")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bit(?=\.(?:ass|ssa|srt|sub|idx)$)", regex.IGNORECASE), uniq_concat(value("italian")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bitaliano?\b", regex.IGNORECASE), uniq_concat(value("italian")), {"skipIfFirst": True, "skipIfAlreadyFound": False})
@@ -436,7 +441,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", infer_language_based_on_naming)
 
     # Subbed
-    parser.add_handler("subbed", regex.compile(r"\bsub(s|bed)?\b", regex.IGNORECASE), boolean)
+    parser.add_handler("subbed", regex.compile(r"\b(?:Official.*?|Dual-?)?sub(s|bed)?\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Dubbed
     parser.add_handler("dubbed", regex.compile(r"\b(fan\s?dub)\b", regex.IGNORECASE), boolean, {"remove": True, "skipFromTitle": True})
@@ -471,11 +476,6 @@ def add_defaults(parser: Parser):
     # Site
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
 
-    # Group
-    parser.add_handler("group", regex.compile(r"^\[([^[\]]+)]"))
-    parser.add_handler("group", regex.compile(r"\(([\w-]+)\)(?:$|\.\w{2,4}$)"))
-    parser.add_handler("group", regex.compile(r"\b(?:Erai-raws|Erai-raws\.com)\b", regex.IGNORECASE), value("Erai-raws"), {"remove": True})
-
     # Size
     parser.add_handler("size", regex.compile(r"\b(\d+(\.\d+)?\s?(MB|GB|TB))\b", regex.IGNORECASE), none, {"remove": True})
 
@@ -500,3 +500,16 @@ def add_defaults(parser: Parser):
 
     # Extension
     parser.add_handler("extension", regex.compile(r"\.(3g2|3gp|avi|flv|mkv|mk3d|mov|mp2|mp4|m4v|mpe|mpeg|mpg|mpv|webm|wmv|ogm|divx|ts|m2ts|iso|vob|sub|idx|ttxt|txt|smi|srt|ssa|ass|vtt|nfo|html)$", regex.IGNORECASE), lowercase)
+
+    # Group
+    parser.add_handler("group", regex.compile(r"\(([\w-]+)\)(?:$|\.\w{2,4}$)"))
+    parser.add_handler("group", regex.compile(r"\b(?:Erai-raws|Erai-raws\.com)\b", regex.IGNORECASE), value("Erai-raws"), {"remove": True})
+    parser.add_handler("group", regex.compile(r"^\[([^[\]]+)]"))
+
+    def handle_group_exclusion(context):
+        result = context["result"]
+        if "group" in result and result["group"] in ["-", ""]:
+            del result["group"]
+        return None
+    
+    parser.add_handler("group", handle_group_exclusion)

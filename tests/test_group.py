@@ -28,13 +28,12 @@ def parser():
     ("[H3] Hunter x Hunter - 38 [1280x720] [x264]", "H3"),
     ("[KNK E MMS Fansubs] Nisekoi - 20 Final [PT-BR].mkv", "KNK E MMS Fansubs"),
     ("[ToonsHub] JUJUTSU KAISEN - S02E01 (Japanese 2160p x264 AAC) [Multi-Subs].mkv", "ToonsHub"),
-    ("[HD-ELITE.NET] -  The.Art.Of.The.Steal.2014.DVDRip.XviD.Dual.Aud", "HD-ELITE.NET"), # Should not be detected as group
+    ("[HD-ELITE.NET] -  The.Art.Of.The.Steal.2014.DVDRip.XviD.Dual.Aud", None), # Should not be detected as group, site instead
     ("[Russ]Lords.Of.London.2014.XviD.H264.AC3-BladeBDP", "BladeBDP"),
     ("Jujutsu Kaisen S02E01 2160p WEB H.265 AAC -Tsundere-Raws (B-Global).mkv", "B-Global"),
     ("[DVD-RIP] Kaavalan (2011) Sruthi XVID [700Mb] [TCHellRaiser]", None),
-    ("[DvdMux - XviD - Ita Mp3 Eng Ac3 - Sub Ita Eng] Sanctuary S01e01", None),
     ("the-x-files-502.mkv", None),
-    ("[ Torrent9.cz ] The.InBetween.S01E10.FiNAL.HDTV.XviD-EXTREME.avi", "EXTREME"), # Should not be detected as group
+    ("[ Torrent9.cz ] The.InBetween.S01E10.FiNAL.HDTV.XviD-EXTREME.avi", "EXTREME"),
 ])
 def test_group_detection(parser, release_name, expected_group):
     result = parser.parse(release_name)

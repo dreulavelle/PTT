@@ -213,6 +213,7 @@ def parser():
     ("www.1TamilMV.cz - Mirzapur (2020) S02 EP (01-10) - HQ HDRip - [Tam+ Tel] - x264 - AAC - 1GB - ESub", ["telugu", "tamil"]),
     ("www.1TamilMV.cz - The Game of Chathurangam (2023) WEB-DL - 1080p - AVC - (AAC 2.0) [Tamil + Malayalam] - 1.2GB.mkv", ["tamil", "malayalam"]),
     ("www.1TamilMV.yt - Anchakkallakokkan (2024) Malayalam HQ HDRip - 720p - HEVC - (DD+5.1 - 192Kbps & AAC) - 750MB - ESub.mkv", ["malayalam"]),
+    ("Anatomia De Grey - Temporada 19 [HDTV][Cap.1905][Castellano][www.AtomoHD.nu].avi", ["spanish"]),
 ])
 def test_languages_detection(release_name, expected_languages, parser):
     result = parser.parse(release_name)
