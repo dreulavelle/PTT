@@ -77,7 +77,6 @@ def add_defaults(parser: Parser):
     # Complete
     parser.add_handler("complete", regex.compile(r"\b((?:19\d|20[012])\d[ .]?-[ .]?(?:19\d|20[012])\d)\b"), boolean, {"remove": True})  # year range
     parser.add_handler("complete", regex.compile(r"[([][ .]?((?:19\d|20[012])\d[ .]?-[ .]?\d{2})[ .]?[)\]]"), boolean, {"remove": True})  # year range
-    parser.add_handler("complete", regex.compile(r"Completa", regex.IGNORECASE), boolean, {"remove": True})  # year range
 
     # Bit Rate
     parser.add_handler("bitrate", regex.compile(r"\b\d+[kmg]bps\b", regex.IGNORECASE), lowercase, {"remove": True})
@@ -132,6 +131,8 @@ def add_defaults(parser: Parser):
     # Quality
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?S(?:YNC)?(?:Rip)?\b", regex.IGNORECASE), value("TeleSync"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?C(?:INE)?(?:Rip)?\b"), value("TeleCine"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bP(?:RE)?-?(HD|DVD)(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bBlu[ .-]*Ray\b(?=.*remux)", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"(?:BD|BR|UHD)[- ]?remux", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"(?<=remux.*)\bBlu[ .-]*Ray\b", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
@@ -143,8 +144,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("quality", regex.compile(r"\bBD[ .-]*Rip\b|\bBDR\b|\bBD-RM\b|[[(]BD[\]) .,-]", regex.IGNORECASE), value("BDRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?DVD[ .-]*Rip\b", regex.IGNORECASE), value("DVDRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bVHS[ .-]*Rip?\b", regex.IGNORECASE), value("VHSRip"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bP(?:re.?)?DVD(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bDVD(?:R\d?|.*Mux)?\b", regex.IGNORECASE), value("DVD"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bVHS\b", regex.IGNORECASE), value("VHS"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bPPVRip\b", regex.IGNORECASE), value("PPVRip"), {"remove": True})
@@ -208,7 +207,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\b(?:DTS(?:-HD)?|True(HD)?)\b", regex.IGNORECASE), uniq_concat(value("truehd")), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bFLAC(?:\+?2\.0)?(?:x[2-4])?\b", regex.IGNORECASE), uniq_concat(value("flac")), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bEAC-?3(?:[. -]?[256]\.[01])?", regex.IGNORECASE), uniq_concat(value("eac3")), {"remove": True})
-    #parser.add_handler("audio", regex.compile(r"\bAC-?3(?:[.-]5\.1|[x ]2\.?0?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bAC-?3(x2)?(?:[ .-](5\.1)?[x+]2\.?0?x?3?)?\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\b5\.1ch\b", regex.IGNORECASE), uniq_concat(value("ac3")), {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bDD[\+P]?5.?1\b", regex.IGNORECASE), uniq_concat(value("dd5.1")), {"remove": True, "skipIfAlreadyFound": False})
@@ -249,6 +247,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("complete", regex.compile(r"\bcollection\b.*\b(?:set|pack|movies)\b", regex.IGNORECASE), boolean)
     parser.add_handler("complete", regex.compile(r"\bcollection\b", regex.IGNORECASE), boolean, {"skipFromTitle": True})
     parser.add_handler("complete", regex.compile(r"duology|trilogy|quadr[oi]logy|tetralogy|pentalogy|hexalogy|heptalogy|anthology|saga", regex.IGNORECASE), boolean, {"skipIfAlreadyFound": False})
+    parser.add_handler("complete", regex.compile(r"Completa", regex.IGNORECASE), boolean, {"remove": True})
 
     # Seasons
     parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)((?:s\d{1,2}[., +/\\&-]+)+s\d{1,2}\b)", regex.IGNORECASE), range_func, {"remove": True})
@@ -332,13 +331,16 @@ def add_defaults(parser: Parser):
 
     parser.add_handler("episodes", handle_episodes)
 
+    # Country Code
+    parser.add_handler("country", regex.compile(r"\b(US|UK)\b"), value("$1"))
+
     # Languages
     parser.add_handler("languages", regex.compile(r"\bmulti(?:ple)?[ .-]*(?:su?$|sub\w*|dub\w*)\b|msub", regex.IGNORECASE), uniq_concat(value("multi subs")), {"skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("languages", regex.compile(r"\bmulti(?:ple)?[ .-]*(?:lang(?:uages?)?|audio|VF2)?\b", regex.IGNORECASE), uniq_concat(value("multi audio")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\btri(?:ple)?[ .-]*(?:audio|dub\w*)\b", regex.IGNORECASE), uniq_concat(value("multi audio")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bdual[ .-]*(?:au?$|[aá]udio|line)\b", regex.IGNORECASE), uniq_concat(value("dual audio")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bdual\b(?![ .-]*sub)", regex.IGNORECASE), uniq_concat(value("dual audio")), {"skipIfAlreadyFound": False})
-    parser.add_handler("languages", regex.compile(r"\b([\.\[\(]US[\.\]\)]\b|engl?(?:sub[A-Z]*)?)\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\bengl?(?:sub[A-Z]*)?\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\beng?sub[A-Z]*\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bing(?:l[eéê]s)?\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\benglish\W+(?:subs?|sdh|hi)\b", regex.IGNORECASE), uniq_concat(value("english")), {"skipIfAlreadyFound": False})
@@ -484,7 +486,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("group", handle_group)
 
     # 3D
-    parser.add_handler("3d", regex.compile(r"\b((Half.)?SBS|3D)\b", regex.IGNORECASE), boolean, {"remove": True})
+    parser.add_handler("3d", regex.compile(r"\b((Half.)?SBS|HSBS)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
+    parser.add_handler("3d", regex.compile(r"\b3D\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
 
     # Site
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
