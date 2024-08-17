@@ -70,7 +70,8 @@ def parser():
     ("Соперницы (Алексей Дмитриев) [1929, драма, WEB-DLRip]", "WEB-DLRip"),
     ("Dragon Blade (2015) HDTSRip Exclusive", "TeleSync"),
     ("Criminal (2016) Hindi Dubbed HDTCRip", "TeleCine"),
-    ("Avatar La Voie de l'eau.FRENCH.CAMHD.H264.AAC", "CAM")
+    ("Avatar La Voie de l'eau.FRENCH.CAMHD.H264.AAC", "CAM"),
+    ("www.1TamilBlasters.link - Indian 2 (2024) [Tamil - 1080p Proper HQ PRE-HDRip - x264 - AAC - 6.3GB - HQ Real Audio].mkv", "SCR")
 ])
 def test_source_detection(parser, release_name, expected_quality):
     result = parser.parse(release_name)

@@ -133,6 +133,7 @@ def parser():
     ("Skins Season S01-S07 COMPLETE UK Soundtrack 720p WEB-DL", {
         "seasons": [1, 2, 3, 4, 5, 6, 7],
         "title": "Skins",
+        "country": "UK",
         "resolution": "720p",
         "quality": "WEB-DL",
         "languages": [],
@@ -317,34 +318,12 @@ def parser():
         "title": "The Witcher",
         "seasons": [1],
         "episodes": [],
-        "languages": ["english"],
+        "languages": [],
+        "country": "US",
         "quality": "WEB",
         "resolution": "1080p",
         "codec": "x264",
         "group": "STRiFE"
-    }),
-    ("The.Office.US.S01.1080P.BLURAY.REMUX.AVC.DD5.1-NOGRP", {
-        "title": "The Office",
-        "seasons": [1],
-        "episodes": [],
-        "languages": ["english"],
-        "quality": "BluRay REMUX",
-        "resolution": "1080p",
-        "audio": ["dd5.1"],
-        "channels": ["5.1"],
-        "codec": "avc",
-        "group": "NOGRP"
-    }),
-    ("The.Office.US.S01-09.COMPLETE.SERIES.1080P.BLURAY.X265-HIQVE", {
-        "title": "The Office",
-        "seasons": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        "episodes": [],
-        "languages": ["english"],
-        "quality": "BluRay",
-        "resolution": "1080p",
-        "codec": "x265",
-        "complete": True,
-        "group": "HIQVE"
     }),
     ("Madame Web (2024) 1080p HINDI ENGLISH 10bit AMZN WEBRip DDP5 1 x265 HEVC - PSA Shadow", {
         "title": "Madame Web",
@@ -639,6 +618,105 @@ def parser():
         "languages": [],
         "episodes": [],
         "seasons": []
+    }),
+    ("Dune.Part.Two.2024.2160p.WEB-DL.DDP5.1.Atmos.DV.HDR.H.265-FLUX[TGx]", {
+        "title": "Dune Part Two",
+        "year": 2024,
+        "resolution": "2160p",
+        "quality": "WEB-DL",
+        "codec": "x265",
+        "audio": ["atmos", "dd5.1"],
+        "channels": ["5.1"],
+        "group": "FLUX",
+        "episodes": [],
+        "hdr": ["DV", "HDR"],
+        "languages": [],
+        "seasons": []
+    }),
+    ("Saw.3D.2010.1080p.ITA-ENG.BluRay.x265.AAC-V3SP4EV3R.mkv", {
+        "title": "Saw 3D",
+        "year": 2010,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["english", "italian"],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "codec": "x265",
+        "audio": ["aac"],
+        "container": "mkv",
+        "extension": "mkv",
+        "group": "V3SP4EV3R"
+    }),
+    ("Dead Before Dawn 3D (2012) [3D.BLU-RAY] [1080p 3D] [BluRay] [HSBS] [YTS.MX]", {
+        "title": "Dead Before Dawn 3D",
+        "year": 2012,
+        "languages": [],
+        "seasons": [],
+        "episodes": [],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "3d": True
+    }),
+    ("Wonder.Woman.1984.2020.3D.1080p.BluRay.x264-SURCODE[rarbg]", {
+        "title": "Wonder Woman 1984",
+        "year": 2020,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "codec": "x264",
+        "group": "SURCODE",
+        "3d": True
+    }),
+    ("The.Last.of.Us.S01E08.1080p.WEB.H264-CAKES[TGx]", {
+        "title": "The Last of Us",
+        "seasons": [1],
+        "episodes": [8],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB",
+        "codec": "h264",
+        "group": "CAKES"
+    }),
+    ("The.Office.UK.S01.1080P.BLURAY.REMUX.AVC.DD5.1-NOGRP", {
+        "title": "The Office",
+        "seasons": [1],
+        "episodes": [],
+        "languages": [],
+        "country": "UK",
+        "quality": "BluRay REMUX",
+        "resolution": "1080p",
+        "audio": ["dd5.1"],
+        "channels": ["5.1"],
+        "codec": "avc",
+        "group": "NOGRP"
+    }),
+    ("The.Office.US.S01-09.COMPLETE.SERIES.1080P.BLURAY.X265-HIQVE", {
+        "title": "The Office",
+        "seasons": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "episodes": [],
+        "country": "US",
+        "languages": [],
+        "quality": "BluRay",
+        "resolution": "1080p",
+        "codec": "x265",
+        "complete": True,
+        "group": "HIQVE"
+    }),
+    ("Hard Knocks 2001 S23E01 1080p MAX WEB-DL DDP2 0 x264-NTb[EZTVx.to].mkv", {
+        "title": "Hard Knocks",
+        "year": 2001,
+        "seasons": [23],
+        "episodes": [1],
+        "languages": [],
+        "quality": "WEB-DL",
+        "resolution": "1080p",
+        "codec": "x264",
+        "group": "NTb",
+        "extension": "mkv",
+        "container": "mkv",
+        "site": "EZTVx.to"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
