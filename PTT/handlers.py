@@ -77,6 +77,7 @@ def add_defaults(parser: Parser):
     # Complete
     parser.add_handler("complete", regex.compile(r"\b((?:19\d|20[012])\d[ .]?-[ .]?(?:19\d|20[012])\d)\b"), boolean, {"remove": True})  # year range
     parser.add_handler("complete", regex.compile(r"[([][ .]?((?:19\d|20[012])\d[ .]?-[ .]?\d{2})[ .]?[)\]]"), boolean, {"remove": True})  # year range
+    parser.add_handler("complete", regex.compile(r"Completa", regex.IGNORECASE), boolean, {"remove": True})  # year range
 
     # Bit Rate
     parser.add_handler("bitrate", regex.compile(r"\b\d+[kmg]bps\b", regex.IGNORECASE), lowercase, {"remove": True})
@@ -487,18 +488,19 @@ def add_defaults(parser: Parser):
 
     # Site
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
+    parser.add_handler("site", regex.compile(r"\bwww\.\w*\.\w+\b", regex.IGNORECASE), value("$1"), {"remove": True})
 
     # Size
     parser.add_handler("size", regex.compile(r"\b(\d+(\.\d+)?\s?(MB|GB|TB))\b", regex.IGNORECASE), none, {"remove": True})
 
     # Networks
     parser.add_handler("network", regex.compile(r"\bATVP?\b", regex.IGNORECASE), value("Apple TV"), {"remove": True})
-    parser.add_handler("network", regex.compile(r"\bAMZN|Amazon\b", regex.IGNORECASE), value("Amazon Studios"), {"remove": True})
+    parser.add_handler("network", regex.compile(r"\bAMZN\b", regex.IGNORECASE), value("Amazon"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bNF|Netflix\b", regex.IGNORECASE), value("Netflix"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bNICK(elodeon)?\b", regex.IGNORECASE), value("Nickelodeon"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bDSNY?P?\b", regex.IGNORECASE), value("Disney"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bH(MAX|BO)\b", regex.IGNORECASE), value("HBO"), {"remove": True})
-    parser.add_handler("network", regex.compile(r"\bHULU\b", regex.IGNORECASE), value("Hulu Networks"), {"remove": True})
+    parser.add_handler("network", regex.compile(r"\bHULU\b", regex.IGNORECASE), value("Hulu"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bCBS\b", regex.IGNORECASE), value("CBS"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bNBC\b", regex.IGNORECASE), value("NBC"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bAMC\b", regex.IGNORECASE), value("AMC"), {"remove": True})
@@ -525,3 +527,5 @@ def add_defaults(parser: Parser):
         return None
     
     parser.add_handler("group", handle_group_exclusion)
+
+    parser.add_handler("trash", regex.compile(r"acesse o original", regex.IGNORECASE), boolean, {"remove": True})

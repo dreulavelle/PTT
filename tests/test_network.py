@@ -19,6 +19,12 @@ def parser():
     ("Jimmy Kimmel 2017 05 03 720p HDTV DD5 1 MPEG2-CTL", None, "Jimmy Kimmel"),
     ("[Anime Time] Re Zero kara Hajimeru Isekai Seikatsu (Season 2 Part 1) [1080p][HEVC10bit x265][Multi Sub]", None, "Re Zero kara Hajimeru Isekai Seikatsu"),
     ("[naiyas] Fate Stay Night - Unlimited Blade Works Movie [BD 1080P HEVC10 QAACx2 Dual Audio]", None, "Fate Stay Night - Unlimited Blade Works Movie"),
+    ("Extraction.2020.720p.NF.WEB-DL.Dual.Atmos.5.1.x264-BonsaiHD", "Netflix", "Extraction"),
+    ("Guilty (2020) NF Original 720p WEBRip [Hindi + English] AAC DD-5.1 ESub x264 - Shadow.mkv", "Netflix", "Guilty"),
+    ("The.Bear.S03.COMPLETE.1080p.HULU.WEB.H264-SuccessfulCrab[TGx]", "Hulu", "The Bear"),
+    ("Futurama.S08E03.How.the.West.Was.1010001.1080p.HULU.WEB-DL.DDP5.1.H.264-FLUX.mkv", "Hulu", "Futurama"),
+    ("Amazon.Queen.2021.720p.AMZN.WEBRip.800MB.x264-GalaxyRG", "Amazon", "Amazon Queen"),
+    ("The.Mummy.2017.1080p.AMZN.WEBRip.DD5.1.H.264-GalaxyRG", "Amazon", "The Mummy"),
 ])
 def test_codec_detection(parser, release_name, expected_network, expected_title):
     result = parser.parse(release_name)
