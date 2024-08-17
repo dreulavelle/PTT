@@ -33,18 +33,27 @@ def add_defaults(parser: Parser):
     parser.add_handler("resolution", regex.compile(r"\[?\]?1280x\d{3}[\])?]?", regex.IGNORECASE), value("720p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\[?\]?(\d{3,4}x\d{3,4})[\])?]?p?", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(480|720|1080)0[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)(2160p?|4k)"), value("2160p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)1080p?"), value("1080p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)720p?"), value("720p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)480p?"), value("480p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)(2160p?|4k)", regex.IGNORECASE), value("2160p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)1080p?", regex.IGNORECASE), value("1080p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)720p?", regex.IGNORECASE), value("720p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)480p?", regex.IGNORECASE), value("480p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\b(?:4k|2160p|1080p|720p|480p)(?!.*\b(?:4k|2160p|1080p|720p|480p)\b)", regex.IGNORECASE), transform_resolution, {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("2160p"), {"remove": True})
-    # parser.add_handler("resolution", regex.compile(r"21600?[pi]", regex.IGNORECASE), value("4k"), {"skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("resolution", regex.compile(r"(?:^|\D)(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
-    
-    # Classify unknown resolutions with their quality counterpart. (normalize qualities to resolution) - DO NOT REMOVE HERE!
-    parser.add_handler("resolution", regex.compile(r"\bDVD(.*Rip|.*Mux)?\b", regex.IGNORECASE), value("480p"), {"remove": False})
+
+    # Trash (Equivalent to RTN auto-trasher) - DO NOT REMOVE HERE!
+    # This one is pretty strict, but it removes a lot of the garbage
+    # parser.add_handler("trash", regex.compile(r"\b(\w+rip|hc|((h[dq]|clean)(.+)?)?cam.?(rip|rp)?|(h[dq])?(ts|tc)(?:\d{3,4})?|tele(sync|cine)?|\d+[0o]+([mg]b)|\d{3,4}tc)\b"), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:H[DQ][ .-]*)?CAM(?!.?(S|E|\()\d+)(?:H[DQ])?(?:[ .-]*Rip|Rp)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?(C|S)(?:INE|YNC)?(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\bPre.?DVD(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\bDVB[ .-]*(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\bSAT[ .-]*Rips?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\bLeaked\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(threesixtyp|360p|244p)\b", regex.IGNORECASE), boolean, {"remove": False})
 
     # Date
     parser.add_handler("date", regex.compile(r"(?:\W|^)([[(]?(?:19[6-9]|20[012])[0-9]([. \-/\\])(?:0[1-9]|1[012])\2(?:0[1-9]|[12][0-9]|3[01])[])]?)(?:\W|$)"), date("YYYY MM DD"), {"remove": True})
@@ -89,14 +98,17 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bDiamond\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
 
+    # Upscaled
+    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)Upscaled?\b", regex.IGNORECASE), boolean)
+
     # Convert
-    parser.add_handler("convert", regex.compile(r"CONVERT"), boolean)
+    parser.add_handler("convert", regex.compile(r"\bCONVERT\b", regex.IGNORECASE), boolean)
 
     # Hardcoded
     parser.add_handler("hardcoded", regex.compile(r"\bHC|HARDCODED\b", regex.IGNORECASE), boolean)
 
     # Proper
-    parser.add_handler("proper", regex.compile(r"(?:REAL.)?PROPER"), boolean)
+    parser.add_handler("proper", regex.compile(r"\b(?:REAL.)?PROPER\b", regex.IGNORECASE), boolean)
 
     # Repack
     parser.add_handler("repack", regex.compile(r"\bREPACK|RERIP\b", regex.IGNORECASE), boolean)
@@ -117,8 +129,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("region", regex.compile(r"R\d\b"), none, {"skipIfFirst": True})
 
     # Quality
-    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?CAM(?:H[DQ])?(?:[ .-]*Rip)?\b", regex.IGNORECASE), value("CAM"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print", regex.IGNORECASE), value("CAM"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?S(?:YNC)?(?:Rip)?\b", regex.IGNORECASE), value("TeleSync"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?C(?:INE)?(?:Rip)?\b"), value("TeleCine"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bBlu[ .-]*Ray\b(?=.*remux)", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
@@ -133,7 +143,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?DVD[ .-]*Rip\b", regex.IGNORECASE), value("DVDRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bVHS[ .-]*Rip?\b", regex.IGNORECASE), value("VHSRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bP(?:re)?DVD(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bP(?:re.?)?DVD(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bDVD(?:R\d?|.*Mux)?\b", regex.IGNORECASE), value("DVD"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bVHS\b", regex.IGNORECASE), value("VHS"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bPPVRip\b", regex.IGNORECASE), value("PPVRip"), {"remove": True})
@@ -142,15 +152,17 @@ def add_defaults(parser: Parser):
     parser.add_handler("quality", regex.compile(r"\bSAT[ .-]*Rips?\b", regex.IGNORECASE), value("SATRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bTVRips?\b", regex.IGNORECASE), value("TVRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bR5\b", regex.IGNORECASE), value("R5"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(WEB[ .-]?DL[ .-]?Rip)\b", regex.IGNORECASE), value("WEB-DLRip"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\b(?:DL|WEB|BD|BR)MUX\b", regex.IGNORECASE), value("WEBMux"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bWEB[ .-]*Rip\b", regex.IGNORECASE), value("WEBRip"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bWEB[ .-]*DL\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\bWEB(?!([ \.\-\(\],]+\d|.BDrip|.DLRIP|DL|\d+|.Web))\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(?:DL|WEB|BD|BR)MUX\b", regex.IGNORECASE), value("$1"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bWEB[ .-]?DL[ .-]?Rip\b", regex.IGNORECASE), value("WEB-DLRip"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\bWEB[ .-]*(DL|.BDrip|.DLRIP)\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\b(?<!\w.)WEB\b|\bWEB(?!([ \.\-\(\],]+\d))\b", regex.IGNORECASE), value("WEB"), {"remove": True, "skipFromTitle": True}) # 
+    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?CAM(?!.?(S|E|\()\d+)(?:H[DQ])?(?:[ .-]*Rip|Rp)?\b", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True}) # can appear in a title as well, check it last
+    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True}) # can appear in a title as well, check it last
 
     # Video depth
     parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
-    parser.add_handler("bit_depth", regex.compile(r"(?:8|10|12)[-\.]?bit", regex.IGNORECASE), lowercase, {"remove": True})
+    parser.add_handler("bit_depth", regex.compile(r"(?:8|10|12)[-\.]?(?=bit)", regex.IGNORECASE), value("$1bit"), {"remove": True})
     parser.add_handler("bit_depth", regex.compile(r"\bhdr10\b", regex.IGNORECASE), value("10bit"))
     parser.add_handler("bit_depth", regex.compile(r"\bhi10\b", regex.IGNORECASE), value("10bit"))
 
