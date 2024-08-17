@@ -27,7 +27,7 @@ def parser():
         "seasons": [],
         "episodes": [],
         "languages": [],
-        "quality": "WEB-DL",
+        "quality": "WEB",
         "codec": "x264",
         "group": "PUNCH",
         "ppv": True,

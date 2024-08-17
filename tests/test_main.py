@@ -34,7 +34,6 @@ def parser():
     ("Da Vinci Code DVDRip", {
         "title": "Da Vinci Code",
         "quality": "DVDRip",
-        "resolution": "480p",
         "languages": [],
         "seasons": [],
         "episodes": []
@@ -42,7 +41,6 @@ def parser():
     ("Some.girls.1998.DVDRip", {
         "title": "Some girls",
         "quality": "DVDRip",
-        "resolution": "480p",
         "year": 1998,
         "languages": [],
         "seasons": [],
@@ -51,7 +49,6 @@ def parser():
     ("Ecrit.Dans.Le.Ciel.1954.MULTI.DVDRIP.x264.AC3-gismo65", {
         "title": "Ecrit Dans Le Ciel",
         "quality": "DVDRip",
-        "resolution": "480p",
         "year": 1954,
         "languages": ["multi audio"],
         "dubbed": True,
@@ -194,6 +191,7 @@ def parser():
         "audio": ["aac"],
         "languages": [],
         "seasons": [],
+        "trash": True
     }),
     ("[GM-Team][国漫][西行纪之集结篇][The Westward Ⅱ][2019][17][AVC][GB][1080P]", {
         "title": "The Westward Ⅱ",
@@ -242,7 +240,6 @@ def parser():
     ("[DVDRip-ITA]The Fast and the Furious: Tokyo Drift [CR-Bt]", {
         "title": "The Fast and the Furious: Tokyo Drift",
         "quality": "DVDRip",
-        "resolution": "480p",
         "languages": ["italian"],
         "seasons": [],
         "episodes": []
@@ -279,7 +276,6 @@ def parser():
         "title": "Heidi",
         "episodes": [3],
         "quality": "DVDRip",
-        "resolution": "480p",
         "languages": ["latino"],
         "seasons": [],
     }),
@@ -299,7 +295,7 @@ def parser():
         "seasons": [1],
         "episodes": [],
         "languages": [],
-        "quality": "WEB-DL",
+        "quality": "WEB",
         "resolution": "1080p",
         "codec": "h264",
         "group": "EDITH"
@@ -322,7 +318,7 @@ def parser():
         "seasons": [1],
         "episodes": [],
         "languages": ["english"],
-        "quality": "WEB-DL",
+        "quality": "WEB",
         "resolution": "1080p",
         "codec": "x264",
         "group": "STRiFE"
@@ -404,7 +400,7 @@ def parser():
         "languages": ["french"],
         "container": "mkv",
         "resolution": "1080p",
-        "quality": "WEB-DL",
+        "quality": "WEB",
         "codec": "x264",
         "audio": ["aac"],
     }),
