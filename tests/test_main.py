@@ -358,7 +358,7 @@ def parser():
         "codec": "x265",
         "seasons": [],
         "episodes": [],
-        "network": "Amazon Studios"
+        "network": "Amazon"
     }),
     ("The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole", {
         "title": "The Simpsons",
@@ -483,6 +483,162 @@ def parser():
         "size": "2.3GB",
         "site": "www.5MovieRulz.show",
         "trash": True
+    }),
+    ("超能警探.Memorist.S01E01.2160p.WEB-DL.H265.AAC-FLTTH.mkv", {
+        "title": "Memorist",
+        "languages": [],
+        "seasons": [1],
+        "episodes": [1],
+        "quality": "WEB-DL",
+        "codec": "x265",
+        "audio": ["aac"],
+        "resolution": "2160p",
+        "container": "mkv",
+        "extension": "mkv",
+        "group": "FLTTH",
+    }),
+    ("Futurama.S08E03.How.the.West.Was.1010001.1080p.HULU.WEB-DL.DDP5.1.H.264-FLUX.mkv", {
+        "title": "Futurama",
+        "seasons": [8],
+        "episodes": [3],
+        "languages": [],
+        "network": "Hulu",
+        "codec": "h264",
+        "container": "mkv",
+        "extension": "mkv",
+        "audio": ["dd5.1"],
+        "channels": ["5.1"],
+        "quality": "WEB-DL",
+        "resolution": "1080p",
+        "group": "FLUX"
+    }),
+    ("V.H.S.2 [2013] 1080p BDRip x265 DTS-HD MA 5.1 Kira [SEV].mkv", {
+        "title": "V H S 2",
+        "year": 2013,
+        "languages": [],
+        "seasons": [],
+        "episodes": [],
+        "quality": "BDRip",
+        "codec": "x265",
+        "audio": ["truehd"],
+        "channels": ["5.1"],
+        "container": "mkv",
+        "extension": "mkv",
+        "resolution": "1080p"
+    }),
+    ("Бриджертоны.S02.WEB-DL.1080.HDR", {
+        "title": "Бриджертоны",
+        "seasons": [2],
+        "episodes": [],
+        "languages": [],
+        "quality": "WEB-DL",
+        "hdr": ["HDR"],
+    }),
+    ("{WWW.BLUDV.TV} Love, Death & Robots - 1ª Temporada Completa 2019 (1080p) Acesse o ORIGINAL WWW.BLUDV.TV", {
+        "title": "Love, Death & Robots",
+        "seasons": [1],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "year": 2019,
+        "complete": True,
+        "site": "WWW.BLUDV.TV",
+        "trash": True
+    }),
+    ("www.MovCr.to - Bikram Yogi, Guru, Predator (2019) 720p WEB_DL x264 ESubs [Dual Audio]-[Hindi + Eng] - 950MB - MovCr.mkv", {
+        "title": "Bikram Yogi, Guru, Predator",
+        "year": 2019,
+        "languages": ["dual audio", "english", "hindi"],
+        "quality": "WEB-DL",
+        "resolution": "720p",
+        "codec": "x264",
+        "container": "mkv",
+        "extension": "mkv",
+        "site": "www.MovCr.to",
+        "dubbed": True,
+        "episodes": [],
+        "group": "MovCr",
+        "seasons": [],
+        "size": "950MB"
+    }),
+    ("28.days.2000.1080p.bluray.x264-mimic.mkv", {
+        "title": "28 days",
+        "year": 2000,
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "codec": "x264",
+        "container": "mkv",
+        "extension": "mkv",
+        "group": "mimic",
+        "episodes": [],
+        "languages": [],
+        "seasons": []
+    }),
+    ("4.20.Massacre.2018.1080p.BluRay.x264.AAC-[YTS.MX].mp4", {
+        "title": "4 20 Massacre",
+        "year": 2018,
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "codec": "x264",
+        "audio": ["aac"],
+        "container": "mp4",
+        "extension": "mp4",
+        "languages": [],
+        "episodes": [],
+        "seasons": [],
+        "site": "YTS.MX"
+    }),
+    ("inside.out.2.2024.d.ru.ua.ts.1o8op.mkv", {
+        "title": "inside out 2",
+        "year": 2024,
+       # "resolution": "1080p", - this is correct. we dont want it to parse the resolution here.
+        "quality": "TeleSync",
+        "container": "mkv",
+        "extension": "mkv",
+        "languages": ["russian"],
+        "episodes": [],
+        "seasons": [],
+        "trash": True
+    }),
+    ("I.S.S.2023.P.WEB-DL.1O8Op.mkv", {
+        "title": "I S S",
+        "year": 2023,
+        "quality": "WEB-DL",
+        "container": "mkv",
+        "extension": "mkv",
+        "languages": [],
+        "episodes": [],
+        "seasons": []
+    }),
+    ("Skazka.2022.Pa.WEB-DL.1O8Op.mkv", {
+        "title": "Skazka",
+        "year": 2022,
+        "quality": "WEB-DL",
+        "container": "mkv",
+        "extension": "mkv",
+        "languages": [],
+        "episodes": [],
+        "seasons": []
+    }),
+    ("Spider-Man.Across.the.Spider-Verse.2023.Dt.WEBRip.1O8Op.mkv", {
+        "title": "Spider-Man Across the Spider-Verse",
+        "year": 2023,
+        "quality": "WEBRip",
+        "container": "mkv",
+        "extension": "mkv",
+        "languages": [],
+        "episodes": [],
+        "seasons": []
+    }),
+    ("Civil.War.2024.D.WEB-DL.1O8Op.mkv", {
+        "title": "Civil War",
+        "year": 2024,
+        "quality": "WEB-DL",
+        "container": "mkv",
+        "extension": "mkv",
+        "languages": [],
+        "episodes": [],
+        "seasons": []
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
