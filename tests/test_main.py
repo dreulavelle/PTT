@@ -467,6 +467,22 @@ def parser():
         "bitrate": "384kbps",
         "audio": ["truehd", "dd5.1", "aac"],
         "channels": ["5.1"],
+    }),
+    ("www.5MovieRulz.show - Khel Khel Mein (2024) 1080p Hindi DVDScr - x264 - AAC - 2.3GB.mkv", {
+        "title": "Khel Khel Mein",
+        "year": 2024,
+        "languages": ["hindi"],
+        "seasons": [],
+        "episodes": [],
+        "quality": "SCR",
+        "codec": "x264",
+        "audio": ["aac"],
+        "resolution": "1080p",
+        "container": "mkv",
+        "extension": "mkv",
+        "size": "2.3GB",
+        "site": "www.5MovieRulz.show",
+        "trash": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
