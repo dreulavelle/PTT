@@ -54,6 +54,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("trash", regex.compile(r"\bSAT[ .-]*Rips?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bLeaked\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\b(threesixtyp|360p|244p)\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\bR5|R6\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:Deleted[ .-]*)?Scene(?:s)?\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Date
     parser.add_handler("date", regex.compile(r"(?:\W|^)([[(]?(?:19[6-9]|20[012])[0-9]([. \-/\\])(?:0[1-9]|1[012])\2(?:0[1-9]|[12][0-9]|3[01])[])]?)(?:\W|$)"), date("YYYY MM DD"), {"remove": True})
