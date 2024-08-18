@@ -99,7 +99,9 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bDiamond\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
 
     # Upscaled
-    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)Upscaled?\b", regex.IGNORECASE), boolean)
+    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)(Upscaled?|Enhanced?)\b", regex.IGNORECASE), boolean)
+    parser.add_handler("upscaled", regex.compile(r"\b(?:iris2|regrade|ups(uhd|fhd|hd|4k))\b", regex.IGNORECASE), boolean)
+    parser.add_handler("upscaled", regex.compile(r"\b\.AI\.\b", regex.IGNORECASE), boolean)
 
     # Convert
     parser.add_handler("convert", regex.compile(r"\bCONVERT\b", regex.IGNORECASE), boolean)

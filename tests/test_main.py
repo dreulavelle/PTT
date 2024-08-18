@@ -717,6 +717,21 @@ def parser():
         "extension": "mkv",
         "container": "mkv",
         "site": "EZTVx.to"
+    }),
+    ("Fallout.S01E03.The.Head.2160p.DV.HDR10Plus.Ai-Enhanced.H265.DDP.5.1.MULTI.RIFE.4.15v2-60fps-DirtyHippie.mkv", {
+        "title": "Fallout",
+        "seasons": [1],
+        "episodes": [3],
+        "languages": ["multi audio"],
+        "resolution": "2160p",
+        "codec": "x265",
+        "channels": ["5.1"],
+        "group": "DirtyHippie",
+        "container": "mkv",
+        "dubbed": True,
+        "extension": "mkv",
+        "hdr": ["DV", "HDR10+"],
+        "upscaled": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
