@@ -732,6 +732,15 @@ def parser():
         "extension": "mkv",
         "hdr": ["DV", "HDR10+"],
         "upscaled": True
+    }),
+    ("BoJack Horseman [06x01-08 of 16] (2019-2020) WEB-DLRip 720p", {
+        "title": "BoJack Horseman",
+        "seasons": [6],
+        "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
+        "languages": [],
+        "resolution": "720p",
+        "quality": "WEB-DLRip",
+        "complete": True  # this is not correct, but not a big deal either..
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):

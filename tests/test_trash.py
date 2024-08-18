@@ -21,6 +21,9 @@ def parser():
     ("Oppenheimer (2023) NEW ENG 1080p HQ-CAM x264 AAC - HushRips", True),
     ("Hatyapuri 2022 1080p CAMRp Bengali AAC H264 [2GB] - HDWebMovies", True),
     ("Avengers: Infinity War (2018) 720p HQ New CAMRip Line Audios [Tamil + Telugu + Hindi + Eng] x264 1.2GB [Team TR]", True),
+    ("Brave.2012.R5.DVDRip.XViD.LiNE-UNiQUE", True),
+    ("Guardians of the Galaxy (CamRip / 2014)", True),
+    ("Guardians of the Galaxy (2014) 1080p BluRay 5.1 DTS-HD MA 7.1 [YTS] [YIFY]", False),
 ])
 def test_trash_parser(release_name, expected_trash, parser):
     result = parser.parse(release_name)
