@@ -469,7 +469,7 @@ def parser():
         "seasons": [1],
         "episodes": [1],
         "quality": "WEB-DL",
-        "codec": "x265",
+        "codec": "h265",
         "audio": ["aac"],
         "resolution": "2160p",
         "container": "mkv",
@@ -624,7 +624,7 @@ def parser():
         "year": 2024,
         "resolution": "2160p",
         "quality": "WEB-DL",
-        "codec": "x265",
+        "codec": "h265",
         "audio": ["atmos", "dd5.1"],
         "channels": ["5.1"],
         "group": "FLUX",
@@ -724,7 +724,7 @@ def parser():
         "episodes": [3],
         "languages": ["multi audio"],
         "resolution": "2160p",
-        "codec": "x265",
+        "codec": "h265",
         "channels": ["5.1"],
         "group": "DirtyHippie",
         "container": "mkv",
@@ -741,6 +741,15 @@ def parser():
         "resolution": "720p",
         "quality": "WEB-DLRip",
         "complete": True  # this is not correct, but not a big deal either..
+    }),
+    ("Трон: Наследие / TRON: Legacy (2010) WEB-DL 1080p | D | Open Matte", {
+        "title": "TRON: Legacy",
+        "year": 2010,
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "seasons": [],
+        "episodes": []
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):

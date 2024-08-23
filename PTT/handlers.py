@@ -185,7 +185,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("hdr", regex.compile(r"\bSDR\b", regex.IGNORECASE), uniq_concat(value("SDR")), {"remove": True, "skipIfAlreadyFound": False})
 
     # Codec
-    parser.add_handler("codec", regex.compile(r"\b[xh][\. \-]?264\b", regex.IGNORECASE), lowercase, {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\bx[\. \-]?264\b", regex.IGNORECASE), value("x264"), {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\bh[\. \-]?264\b", regex.IGNORECASE), value("h264"), {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\bx[\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\bh[\. \-]?265\b", regex.IGNORECASE), value("h265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?\b|\b[xh][\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("x265"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("codec", regex.compile(r"\b(?:mpe?g\d*|divx|xvid|avc|av1)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
