@@ -192,7 +192,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("codec", regex.compile(r"\bh[\. \-]?265\b", regex.IGNORECASE), value("h265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?\b|\b[xh][\. \-]?265\b", regex.IGNORECASE), value("x265"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("x265"), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("codec", regex.compile(r"\b(?:mpe?g\d*|divx|xvid|avc|av1)\b", regex.IGNORECASE), lowercase, {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("codec", regex.compile(r"\bdivx|xvid\b", regex.IGNORECASE), value("xvid"), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("codec", regex.compile(r"\bavc\b", regex.IGNORECASE), value("avc"), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("codec", regex.compile(r"\bav1\b", regex.IGNORECASE), value("av1"), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("codec", regex.compile(r"\b(?:mpe?g\d*)\b", regex.IGNORECASE), value("mpeg2"), {"remove": True, "skipIfAlreadyFound": False})
 
     def handle_space_in_codec(context):
         if context["result"].get("codec"):
