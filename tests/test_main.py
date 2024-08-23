@@ -61,7 +61,7 @@ def parser():
     ("2019 After The Fall Of New York 1983 REMASTERED BDRip x264-GHOULS", {
         "title": "2019 After The Fall Of New York",
         "quality": "BDRip",
-        "remastered": True,
+        "edition": "Remastered",
         "year": 1983,
         "codec": "x264",
         "group": "GHOULS",
