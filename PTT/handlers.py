@@ -53,7 +53,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("trash", regex.compile(r"\bDVB[ .-]*(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bSAT[ .-]*Rips?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bLeaked\b", regex.IGNORECASE), boolean, {"remove": True})
-    parser.add_handler("trash", regex.compile(r"\b(threesixtyp|360p|244p)\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"threesixtyp", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bR5|R6\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\b(?:Deleted[ .-]*)?Scene(?:s)?\b", regex.IGNORECASE), boolean, {"remove": True})
     parser.add_handler("trash", regex.compile(r"\bHQ.?(Clean)?.?(Aud(io)?)?\b", regex.IGNORECASE), boolean, {"remove": True})
@@ -451,6 +451,21 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\b(?:malay|may(?=[\]_)]?\.\w{2,4}$)|(?<=subs?\([a-z,]+)may)\b", regex.IGNORECASE), uniq_concat(value("ms")), {"skipIfFirst": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\bheb(?:rew|raico)?\b", regex.IGNORECASE), uniq_concat(value("he")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(persian|persa)\b", regex.IGNORECASE), uniq_concat(value("fa")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
+
+    parser.add_handler("languages", regex.compile(r"[\u3040-\u30ff]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # japanese
+    parser.add_handler("languages", regex.compile(r"[\u3400-\u4dbf]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
+    parser.add_handler("languages", regex.compile(r"[\u4e00-\u9fff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
+    parser.add_handler("languages", regex.compile(r"[\uf900-\ufaff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
+    parser.add_handler("languages", regex.compile(r"[\uff66-\uff9f]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # japanese
+    parser.add_handler("languages", regex.compile(r"[\u0400-\u04ff]", regex.IGNORECASE), uniq_concat(value("ru")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # russian
+    parser.add_handler("languages", regex.compile(r"[\u0600-\u06ff]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # arabic
+    parser.add_handler("languages", regex.compile(r"[\u0750-\u077f]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # arabic
+    parser.add_handler("languages", regex.compile(r"[\u0c80-\u0cff]", regex.IGNORECASE), uniq_concat(value("kn")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # kannada
+    parser.add_handler("languages", regex.compile(r"[\u0d00-\u0d7f]", regex.IGNORECASE), uniq_concat(value("ml")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # malayalam
+    parser.add_handler("languages", regex.compile(r"[\u0e00-\u0e7f]", regex.IGNORECASE), uniq_concat(value("th")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # thai
+    parser.add_handler("languages", regex.compile(r"[\u0900-\u097f]", regex.IGNORECASE), uniq_concat(value("hi")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # hindi
+    parser.add_handler("languages", regex.compile(r"[\u0980-\u09ff]", regex.IGNORECASE), uniq_concat(value("bn")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # bengali
+    parser.add_handler("languages", regex.compile(r"[\u0a00-\u0a7f]", regex.IGNORECASE), uniq_concat(value("gu")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # gujarati
 
     def infer_language_based_on_naming(context):
         title = context["title"]
