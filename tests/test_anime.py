@@ -12,7 +12,7 @@ from PTT import parse_title
         "bit_depth": "10bit",
         "dubbed": True,
         "quality": "BluRay",
-        "codec": "x265",
+        "codec": "hevc",
         "resolution": "1080p",
         "group": "iAHD",
     }),
