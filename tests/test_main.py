@@ -794,6 +794,19 @@ def parser():
         "hdr": ["DV"],
         "seasons": [],
         "trash": True
+    }),
+    ("Venom (2018) HD-TS 720p Hindi Dubbed (Clean Audio) x264", {
+        "title": "Venom",
+        "year": 2018,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["hi"],
+        "quality": "TeleSync",
+        "resolution": "720p",
+        "codec": "avc",
+        "audio": ["hq_audio"],
+        "dubbed": True,
+        "trash": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
