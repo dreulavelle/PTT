@@ -18,7 +18,7 @@ def parser():
         "episodes": [],
         "languages": [],
         "quality": "HDTV",
-        "codec": "x264",
+        "codec": "avc",
         "group": "PUNCH",
         "ppv": True,
     }),
@@ -28,7 +28,7 @@ def parser():
         "episodes": [],
         "languages": [],
         "quality": "WEB",
-        "codec": "x264",
+        "codec": "avc",
         "group": "PUNCH",
         "ppv": True,
     }),
@@ -38,7 +38,7 @@ def parser():
         "episodes": [],
         "languages": [],
         "quality": "HDTV",
-        "codec": "x264",
+        "codec": "avc",
         "ppv": True,
     })
 ])

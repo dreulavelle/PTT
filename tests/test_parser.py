@@ -30,7 +30,7 @@ def test_basic_parsed(parser):
     assert result["resolution"] == "1080p"
     assert result["year"] == 1999
     assert result["quality"] == "BluRay"
-    assert result["codec"] == "x264"
+    assert result["codec"] == "avc"
 
 
 def test_season_parser(parser):

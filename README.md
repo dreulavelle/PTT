@@ -67,7 +67,7 @@ Here are some examples of parsed torrent titles:
     "resolution": "720p",
     "year": 2021,
     "quality": "HDRip",
-    "codec": "x264",
+    "codec": "avc",
     "seasons": [1],
     "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
     "languages": ["hindi", "telugu", "tamil"],
@@ -85,7 +85,7 @@ Here are some examples of parsed torrent titles:
 ```json
 {
     "quality": "HDTV",
-    "codec": "x264",
+    "codec": "avc",
     "group": "AMB3R",
     "container": "mkv",
     "seasons": [6],
