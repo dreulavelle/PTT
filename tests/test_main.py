@@ -190,7 +190,7 @@ def parser():
         "resolution": "1080p",
         "codec": "avc",
         "audio": ["aac"],
-        "languages": [],
+        "languages": ["zh"],
         "seasons": [],
         "trash": True
     }),
@@ -201,7 +201,7 @@ def parser():
         "resolution": "1080p",
         "codec": "avc",
         "group": "GM-Team",
-        "languages": [],
+        "languages": ["zh"],
         "seasons": [],
     }),
     ("Черное зеркало / Black Mirror / Сезон 4 / Серии 1-6 (6) [2017, США, WEBRip 1080p] MVO + Eng Sub", {
@@ -209,7 +209,7 @@ def parser():
         "year": 2017,
         "seasons": [4],
         "episodes": [1, 2, 3, 4, 5, 6],
-        "languages": ["en"],
+        "languages": ["en", "ru"],
         "resolution": "1080p",
         "quality": "WEBRip",
         "subbed": True
@@ -259,11 +259,11 @@ def parser():
     }),
     ("[OFFICIAL ENG SUB] Soul Land Episode 121-125 [1080p][Soft Sub][Web-DL][Douluo Dalu][斗罗大陆]", {
         "title": "Soul Land",
+        "seasons": [],
         "episodes": [121, 122, 123, 124, 125],
+        "languages": ["en", "zh"],
         "resolution": "1080p",
         "quality": "WEB-DL",
-        "languages": ["en"],
-        "seasons": [],
         "subbed": True
     }),
     ("[720p] The God of Highschool Season 1", {
@@ -465,9 +465,9 @@ def parser():
     }),
     ("超能警探.Memorist.S01E01.2160p.WEB-DL.H265.AAC-FLTTH.mkv", {
         "title": "Memorist",
-        "languages": [],
         "seasons": [1],
         "episodes": [1],
+        "languages": ["zh"],
         "quality": "WEB-DL",
         "codec": "hevc",
         "audio": ["aac"],
@@ -509,7 +509,7 @@ def parser():
         "title": "Бриджертоны",
         "seasons": [2],
         "episodes": [],
-        "languages": [],
+        "languages": ["ru"],
         "quality": "WEB-DL",
         "hdr": ["HDR"],
     }),
@@ -747,7 +747,7 @@ def parser():
         "year": 2010,
         "seasons": [],
         "episodes": [],
-        "languages": [],
+        "languages": ["ru"],
         "resolution": "1080p",
         "quality": "WEB-DL",
     }),
@@ -778,6 +778,22 @@ def parser():
         "bitrate": "192kbps",
         "edition": "IMAX",
         "size": "8.3GB"
+    }),
+    ("【高清影视之家发布 www.hdbthd.com】奥本海默 杜比视界版本 高码版 国英多音轨 中文字幕 .oppenheimer.2023.2160p.hq.web-dl.h265.dv.ddp5.1.2audio-dreamhd", {
+        "title": "高清影视之家发布",
+        "year": 2023,
+        "languages": ["zh"],
+        "quality": "WEB-DL",
+        "codec": "hevc",
+        "audio": ["dd5.1"],
+        "channels": ["5.1"],
+        "resolution": "2160p",
+        "site": "www.hdbthd.com",
+        "episodes": [],
+        "group": "dreamhd",
+        "hdr": ["DV"],
+        "seasons": [],
+        "trash": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
