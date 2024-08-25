@@ -1,7 +1,19 @@
 import regex
 
 from PTT.parse import Parser
-from PTT.transformers import array, boolean, date, integer, lowercase, none, range_func, transform_resolution, uniq_concat, uppercase, value
+from PTT.transformers import (
+    array,
+    boolean,
+    date,
+    integer,
+    lowercase,
+    none,
+    range_func,
+    transform_resolution,
+    uniq_concat,
+    uppercase,
+    value,
+)
 
 
 def add_defaults(parser: Parser):
@@ -162,9 +174,9 @@ def add_defaults(parser: Parser):
     parser.add_handler("quality", regex.compile(r"\bWEB[ .-]*Rip\b", regex.IGNORECASE), value("WEBRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bWEB[ .-]?DL[ .-]?Rip\b", regex.IGNORECASE), value("WEB-DLRip"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bWEB[ .-]*(DL|.BDrip|.DLRIP)\b", regex.IGNORECASE), value("WEB-DL"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(?<!\w.)WEB\b|\bWEB(?!([ \.\-\(\],]+\d))\b", regex.IGNORECASE), value("WEB"), {"remove": True, "skipFromTitle": True}) # 
-    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?CAM(?!.?(S|E|\()\d+)(?:H[DQ])?(?:[ .-]*Rip|Rp)?\b", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True}) # can appear in a title as well, check it last
-    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True}) # can appear in a title as well, check it last
+    parser.add_handler("quality", regex.compile(r"\b(?<!\w.)WEB\b|\bWEB(?!([ \.\-\(\],]+\d))\b", regex.IGNORECASE), value("WEB"), {"remove": True, "skipFromTitle": True})  #
+    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?CAM(?!.?(S|E|\()\d+)(?:H[DQ])?(?:[ .-]*Rip|Rp)?\b", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True})  # can appear in a title as well, check it last
+    parser.add_handler("quality", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print", regex.IGNORECASE), value("CAM"), {"remove": True, "skipFromTitle": True})  # can appear in a title as well, check it last
     parser.add_handler("quality", regex.compile(r"\bPDTV\b", regex.IGNORECASE), value("PDTV"), {"remove": True})
 
     # Video depth
@@ -448,20 +460,20 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\bheb(?:rew|raico)?\b", regex.IGNORECASE), uniq_concat(value("he")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(persian|persa)\b", regex.IGNORECASE), uniq_concat(value("fa")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
 
-    parser.add_handler("languages", regex.compile(r"[\u3040-\u30ff]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # japanese
-    parser.add_handler("languages", regex.compile(r"[\u3400-\u4dbf]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
-    parser.add_handler("languages", regex.compile(r"[\u4e00-\u9fff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
-    parser.add_handler("languages", regex.compile(r"[\uf900-\ufaff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # chinese
-    parser.add_handler("languages", regex.compile(r"[\uff66-\uff9f]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # japanese
-    parser.add_handler("languages", regex.compile(r"[\u0400-\u04ff]", regex.IGNORECASE), uniq_concat(value("ru")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # russian
-    parser.add_handler("languages", regex.compile(r"[\u0600-\u06ff]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # arabic
-    parser.add_handler("languages", regex.compile(r"[\u0750-\u077f]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # arabic
-    parser.add_handler("languages", regex.compile(r"[\u0c80-\u0cff]", regex.IGNORECASE), uniq_concat(value("kn")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # kannada
-    parser.add_handler("languages", regex.compile(r"[\u0d00-\u0d7f]", regex.IGNORECASE), uniq_concat(value("ml")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # malayalam
-    parser.add_handler("languages", regex.compile(r"[\u0e00-\u0e7f]", regex.IGNORECASE), uniq_concat(value("th")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # thai
-    parser.add_handler("languages", regex.compile(r"[\u0900-\u097f]", regex.IGNORECASE), uniq_concat(value("hi")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # hindi
-    parser.add_handler("languages", regex.compile(r"[\u0980-\u09ff]", regex.IGNORECASE), uniq_concat(value("bn")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # bengali
-    parser.add_handler("languages", regex.compile(r"[\u0a00-\u0a7f]", regex.IGNORECASE), uniq_concat(value("gu")), {"skipFromTitle": True, "skipIfAlreadyFound": False}) # gujarati
+    parser.add_handler("languages", regex.compile(r"[\u3040-\u30ff]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # japanese
+    parser.add_handler("languages", regex.compile(r"[\u3400-\u4dbf]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # chinese
+    parser.add_handler("languages", regex.compile(r"[\u4e00-\u9fff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # chinese
+    parser.add_handler("languages", regex.compile(r"[\uf900-\ufaff]", regex.IGNORECASE), uniq_concat(value("zh")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # chinese
+    parser.add_handler("languages", regex.compile(r"[\uff66-\uff9f]", regex.IGNORECASE), uniq_concat(value("ja")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # japanese
+    parser.add_handler("languages", regex.compile(r"[\u0400-\u04ff]", regex.IGNORECASE), uniq_concat(value("ru")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # russian
+    parser.add_handler("languages", regex.compile(r"[\u0600-\u06ff]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # arabic
+    parser.add_handler("languages", regex.compile(r"[\u0750-\u077f]", regex.IGNORECASE), uniq_concat(value("ar")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # arabic
+    parser.add_handler("languages", regex.compile(r"[\u0c80-\u0cff]", regex.IGNORECASE), uniq_concat(value("kn")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # kannada
+    parser.add_handler("languages", regex.compile(r"[\u0d00-\u0d7f]", regex.IGNORECASE), uniq_concat(value("ml")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # malayalam
+    parser.add_handler("languages", regex.compile(r"[\u0e00-\u0e7f]", regex.IGNORECASE), uniq_concat(value("th")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # thai
+    parser.add_handler("languages", regex.compile(r"[\u0900-\u097f]", regex.IGNORECASE), uniq_concat(value("hi")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # hindi
+    parser.add_handler("languages", regex.compile(r"[\u0980-\u09ff]", regex.IGNORECASE), uniq_concat(value("bn")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # bengali
+    parser.add_handler("languages", regex.compile(r"[\u0a00-\u0a7f]", regex.IGNORECASE), uniq_concat(value("gu")), {"skipFromTitle": True, "skipIfAlreadyFound": False})  # gujarati
 
     def infer_language_based_on_naming(context):
         title = context["title"]
@@ -546,7 +558,7 @@ def add_defaults(parser: Parser):
         if "group" in result and result["group"] in ["-", ""]:
             del result["group"]
         return None
-    
+
     parser.add_handler("group", handle_group_exclusion)
 
     parser.add_handler("trash", regex.compile(r"acesse o original", regex.IGNORECASE), boolean, {"remove": True})

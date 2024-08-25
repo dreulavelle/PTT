@@ -204,6 +204,7 @@ def uniq_concat(chain: Callable[[str], Union[str, int]]) -> Callable[[str, Optio
 
     return inner
 
+
 def transform_resolution(input_value: str) -> str:
     """
     Transform the resolution string to a standardized format.

@@ -3,6 +3,7 @@ import pytest
 from PTT.handlers import add_defaults
 from PTT.parse import Parser
 
+
 @pytest.fixture
 def parser():
     p = Parser()

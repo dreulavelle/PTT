@@ -148,6 +148,21 @@ def clean_title(raw_title: str) -> str:
     return cleaned_title
 
 
+LANGUAGES_TRANSLATION_TABLE = {
+    "en": "English", "ja": "Japanese", "zh": "Chinese", "ru": "Russian", "ar": "Arabic", "pt": "Portuguese",
+    "es": "Spanish", "fr": "French", "de": "German", "it": "Italian", "ko": "Korean", "hi": "Hindi", "bn": "Bengali",
+    "pa": "Punjabi", "mr": "Marathi", "gu": "Gujarati", "ta": "Tamil", "te": "Telugu", "kn": "Kannada", "ml": "Malayalam",
+    "th": "Thai", "vi": "Vietnamese", "id": "Indonesian", "tr": "Turkish", "he": "Hebrew", "fa": "Persian", "uk": "Ukrainian",
+    "el": "Greek", "lt": "Lithuanian", "lv": "Latvian", "et": "Estonian", "pl": "Polish", "cs": "Czech", "sk": "Slovak",
+    "hu": "Hungarian", "ro": "Romanian", "bg": "Bulgarian", "sr": "Serbian", "hr": "Croatian", "sl": "Slovenian", "nl": "Dutch",
+    "da": "Danish", "fi": "Finnish", "sv": "Swedish", "no": "Norwegian", "ms": "Malay"
+}
+
+def translate_langs(langs: List[str]) -> List[str]:
+    """Translate a list of language codes to their corresponding language names."""
+    return [LANGUAGES_TRANSLATION_TABLE.get(lang, "") for lang in langs if lang in LANGUAGES_TRANSLATION_TABLE]
+
+
 class Parser:
     """
     A parser that can parse release titles using a set of handlers.
@@ -195,7 +210,7 @@ class Parser:
 
         self.handlers.append(handler)
 
-    def parse(self, title: str) -> Dict[str, Any]:
+    def parse(self, title: str, translate_languages: bool = False) -> Dict[str, Any]:
         """
         Parse a release title and return the parsed data as a dictionary.
 
@@ -231,6 +246,10 @@ class Parser:
         result.setdefault("episodes", [])
         result.setdefault("seasons", [])
         result.setdefault("languages", [])
+
+        if translate_languages:
+            if result["languages"]:
+                result["languages"] = translate_langs(result["languages"])
 
         # Clean the title up to end_of_title before further processing.
         title = title[:end_of_title]

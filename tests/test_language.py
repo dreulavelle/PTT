@@ -11,8 +11,6 @@ def parser():
     return p
 
 
-
-
 @pytest.mark.parametrize("release_name, expected_languages", [
     ("Deadpool 2016 1080p BluRay DTS Rus Ukr 3xEng HDCL", ["ru", "uk"]),
     ("VAIANA: MOANA (2017) NL-Retail [2D] EAGLE", ["nl"]),
@@ -219,3 +217,18 @@ def test_languages_detection(release_name, expected_languages, parser):
     result = parser.parse(release_name)
     assert isinstance(result, dict)
     assert result.get("languages") == expected_languages, f"Failed for {release_name}"
+
+
+@pytest.mark.parametrize("release_name, expected_languages", [
+    ("madagascar 720p hebrew dubbed.mkv", ["Hebrew"]),
+    ("Into.the.Night.S01E04.Ayaz.1080p.NF.WEB-DL.DDP5.1.x264-NTG_track17_[heb].srt", ["Hebrew"]),
+    ("The.Protector.2018.S03.TURKISH.WEBRip.x264-ION10", ["Turkish"]),
+    ("Recep Ivedik 6 (2020) NETFLIX 720p WEBDL (Turkish) - ExtremlymTorrents", ["Turkish"]),
+    ("The Insider*1999*[DVD5][PAL][ENG, POL, sub. ROM, TUR]", ["English", "Polish", "Romanian", "Turkish"]),
+    ("Japanese.Story.2003.1080p.WEBRip.x264-RARBG", []),
+    ("[ Torrent9.cz ] The.InBetween.S01E10.FiNAL.HDTV.XviD-EXTREME.avi", []),
+    ("Thai Massage (2022) 720p PDVDRip x264 AAC.mkv", []),
+])
+def test_translate_languages(release_name, expected_languages, parser):
+    result = parser.parse(release_name, translate_languages=True)
+    assert result["languages"] == expected_languages
