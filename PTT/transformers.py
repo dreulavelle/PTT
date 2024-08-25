@@ -213,7 +213,6 @@ def transform_resolution(input_value: str) -> str:
     """
 
     input_value = lowercase(input_value)
-    print(input_value)
 
     if "2160" in input_value or "4k" in input_value:
         return "2160p"
