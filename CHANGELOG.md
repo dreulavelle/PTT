@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/dreulavelle/PTT/compare/v1.0.0...v1.1.0) (2024-08-25)
+
+
+### Features
+
+* isort/black applied. added language translation for full langs. ([c82a068](https://github.com/dreulavelle/PTT/commit/c82a0685bb826996723b3ed3772a67312bc8f2ec))
+
 ## 1.0.0 (2024-08-25)
 
 
