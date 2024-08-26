@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/dreulavelle/PTT/compare/v1.2.0...v1.2.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* added translate langs to parse_title as well ([0324964](https://github.com/dreulavelle/PTT/commit/032496493cfbb4c92de0c5532784b70aff96c4ac))
+
 ## [1.2.0](https://github.com/dreulavelle/PTT/compare/v1.1.0...v1.2.0) (2024-08-26)
 
 
