@@ -1,15 +1,17 @@
-# parsett - Parse Torrent Titles
+# Parsett
 
-parsett (Parse Torrent Titles) is a flexible and powerful toolkit for parsing and transforming torrent titles. It provides a robust mechanism to define custom parsing handlers and transformers, making it ideal for extracting meaningful information from torrent file names.
+Parsett is a flexible and powerful toolkit for parsing and transforming torrent titles. It provides a robust mechanism to define custom parsing handlers and transformers, making it ideal for extracting meaningful information from torrent file names.
 
-**Note:** This library is a Python port of the `parse-torrent-title` library from [TheBeastLT](https://github.com/TheBeastLT/parse-torrent-title).
+> [!IMPORTANT]
+> This library is a Python port of the `parse-torrent-title` library from [TheBeastLT](https://github.com/TheBeastLT/parse-torrent-title)
+> and heavily modified to fit the needs of [RTN](https://github.com/dreulavelle/rank-torrent-name).
 
 ## Features
 
-- Easy-to-use interface for parsing torrent titles.
-- Supports custom handlers and transformers.
-- Built-in default handlers for common patterns in torrent titles.
-- Extensible and customizable.
+- **User-Friendly Interface**: Effortlessly parse torrent titles with an intuitive interface.
+- **Custom Handlers & Transformers**: Easily define and integrate your own handlers and transformers.
+- **Comprehensive Default Handlers**: Leverage built-in handlers for common torrent title patterns.
+- **Highly Extensible**: Customize and extend the toolkit to fit your specific needs.
 
 ## Installation
 
@@ -23,20 +25,30 @@ pip install parsett
 
 ### Basic Usage
 
-To parse a torrent title using the default handlers, simply call `parsett.parse()`:
+To parse a torrent title using the default handlers, simply call `parse_title()`:
 
 ```python
-import PTT
+from PTT import parse_title
 
-result = PTT.parse_title("The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole")
+result = parse_title("The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole")
 print(result)
 ```
 
-### Sample Parsed Data
+By default, languages are 2-char ISO 639-1 Standardized codes, not full names. 
+To get the full names, you can add the argument `translate_languages` to `parse_title()`:
+
+```python
+result = parse_title("The.Walking.Dead.S06E07.SUBFRENCH.HDTV.x264-AMB3R.mkv", translate_languages=True)
+print(result)
+```
+
+Would result in a `languages` field with the value `["French"]` instead of `["fr"]`.
+
+## Examples
 
 Here are some examples of parsed torrent titles:
 
-#### Example 1
+### Example 1
 
 **Title:** `The Simpsons S01E01 1080p BluRay x265 HEVC 10bit AAC 5.1 Tigole`
 
@@ -44,19 +56,20 @@ Here are some examples of parsed torrent titles:
 
 ```json
 {
-    "resolution": "1080p",
-    "quality": "BluRay",
-    "bit_depth": "10bit",
-    "codec": "hevc",
-    "audio": "aac",
+    "title": "The Simpsons",
     "seasons": [1],
     "episodes": [1],
     "languages": [],
-    "title": "The Simpsons"
+    "resolution": "1080p",
+    "quality": "BluRay",
+    "codec": "hevc",
+    "bit_depth": "10bit",
+    "audio": ["AAC"],
+    "channels": ["5.1"]
 }
 ```
 
-#### Example 2
+### Example 2
 
 **Title:** `www.Tamilblasters.party - The Wheel of Time (2021) Season 01 EP(01-08) [720p HQ HDRip - [Tam + Tel + Hin] - DDP5.1 - x264 - 2.7GB - ESubs]`
 
@@ -64,19 +77,23 @@ Here are some examples of parsed torrent titles:
 
 ```json
 {
-    "resolution": "720p",
+    "title": "The Wheel of Time",
     "year": 2021,
-    "quality": "HDRip",
-    "codec": "avc",
     "seasons": [1],
     "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
-    "languages": ["hindi", "telugu", "tamil"],
+    "languages": ["Hindi", "Telugu", "Tamil"],
+    "quality": "HDRip",
+    "resolution": "720p",
+    "codec": "avc",
+    "audio": ["Dolby Digital Plus"],
+    "channels": ["5.1"],
     "site": "www.Tamilblasters.party",
-    "title": "The Wheel of Time"
+    "size": "2.7GB",
+    "trash": True
 }
 ```
 
-#### Example 3
+### Example 3
 
 **Title:** `The.Walking.Dead.S06E07.SUBFRENCH.HDTV.x264-AMB3R.mkv`
 
@@ -84,15 +101,15 @@ Here are some examples of parsed torrent titles:
 
 ```json
 {
+    "title": "The Walking Dead",
+    "seasons": [6],
+    "episodes": [7],
+    "languages": ["French"],
     "quality": "HDTV",
     "codec": "avc",
     "group": "AMB3R",
-    "container": "mkv",
-    "seasons": [6],
-    "episodes": [7],
-    "languages": ["french"],
     "extension": "mkv",
-    "title": "The Walking Dead"
+    "container": "mkv"
 }
 ```
 
@@ -104,6 +121,9 @@ Here are the fields that are currently supported by the default handlers, along 
 - `resolution`: `str`
 - `date`: `str`
 - `year`: `int`
+- `ppv`: `bool`
+- `trash`: `bool`
+- `edition`: `str`
 - `extended`: `bool`
 - `convert`: `bool`
 - `hardcoded`: `bool`
@@ -115,9 +135,10 @@ Here are the fields that are currently supported by the default handlers, along 
 - `region`: `str`
 - `quality`: `str`
 - `bit_depth`: `str`
-- `hdr`: `str`
+- `hdr`: `list[str]`
 - `codec`: `str`
-- `audio`: `str`
+- `audio`: `list[str]`
+- `channels`: `list[str]`
 - `group`: `str`
 - `container`: `str`
 - `volumes`: `list[int]`
@@ -129,6 +150,9 @@ Here are the fields that are currently supported by the default handlers, along 
 - `dubbed`: `bool`
 - `site`: `str`
 - `extension`: `str`
+- `subbed`: `bool`
+- `documentary`: `bool`
+- `upscaled`: `bool`
 
 ## Advanced Usage
 
@@ -177,19 +201,20 @@ print(result)
 
 ## Built-in Transformers
 
-parsett comes with several built-in transformers to manipulate the extracted data. These include:
+The `parsett` library offers a variety of built-in transformers to help you manipulate and standardize the extracted data. Here’s a rundown of the available transformers:
 
-- `none`: Returns the input value without any transformation.
-- `value`: Replaces the input value with a predefined value.
-- `integer`: Converts the input value to an integer.
-- `boolean`: Returns `True` for any input.
-- `lowercase`: Converts the input value to lowercase.
-- `uppercase`: Converts the input value to uppercase.
-- `date`: Parses dates using specified format(s).
-- `range_func`: Parses a range of numbers from the input string.
-- `year_range`: Parses a range of years from the input string.
-- `array`: Wraps the input value in a list.
-- `uniq_concat`: Appends unique values to a list.
+- `none`: Leaves the input value unchanged.
+- `value`: Substitutes the input value with a predefined value.
+- `integer`: Converts the input value into an integer.
+- `boolean`: Returns `True` if the input value is truthy, otherwise `False`.
+- `lowercase`: Transforms the input value to lowercase.
+- `uppercase`: Transforms the input value to uppercase.
+- `date`: Parses and formats dates according to specified format(s).
+- `range_func`: Extracts and parses a range of numbers from the input string.
+- `year_range`: Extracts and parses a range of years from the input string.
+- `array`: Encapsulates the input value within a list.
+- `uniq_concat`: Appends unique values to an existing list.
+- `transform_resolution`: Standardizes resolution values to a consistent format.
 
 ### Example Usage of Transformers
 
@@ -271,6 +296,14 @@ parser.add_handler("uploader", regex.compile(r"Uploader: ([\w\s]+)"), uploader_h
 # Parse a string
 result = parser.parse("Anatomia De Grey - Temporada 19 [HDTV][Cap.1905][Castellano][www.AtomoHD.nu].avi Uploader: JohnDoe")
 print(result)
+```
+
+## Development
+
+To get started with development, clone the repository and install the dependencies with `poetry`:
+
+```bash
+poetry install
 ```
 
 ## Contributing

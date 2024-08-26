@@ -811,6 +811,32 @@ def parser():
         "audio": ["HQ Clean Audio"],
         "dubbed": True,
         "trash": True
+    }),
+    ("www.Tamilblasters.party - The Wheel of Time (2021) Season 01 EP(01-08) [720p HQ HDRip - [Tam + Tel + Hin] - DDP5.1 - x264 - 2.7GB - ESubs]", {
+        "title": "The Wheel of Time",
+        "year": 2021,
+        "seasons": [1],
+        "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
+        "languages": ["hi", "te", "ta"],
+        "quality": "HDRip",
+        "resolution": "720p",
+        "codec": "avc",
+        "audio": ["Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "site": "www.Tamilblasters.party",
+        "size": "2.7GB",
+        "trash": True
+    }),
+    ("The.Walking.Dead.S06E07.SUBFRENCH.HDTV.x264-AMB3R.mkv", {
+        "title": "The Walking Dead",
+        "seasons": [6],
+        "episodes": [7],
+        "languages": ["fr"],
+        "quality": "HDTV",
+        "codec": "avc",
+        "group": "AMB3R",
+        "extension": "mkv",
+        "container": "mkv"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
