@@ -215,6 +215,7 @@ class Parser:
         Parse a release title and return the parsed data as a dictionary.
 
         :param title: The release title to parse.
+        :param translate_languages: Whether to translate language codes to language names or short codes (default: False returns short codes)
         :return: A dictionary containing the parsed data.
         """
         title = regex.sub(r"_+", " ", title)
