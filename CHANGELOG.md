@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dreulavelle/PTT/compare/v1.1.0...v1.2.0) (2024-08-26)
+
+
+### Features
+
+* improvements to audio parsing. added difference between DTS Lossy vs DTS Lossless! ([8a96a0b](https://github.com/dreulavelle/PTT/commit/8a96a0bdd05bb53e4177c422b23f0ffb98dae73d))
+
 ## [1.1.0](https://github.com/dreulavelle/PTT/compare/v1.0.0...v1.1.0) (2024-08-25)
 
 
