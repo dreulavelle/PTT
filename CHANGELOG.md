@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/dreulavelle/PTT/compare/v1.2.1...v1.2.2) (2024-08-27)
+
+
+### Bug Fixes
+
+* fixed remux and shang-chi title returning as chinese ([6088ce3](https://github.com/dreulavelle/PTT/commit/6088ce394887ddada9b5e8560e658ec3962f9794))
+
 ## [1.2.1](https://github.com/dreulavelle/PTT/compare/v1.2.0...v1.2.1) (2024-08-26)
 
 
