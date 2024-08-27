@@ -837,7 +837,55 @@ def parser():
         "group": "AMB3R",
         "extension": "mkv",
         "container": "mkv"
+    }),
+    ("The Walking Dead S05E03 720p Remux x264-ASAP[ettv]", {
+        "title": "The Walking Dead",
+        "seasons": [5],
+        "episodes": [3],
+        "languages": [],
+        "quality": "REMUX",
+        "resolution": "720p",
+        "codec": "avc",
+        "group": "ASAP"
+    }),
+    ("www.TamilBlasters.vip - Shang-Chi (2021) [720p BDRip - [Tamil + Telugu + Hindi + Eng] - x264 - DDP5.1 (192 Kbps) - 1.4GB - ESubs].mkv", {
+        # should not find "Shang-Chi" as chinese language
+        "title": "Shang-Chi",
+        "year": 2021,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["en", "hi", "te", "ta"],
+        "quality": "BDRip",
+        "resolution": "720p",
+        "codec": "avc",
+        "audio": ["Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "site": "www.TamilBlasters.vip",
+        "size": "1.4GB",
+        "extension": "mkv",
+        "container": "mkv"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
+
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("www.TamilBlasters.vip - Shang-Chi (2021) [720p BDRip - [Tamil + Telugu + Hindi + Eng] - x264 - DDP5.1 (192 Kbps) - 1.4GB - ESubs].mkv", {
+#         "title": "Shang-Chi",
+#         "year": 2021,
+#         "seasons": [],
+#         "episodes": [],
+#         "languages": ["en", "hi", "te", "ta"],
+#         "quality": "BDRip",
+#         "resolution": "720p",
+#         "codec": "avc",
+#         "audio": ["Dolby Digital Plus"],
+#         "channels": ["5.1"],
+#         "site": "www.TamilBlasters.vip",
+#         "size": "1.4GB",
+#         "extension": "mkv",
+#         "container": "mkv"
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
