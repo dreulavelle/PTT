@@ -16,17 +16,22 @@ clean:
 format:
 	@poetry run black $(SRC_DIR)
 
+# Type checking
+check:
+	@poetry run pyright
+
 # Sort imports
 sort:
 	@poetry run isort $(SRC_DIR)
 
 # Run tests
-test:
+test: clean
 	@poetry run pytest
 
 # Run tests with coverage
-coverage:
+coverage: clean
 	@poetry run pytest --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
+	@poetry run pyright $(SRC_DIR)
 
 pr-ready: sort format test
 

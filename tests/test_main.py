@@ -518,7 +518,7 @@ def parser():
         "title": "Love, Death & Robots",
         "seasons": [1],
         "episodes": [],
-        "languages": [],
+        "languages": ["es"],
         "resolution": "1080p",
         "year": 2019,
         "complete": True,
@@ -828,6 +828,7 @@ def parser():
         "trash": True
     }),
     ("The.Walking.Dead.S06E07.SUBFRENCH.HDTV.x264-AMB3R.mkv", {
+        # should detect french language and subbed
         "title": "The Walking Dead",
         "seasons": [6],
         "episodes": [7],
@@ -864,28 +865,49 @@ def parser():
         "size": "1.4GB",
         "extension": "mkv",
         "container": "mkv"
+    }),
+    ("Game of Thrones 1ª a 8ª Temporada Completa [720p-1080p] [BluRay] [DUAL]", {
+        "title": "Game of Thrones",
+        "seasons": [1, 2, 3, 4, 5, 6, 7, 8],
+        "episodes": [],
+        "languages": ["es"],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "complete": True,
+        "dubbed": True
+    }),
+    ("Kill.2024.REPACK.1080p.AMZN.WEB-DL.DDP5.1.Atmos.H.264-XEBEC.mkv", {
+        "title": "Kill",
+        "year": 2024,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "audio": ["Atmos", "Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "group": "XEBEC",
+        "container": "mkv",
+        "extension": "mkv",
+        "network": "Amazon",
+        "repack": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("www.TamilBlasters.vip - Shang-Chi (2021) [720p BDRip - [Tamil + Telugu + Hindi + Eng] - x264 - DDP5.1 (192 Kbps) - 1.4GB - ESubs].mkv", {
-#         "title": "Shang-Chi",
-#         "year": 2021,
-#         "seasons": [],
-#         "episodes": [],
-#         "languages": ["en", "hi", "te", "ta"],
-#         "quality": "BDRip",
-#         "resolution": "720p",
-#         "codec": "avc",
-#         "audio": ["Dolby Digital Plus"],
-#         "channels": ["5.1"],
-#         "site": "www.TamilBlasters.vip",
-#         "size": "1.4GB",
-#         "extension": "mkv",
-#         "container": "mkv"
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("Game of Thrones 1ª a 8ª Temporada Completa [720p-1080p] [BluRay] [DUAL]", {
+        "title": "Game of Thrones",
+        "seasons": [1, 2, 3, 4, 5, 6, 7, 8],
+        "episodes": [],
+        "languages": ["es"],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "complete": True,
+        "dubbed": True
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected
