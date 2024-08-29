@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/dreulavelle/PTT/compare/v1.2.2...v1.2.3) (2024-08-29)
+
+
+### Bug Fixes
+
+* spanish titles with seasons werent parsing as seasons. added spanish lang infer as well for this. ([f890cf3](https://github.com/dreulavelle/PTT/commit/f890cf34b8e7cc48abd35749dc8c4475903f31fc))
+
 ## [1.2.2](https://github.com/dreulavelle/PTT/compare/v1.2.1...v1.2.2) (2024-08-27)
 
 
