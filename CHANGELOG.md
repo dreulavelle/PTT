@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/dreulavelle/PTT/compare/v1.2.3...v1.2.4) (2024-09-01)
+
+
+### Bug Fixes
+
+* saga in title for a couple shows/movies ([97c57e7](https://github.com/dreulavelle/PTT/commit/97c57e70953f1aee70f7d1a4621fd632f7bc54fc))
+
 ## [1.2.3](https://github.com/dreulavelle/PTT/compare/v1.2.2...v1.2.3) (2024-08-29)
 
 
