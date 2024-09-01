@@ -898,15 +898,12 @@ def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("Game of Thrones 1ª a 8ª Temporada Completa [720p-1080p] [BluRay] [DUAL]", {
-        "title": "Game of Thrones",
-        "seasons": [1, 2, 3, 4, 5, 6, 7, 8],
+    ("(500) Days of Summer (2009)", {
+        "title": "500 Days of Summer",
+        "year": 2009,
+        "seasons": [],
         "episodes": [],
-        "languages": ["es"],
-        "resolution": "1080p",
-        "quality": "BluRay",
-        "complete": True,
-        "dubbed": True
+        "languages": []
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):
