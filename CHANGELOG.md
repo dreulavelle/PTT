@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/dreulavelle/PTT/compare/v1.2.4...v1.2.5) (2024-09-01)
+
+
+### Bug Fixes
+
+* arrow date out of range issue fix. ([d19d544](https://github.com/dreulavelle/PTT/commit/d19d5448cc727e5a31995e000596bcae64f0f931))
+
 ## [1.2.4](https://github.com/dreulavelle/PTT/compare/v1.2.3...v1.2.4) (2024-09-01)
 
 
