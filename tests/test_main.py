@@ -898,12 +898,22 @@ def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("(500) Days of Summer (2009)", {
-        "title": "500 Days of Summer",
-        "year": 2009,
+    ("Driven (2001) UpScaled 2160p H265 10 bit DV HDR10+ ita eng AC3 5.1 sub ita eng Licdom.mkv", {
+        "title": "Driven",
+        "year": 2001,
         "seasons": [],
         "episodes": [],
-        "languages": []
+        "languages": ["en", "it"],
+        "resolution": "2160p",
+        "codec": "hevc",
+        "bit_depth": "10bit",
+        "hdr": ["DV", "HDR10+"],
+        "audio": ["AC3"],
+        "channels": ["5.1"],
+        "subbed": True,
+        "container": "mkv",
+        "upscaled": True,
+        "extension": "mkv"
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):

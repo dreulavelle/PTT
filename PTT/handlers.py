@@ -115,7 +115,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), value("Remastered"), {"remove": True, "skipIfAlreadyFound": True})
 
     # Upscaled
-    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)(Upscaled?|Enhanced?)\b", regex.IGNORECASE), boolean)
+    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)?(Upscaled?|Enhanced?)\b", regex.IGNORECASE), boolean)
     parser.add_handler("upscaled", regex.compile(r"\b(?:iris2|regrade|ups(uhd|fhd|hd|4k))\b", regex.IGNORECASE), boolean)
     parser.add_handler("upscaled", regex.compile(r"\b\.AI\.\b", regex.IGNORECASE), boolean)
 
