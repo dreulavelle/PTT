@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/dreulavelle/PTT/compare/v1.2.5...v1.2.6) (2024-09-01)
+
+
+### Bug Fixes
+
+* fixed upscaled handler due to missing ? in pattern ([56e1fde](https://github.com/dreulavelle/PTT/commit/56e1fde6e4f2bd77d927f049141197e386ae32f6))
+
 ## [1.2.5](https://github.com/dreulavelle/PTT/compare/v1.2.4...v1.2.5) (2024-09-01)
 
 
