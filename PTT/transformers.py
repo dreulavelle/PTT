@@ -117,7 +117,7 @@ def date(date_format: Union[str, List[str]]) -> Callable[[str], Optional[str]]:
         for fmt in formats:
             try:
                 return arrow.get(sanitized, fmt).format("YYYY-MM-DD")
-            except arrow.parser.ParserError:
+            except Exception:
                 continue
         return None
 
