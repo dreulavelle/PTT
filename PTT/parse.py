@@ -155,7 +155,7 @@ LANGUAGES_TRANSLATION_TABLE = {
     "th": "Thai", "vi": "Vietnamese", "id": "Indonesian", "tr": "Turkish", "he": "Hebrew", "fa": "Persian", "uk": "Ukrainian",
     "el": "Greek", "lt": "Lithuanian", "lv": "Latvian", "et": "Estonian", "pl": "Polish", "cs": "Czech", "sk": "Slovak",
     "hu": "Hungarian", "ro": "Romanian", "bg": "Bulgarian", "sr": "Serbian", "hr": "Croatian", "sl": "Slovenian", "nl": "Dutch",
-    "da": "Danish", "fi": "Finnish", "sv": "Swedish", "no": "Norwegian", "ms": "Malay"
+    "da": "Danish", "fi": "Finnish", "sv": "Swedish", "no": "Norwegian", "ms": "Malay", "la": "Latino"
 }
 
 def translate_langs(langs: List[str]) -> List[str]:

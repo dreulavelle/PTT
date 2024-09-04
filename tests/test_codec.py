@@ -21,6 +21,7 @@ def parser():
     ("[naiyas] Fate Stay Night - Unlimited Blade Works Movie [BD 1080P HEVC10 QAACx2 Dual Audio]", "hevc", "10bit"),
     ("[DB]_Bleach_264_[012073FE].avi", None, None),
     ("[DB]_Bleach_265_[B4A04EC9].avi", None, None),
+    ("Mad.Max.Fury.Road.2015.1080p.BluRay.DDP5.1.x265.10bit-GalaxyRG265[TGx]", "hevc", "10bit"),
 ])
 def test_codec_detection(parser, release_name, expected_codec, expected_bit_depth):
     result = parser.parse(release_name)

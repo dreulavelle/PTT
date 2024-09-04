@@ -140,7 +140,6 @@ def range_func(input_str: str) -> Optional[List[int]]:
     if len(numbers) == 1:
         return numbers
 
-    print(numbers, input_str)
     return None
 
 

@@ -189,6 +189,7 @@ def parser():
     ("Серия 11.mkv", [11]),
     ("Anatomia De Grey - Temporada 19 [HDTV][Cap.1905][Castellano][www.AtomoHD.nu].avi", [1905]),
     ("[SubsPlease] Fairy Tail - 100 Years Quest - 05 (1080p) [1107F3A9].mkv", [5]),
+    ("Mad.Max.Fury.Road.2015.1080p.BluRay.DDP5.1.x265.10bit-GalaxyRG265[TGx]", []),
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

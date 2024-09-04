@@ -277,7 +277,7 @@ def parser():
         "title": "Heidi",
         "episodes": [3],
         "quality": "DVDRip",
-        "languages": ["es"],
+        "languages": ["la"],
         "seasons": [],
     }),
     ("Anatomia De Grey - Temporada 19 [HDTV][Castellano][www.AtomoHD.nu].avi", {
@@ -349,7 +349,7 @@ def parser():
         "quality": "BluRay",
         "codec": "hevc",
         "bit_depth": "10bit",
-        "audio": ["AAC"],
+        "audio": ["AC3", "AAC"],
         "channels": ["5.1"]
     }),
     ("[DB]_Bleach_264_[012073FE].avi", {
@@ -626,7 +626,7 @@ def parser():
         "resolution": "2160p",
         "quality": "WEB-DL",
         "codec": "hevc",
-        "audio": ["Atmos", "Dolby Digital Plus"],
+        "audio": ["Dolby Digital Plus", "Atmos"],
         "channels": ["5.1"],
         "group": "FLUX",
         "episodes": [],
@@ -728,7 +728,7 @@ def parser():
         "languages": [],
         "resolution": "2160p",
         "codec": "hevc",
-        "audio": ["Dolby Digital Plus"],
+        "audio": ["AC3", "Dolby Digital Plus"],
         "channels": ["5.1"],
         "group": "DirtyHippie",
         "container": "mkv",
@@ -885,35 +885,45 @@ def parser():
         "resolution": "1080p",
         "quality": "WEB-DL",
         "codec": "avc",
-        "audio": ["Atmos", "Dolby Digital Plus"],
+        "audio": ["Dolby Digital Plus", "Atmos"],
         "channels": ["5.1"],
         "group": "XEBEC",
         "container": "mkv",
         "extension": "mkv",
         "network": "Amazon",
         "repack": True
+    }),
+    ("Mad.Max.Fury.Road.2015.1080p.BluRay.DDP5.1.x265.10bit-GalaxyRG265[TGx]", {
+        "title": "Mad Max Fury Road",
+        "year": 2015,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "codec": "hevc",
+        "bit_depth": "10bit",
+        "audio": ["Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "group": "GalaxyRG265",
+        "quality": "BluRay"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("Driven (2001) UpScaled 2160p H265 10 bit DV HDR10+ ita eng AC3 5.1 sub ita eng Licdom.mkv", {
-        "title": "Driven",
-        "year": 2001,
+    ("Mad Max Fury Road (2015) [1080p] [BluRay] [x265] [10bit] [5.1] [YTS.MX]", {
+        "title": "Mad Max Fury Road",
+        "year": 2015,
         "seasons": [],
         "episodes": [],
-        "languages": ["en", "it"],
-        "resolution": "2160p",
+        "languages": [],
+        "resolution": "1080p",
         "codec": "hevc",
         "bit_depth": "10bit",
-        "hdr": ["DV", "HDR10+"],
-        "audio": ["AC3"],
         "channels": ["5.1"],
-        "subbed": True,
-        "container": "mkv",
-        "upscaled": True,
-        "extension": "mkv"
+        "audio": ["AC3"],
+        "quality": "BluRay"
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):
