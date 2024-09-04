@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.7](https://github.com/dreulavelle/PTT/compare/v1.2.6...v1.2.7) (2024-09-04)
+
+
+### Bug Fixes
+
+* fixed audio/codecs bug with returning episodes/seasons. separated latino lang from spanish. added test cases. ([d2a789d](https://github.com/dreulavelle/PTT/commit/d2a789df74ff5ba9633ded20e617fc66f713cc9d))
+
 ## [1.2.6](https://github.com/dreulavelle/PTT/compare/v1.2.5...v1.2.6) (2024-09-01)
 
 
