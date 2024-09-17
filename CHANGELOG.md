@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/dreulavelle/PTT/compare/v1.2.7...v1.3.0) (2024-09-17)
+
+
+### Features
+
+* add sample/trailer/extras handling. other minor improvements ([8b1d968](https://github.com/dreulavelle/PTT/commit/8b1d968a7cfc7932dabf18881ec493c0f9e0cc50))
+
 ## [1.2.7](https://github.com/dreulavelle/PTT/compare/v1.2.6...v1.2.7) (2024-09-04)
 
 
