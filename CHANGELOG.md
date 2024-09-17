@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/dreulavelle/PTT/compare/v1.3.0...v1.3.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* add missing module ([92c8cfa](https://github.com/dreulavelle/PTT/commit/92c8cfa4ecef00877c608027c65f017dfb48d7b4))
+
 ## [1.3.0](https://github.com/dreulavelle/PTT/compare/v1.2.7...v1.3.0) (2024-09-17)
 
 
