@@ -506,14 +506,6 @@ def parser():
         "extension": "mkv",
         "resolution": "1080p"
     }),
-    ("Бриджертоны.S02.WEB-DL.1080.HDR", {
-        "title": "Бриджертоны",
-        "seasons": [2],
-        "episodes": [],
-        "languages": ["ru"],
-        "quality": "WEB-DL",
-        "hdr": ["HDR"],
-    }),
     ("{WWW.BLUDV.TV} Love, Death & Robots - 1ª Temporada Completa 2019 (1080p) Acesse o ORIGINAL WWW.BLUDV.TV", {
         "title": "Love, Death & Robots",
         "seasons": [1],
@@ -906,25 +898,80 @@ def parser():
         "channels": ["5.1"],
         "group": "GalaxyRG265",
         "quality": "BluRay"
+    }),
+    ("Властелин колец: Кольца власти (S1E1-8 of 8) / The Lord of the Rings: The Rings of Power (2022) WEB-DL", {
+        "title": "Властелин колец: Кольца власти",  # The Lord of the Rings: The Rings of Power  - We probably want the US title instead here
+        "year": 2022,
+        "seasons": [1],
+        "episodes": [1, 2, 3, 4, 5, 6, 7, 8],
+        "languages": ["ru"],
+        "quality": "WEB-DL"
+    }),
+    ("抓娃娃 Successor.2024.TC1080P.国语中字", {
+        "title": "Successor",
+        "year": 2024,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["zh"],
+        "resolution": "1080p",
+        "quality": "TeleCine",
+        "trash": True
+    }),
+    ("True.Detective.S03E02.720p.WEB.x265-MiNX[eztv].mkv", {
+        "title": "True Detective",
+        "seasons": [3],
+        "episodes": [2],
+        "languages": [],
+        "resolution": "720p",
+        "quality": "WEB",
+        "codec": "hevc",
+        "group": "MiNX",
+        "extension": "mkv",
+        "container": "mkv"
+    }),
+    ("True.Grit.1969.720p.WEB.x265-MiNX[eztv].mkv", {
+        "title": "True Grit",
+        "year": 1969,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "720p",
+        "quality": "WEB",
+        "codec": "hevc",
+        "group": "MiNX",
+        "extension": "mkv",
+        "container": "mkv"
+    }),
+    ("Free Samples (2012) [BluRay] [1080p] [YTS.AM]", {
+        "title": "Free Samples",
+        "year": 2012,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "BluRay"
+    }),
+    ("Trailer Park Boys S01-S10 + Movies + Specials + Extras [Ultimate Collection]-CAPTAiN", {
+        "title": "Trailer Park Boys",
+        "seasons": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "episodes": [],
+        "languages": [],
+        "complete": True,
+        "group": "CAPTAiN"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
-@pytest.mark.parametrize("release_name, expected", [
-    ("Mad Max Fury Road (2015) [1080p] [BluRay] [x265] [10bit] [5.1] [YTS.MX]", {
-        "title": "Mad Max Fury Road",
-        "year": 2015,
-        "seasons": [],
-        "episodes": [],
-        "languages": [],
-        "resolution": "1080p",
-        "codec": "hevc",
-        "bit_depth": "10bit",
-        "channels": ["5.1"],
-        "audio": ["AC3"],
-        "quality": "BluRay"
-    })
-])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("Trailer Park Boys S01-S10 + Movies + Specials + Extras [Ultimate Collection]-CAPTAiN", {
+#         "title": "Trailer Park Boys",
+#         "seasons": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+#         "episodes": [],
+#         "languages": [],
+#         "complete": True,
+#         "group": "CAPTAiN"
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected

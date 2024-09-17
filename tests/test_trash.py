@@ -24,6 +24,7 @@ def parser():
     ("Brave.2012.R5.DVDRip.XViD.LiNE-UNiQUE", True),
     ("Guardians of the Galaxy (CamRip / 2014)", True),
     ("Guardians of the Galaxy (2014) 1080p BluRay 5.1 DTS-HD MA 7.1 [YTS] [YIFY]", False),
+    ("抓娃娃 Successor.2024.TC1080P.国语中字", True)
 ])
 def test_trash_parser(release_name, expected_trash, parser):
     result = parser.parse(release_name)
