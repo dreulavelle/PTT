@@ -433,7 +433,7 @@ def parser():
     ("[www.1TamilMV.pics]_The.Great.Indian.Suicide.2023.Tamil.TRUE.WEB-DL.4K.SDR.HEVC.(DD+5.1.384Kbps.&.AAC).3.2GB.ESub.mkv", {
         "title": "The Great Indian Suicide",
         "year": 2023,
-        "languages": ["ta"],
+        "languages": ["en", "ta"],
         "seasons": [],
         "episodes": [],
         "quality": "WEB-DL",
@@ -958,19 +958,39 @@ def parser():
         "languages": [],
         "complete": True,
         "group": "CAPTAiN"
+    }),
+    ("Adbhut (2024) Hindi 1080p HDTVRip x264 AAC 5.1 [2.2GB] - QRips", {
+        "title": "Adbhut",
+        "year": 2024,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["hi"],
+        "resolution": "1080p",
+        "quality": "HDTVRip",
+        "codec": "avc",
+        "audio": ["AC3", "AAC"],
+        "channels": ["5.1"],
+        "group": "QRips",
+        "size": "2.2GB"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected):
     assert parser.parse(release_name) == expected
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("Trailer Park Boys S01-S10 + Movies + Specials + Extras [Ultimate Collection]-CAPTAiN", {
-#         "title": "Trailer Park Boys",
-#         "seasons": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+#     ("Adbhut (2024) Hindi 1080p HDTVRip x264 AAC 5.1 [2.2GB] - QRips", {
+#         "title": "Adbhut",
+#         "year": 2024,
+#         "seasons": [],
 #         "episodes": [],
-#         "languages": [],
-#         "complete": True,
-#         "group": "CAPTAiN"
+#         "languages": ["hi"],
+#         "resolution": "1080p",
+#         "quality": "HDTVRip",
+#         "codec": "avc",
+#         "audio": ["AC3", "AAC"],
+#         "channels": ["5.1"],
+#         "group": "QRips",
+#         "size": "2.2GB"
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

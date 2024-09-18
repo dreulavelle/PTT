@@ -14,7 +14,7 @@ def parser():
 @pytest.mark.parametrize("release_name, expected_quality", [
     ("Nocturnal Animals 2016 VFF 1080p BluRay DTS HEVC-HD2", "BluRay"),
     ("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov", "HDTV"),
-    ("Rebecca.1940.720p.HDTVRip.HDCLUB", "HDTV"),
+    ("Rebecca.1940.720p.HDTVRip.HDCLUB", "HDTVRip"),
     ("Gossip Girl - 1ª Temporada. (SAT-Rip)", "SATRip"),
     ("A Stable Life S01E01 DVDRip x264-Ltu", "DVDRip"),
     ("The Vet Life S02E01 Dunk-A-Doctor 1080p ANPL WEB-DL AAC2 0 H 264-RTN", "WEB-DL"),
