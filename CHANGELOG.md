@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/dreulavelle/PTT/compare/v1.3.1...v1.4.0) (2024-10-02)
+
+
+### Features
+
+* add cli commands for ptt and parsett ([7580b29](https://github.com/dreulavelle/PTT/commit/7580b295c4daa27f26010763d18538b304d4becf))
+
 ## [1.3.1](https://github.com/dreulavelle/PTT/compare/v1.3.0...v1.3.1) (2024-09-17)
 
 
