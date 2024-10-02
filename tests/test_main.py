@@ -11,7 +11,7 @@ def parser():
     return p
 
 
-@pytest.mark.parametrize("release_name, expected", [
+@pytest.mark.parametrize("release_name, expected_output", [
     ("sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR", {
         "title": "sons of anarchy",
         "resolution": "480p",
@@ -972,25 +972,34 @@ def parser():
         "channels": ["5.1"],
         "group": "QRips",
         "size": "2.2GB"
+    }),
+    ("Blood Diamond (2006) 1080p BluRay H264 DolbyD 5 1 + nickarad mp4", {
+        "title": "Blood Diamond",
+        "year": 2006,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "BluRay",
+        "codec": "avc",
+        "audio": ["Dolby Digital"],
+        "channels": ["5.1"],
+        "container": "mp4"
     })
 ])
-def test_random_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("Adbhut (2024) Hindi 1080p HDTVRip x264 AAC 5.1 [2.2GB] - QRips", {
-#         "title": "Adbhut",
-#         "year": 2024,
-#         "seasons": [],
-#         "episodes": [],
-#         "languages": ["hi"],
-#         "resolution": "1080p",
-#         "quality": "HDTVRip",
-#         "codec": "avc",
-#         "audio": ["AC3", "AAC"],
-#         "channels": ["5.1"],
-#         "group": "QRips",
-#         "size": "2.2GB"
+#     ("[ www.TorrentDay.com ] - The.Lying.Game.S02E07.HDTV.XviD-AFG", {
+#         "title": "The Lying Game",
+#         "seasons": [2],
+#         "episodes": [7],
+#         "languages": [],
+#         "quality": "HDTV",
+#         "codec": "xvid",
+#         "group": "AFG",
+#         "site": "www.TorrentDay.com"
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

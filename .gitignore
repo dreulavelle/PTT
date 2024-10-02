@@ -1,6 +1,7 @@
 # Project specific files
 .vscode
 *.txt
+data.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -121,7 +121,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bTheatrical\b", regex.IGNORECASE), value("Theatrical"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bUncut\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bDiamond\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\b\.Diamond\.\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), value("Remastered"), {"remove": True, "skipIfAlreadyFound": True})
 
     # Upscaled
@@ -250,6 +250,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\b5\.1(ch)?\b", regex.IGNORECASE), uniq_concat(value("AC3")), {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("audio", regex.compile(r"\b(DD2?[\+p]2?(.?5.1)?|DD Plus|Dolby Digital Plus)\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\b(DD|Dolby.?Digital.?)2?(5.?1)?(?!.?(Plus|P|\+))\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\bDolbyD\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital")), {"remove": True, "skipIfFirst": True})
     parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("AAC")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\b(H[DQ])?.?(Clean.?Aud(io)?)\b", regex.IGNORECASE), uniq_concat(value("HQ Clean Audio")), {"remove": True, "skipIfAlreadyFound": False})
 

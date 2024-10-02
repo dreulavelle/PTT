@@ -1,8 +1,20 @@
-.PHONY: install format sort test coverage pr-ready publish clean
+.PHONY: help install clean format sort test debug coverage pr-ready publish
 
 SRC_DIR := ./PTT
 
-# Install dependencies (with dev deps for development)
+help:
+	@echo "Usage: make <target>"
+	@echo "Available targets:"
+	@echo "  install     Install dependencies"
+	@echo "  clean       Clean up temporary files"
+	@echo "  format      Format code"
+	@echo "  sort        Sort imports"
+	@echo "  test        Run tests"
+	@echo "  debug       Debug tests"
+	@echo "  coverage    Generate coverage report"
+	@echo "  pr-ready    Run format, sort, and test"
+	@echo "  publish     Publish to PyPI"
+
 install:
 	@poetry install --with dev
 
@@ -12,26 +24,20 @@ clean:
 	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
 	@find . -type d -name '.ruff_cache' -exec rm -rf {} +
 
-# Run black
 format:
 	@poetry run black $(SRC_DIR)
 
-# Type checking
-check:
-	@poetry run pyright
-
-# Sort imports
 sort:
 	@poetry run isort $(SRC_DIR)
 
-# Run tests
 test: clean
-	@poetry run pytest
+	@poetry run pytest -n 4 --dist=loadscope tests
 
-# Run tests with coverage
+debug:
+	@poetry run pytest tests/test_main.py::test_debug_releases_parse -v -ss
+
 coverage: clean
-	@poetry run pytest --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
-	@poetry run pyright $(SRC_DIR)
+	@poetry run pytest -n 4 --dist=loadscope tests --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
 
 pr-ready: sort format test
 
