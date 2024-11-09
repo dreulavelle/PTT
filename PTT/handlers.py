@@ -1,5 +1,6 @@
 import regex
 
+# from PTT.anime import anime_handler
 from PTT.parse import Parser
 from PTT.transformers import (
     array,
@@ -600,4 +601,4 @@ def add_defaults(parser: Parser):
 
     # Title (hardcoded cleanup)
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True}) # episode title
-    parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?)\b", regex.IGNORECASE), none, {"remove": True})
+    parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?|INTERNAL|HFR)\b", regex.IGNORECASE), none, {"remove": True})

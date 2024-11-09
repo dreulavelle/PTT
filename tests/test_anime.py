@@ -14,8 +14,7 @@ from PTT import parse_title
         "quality": "BluRay",
         "codec": "hevc",
         "resolution": "1080p",
-        "group": "iAHD",
-        "anime": True
+        "group": "iAHD"
     }),
     ("[SubsPlease] Tearmoon Teikoku Monogatari - 01 (1080p) [15ADAE00].mkv", {
         "title": "Tearmoon Teikoku Monogatari",
@@ -26,8 +25,7 @@ from PTT import parse_title
         "resolution": "1080p",
         "group": "SubsPlease",
         "container": "mkv",
-        "extension": "mkv",
-        "anime": True
+        "extension": "mkv"
     }),
     ("[Erai-raws] Tearmoon Teikoku Monogatari - 01 [1080p][Multiple Subtitle] [ENG][POR-BR][SPA-LA][SPA][ARA][FRE][GER][ITA][RUS]", {
         "title": "Tearmoon Teikoku Monogatari",
@@ -36,8 +34,7 @@ from PTT import parse_title
         "languages": ["en", "fr", "es", "pt", "it", "de", "ru", "ar"],
         "resolution": "1080p",
         "group": "Erai-raws",
-        "subbed": True,
-        "anime": True
+        "subbed": True
     }),
     ("Hunter x Hunter (2011) - 01 [1080p][Multiple Subtitle] [ENG][POR-BR][SPA-LA][SPA][ARA][FRE][GER][ITA][RUS]", {
         "title": "Hunter x Hunter",
@@ -57,8 +54,7 @@ from PTT import parse_title
         "extension": "mkv",
         "container": "mkv",
         "resolution": "1080p",
-        "group": "SubsPlease",
-        "anime": True
+        "group": "SubsPlease"
     }),
     ("Naruto Shippuden (001-500) [Complete Series + Movies] (Dual Audio)", {
         "title": "Naruto Shippuden",
@@ -78,7 +74,6 @@ from PTT import parse_title
         "container": "mkv",
         "extension": "mkv",
         "subbed": True,
-        "anime": True
     }),
     ("One.Piece.S01E1116.Lets.Go.Get.It!.Buggys.Big.Declaration.2160p.B-Global.WEB-DL.JPN.AAC2.0.H.264.MSubs-ToonsHub.mkv", {
         "title": "One Piece",
@@ -105,7 +100,6 @@ from PTT import parse_title
         "container": "mkv",
         "extension": "mkv",
         "subbed": True,
-        "anime": True
     }),
     ("[Exiled-Destiny]_Tokyo_Underground_Ep02v2_(41858470).mkv", {
         "title": "Tokyo Underground",
@@ -116,9 +110,8 @@ from PTT import parse_title
         "episode_code": "41858470",
         "container": "mkv",
         "extension": "mkv",
-        "anime": True
     }),
 ])
 def test_random_anime_parse(release_name, expected):
-    result = parse_title(release_name, parse_anime=True)
+    result = parse_title(release_name)
     assert result == expected
