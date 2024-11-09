@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/dreulavelle/PTT/compare/v1.3.1...v1.4.0) (2024-11-09)
+
+
+### Features
+
+* add anime parser. more tweaks to handlers. ([91e6f28](https://github.com/dreulavelle/PTT/commit/91e6f288e14ec203dfa3b26c4ce21d957885b4ba))
+* add cli commands for ptt and parsett ([7580b29](https://github.com/dreulavelle/PTT/commit/7580b295c4daa27f26010763d18538b304d4becf))
+
+
+### Bug Fixes
+
+* separate anime handler for now ([bca52c5](https://github.com/dreulavelle/PTT/commit/bca52c546f6662a9b54efad2ab18cee607865b6b))
+
 ## [1.3.1](https://github.com/dreulavelle/PTT/compare/v1.3.0...v1.3.1) (2024-09-17)
 
 
