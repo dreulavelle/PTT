@@ -35,6 +35,7 @@ ptt = "cli:main"
 
 [tool.coverage.run]
 branch = true
+omit = ["*/PTT/anime.py"]
 
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration

@@ -1,6 +1,8 @@
 [run]
 branch = True
 source = PTT
+omit =
+    */PTT/anime.py
 
 [report]
 omit =
