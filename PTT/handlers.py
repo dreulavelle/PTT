@@ -27,6 +27,10 @@ def add_defaults(parser: Parser):
     # Torrent extension
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
 
+    # Scene
+    parser.add_handler("scene", regex.compile(r"^(?=.*(\b\d{3,4}p\b).*([_. ]WEB[_. ])(?!DL)\b)|\b(-CAKES|-GGEZ|-GGWP|-GLHF|-GOSSIP|-NAISU|-KOGI|-PECULATE|-SLOT|-EDITH|-ETHEL|-ELEANOR|-B2B|-SPAMnEGGS|-FTP|-DiRT|-SYNCOPY|-BAE|-SuccessfulCrab|-NHTFS|-SURCODE|-B0MBARDIERS)"), boolean, {"remove": False})
+    parser.add_handler("scene", regex.compile(r"\b(INFLATE|DEFLATE)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfAlreadyFound": True})
+
     # Extras (This stuff can be trashed)
     parser.add_handler("extras", regex.compile(r"\bNCED\b", regex.IGNORECASE), uniq_concat(value("NCED")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bNCOP\b", regex.IGNORECASE), uniq_concat(value("NCOP")), {"remove": True})
@@ -125,7 +129,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), value("Remastered"), {"remove": True, "skipIfAlreadyFound": True})
 
     # Upscaled
-    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)?(Upscaled?|Enhanced?)\b", regex.IGNORECASE), boolean)
+    parser.add_handler("upscaled", regex.compile(r"\b(?:AI.?)?(Upscal(ed?|ing)|Enhanced?)\b", regex.IGNORECASE), boolean)
     parser.add_handler("upscaled", regex.compile(r"\b(?:iris2|regrade|ups(uhd|fhd|hd|4k))\b", regex.IGNORECASE), boolean)
     parser.add_handler("upscaled", regex.compile(r"\b\.AI\.\b", regex.IGNORECASE), boolean)
 
@@ -543,7 +547,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("group", handle_group)
 
     # 3D
+    parser.add_handler("3d", regex.compile(r"(?<=\b[12]\d{3}\b).*\b(3d|sbs|half[ .-]ou|half[ .-]sbs)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
     parser.add_handler("3d", regex.compile(r"\b((Half.)?SBS|HSBS)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
+    parser.add_handler("3d", regex.compile(r"\bBluRay3D\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
+    parser.add_handler("3d", regex.compile(r"\bBD3D\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
     parser.add_handler("3d", regex.compile(r"\b3D\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfFirst": True})
 
     # Size
@@ -593,3 +600,4 @@ def add_defaults(parser: Parser):
 
     # Title (hardcoded cleanup)
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True}) # episode title
+    parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?)\b", regex.IGNORECASE), none, {"remove": True})
