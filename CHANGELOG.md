@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/dreulavelle/PTT/compare/v1.4.0...v1.4.1) (2024-11-10)
+
+
+### Bug Fixes
+
+* dont remove documentary from title ([9222dfe](https://github.com/dreulavelle/PTT/commit/9222dfe5f8904043bf70b76f5dd1e994d3cf9bc0))
+
 ## [1.4.0](https://github.com/dreulavelle/PTT/compare/v1.3.1...v1.4.0) (2024-11-09)
 
 
