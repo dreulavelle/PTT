@@ -992,6 +992,39 @@ def parser():
         "audio": ["Dolby Digital"],
         "channels": ["5.1"],
         "container": "mp4"
+    }),
+    ("The Lockerbie Bombing (2013) Documentary HDTVRIP", {
+        "title": "The Lockerbie Bombing",
+        "year": 2013,
+        "documentary": True,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "HDTVRip"
+    }),
+    ("STEVE.martin.a.documentary.in.2.pieces.S01.COMPLETE.1080p.WEB.H264-SuccessfulCrab[TGx]", {
+        "title": "STEVE martin a documentary in 2 pieces",
+        "seasons": [1],
+        "episodes": [],
+        "languages": [],
+        "quality": "WEB",
+        "codec": "avc",
+        "group": "SuccessfulCrab",
+        "resolution": "1080p",
+        "documentary": True,
+        "scene": True
+    }),
+    ("The New Frontier S01E10 720p WEB H264-INFLATE[eztv] mkv", {
+        "title": "The New Frontier",
+        "seasons": [1],
+        "episodes": [10],
+        "languages": [],
+        "quality": "WEB",
+        "container": "mkv",
+        "codec": "avc",
+        "group": "INFLATE",
+        "resolution": "720p",
+        "scene": True
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):

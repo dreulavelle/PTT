@@ -30,7 +30,6 @@ def add_defaults(parser: Parser):
 
     # Scene
     parser.add_handler("scene", regex.compile(r"^(?=.*(\b\d{3,4}p\b).*([_. ]WEB[_. ])(?!DL)\b)|\b(-CAKES|-GGEZ|-GGWP|-GLHF|-GOSSIP|-NAISU|-KOGI|-PECULATE|-SLOT|-EDITH|-ETHEL|-ELEANOR|-B2B|-SPAMnEGGS|-FTP|-DiRT|-SYNCOPY|-BAE|-SuccessfulCrab|-NHTFS|-SURCODE|-B0MBARDIERS)"), boolean, {"remove": False})
-    parser.add_handler("scene", regex.compile(r"\b(INFLATE|DEFLATE)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfAlreadyFound": True})
 
     # Extras (This stuff can be trashed)
     parser.add_handler("extras", regex.compile(r"\bNCED\b", regex.IGNORECASE), uniq_concat(value("NCED")), {"remove": True})
@@ -153,7 +152,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("remastered", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), boolean)
 
     # Documentary
-    parser.add_handler("documentary", regex.compile(r"\bDOCU(?:menta?ry)?\b", regex.IGNORECASE), boolean)
+    parser.add_handler("documentary", regex.compile(r"\bDOCU(?:menta?ry)?\b", regex.IGNORECASE), boolean, {"skipFromTitle": True})
 
     # Unrated
     parser.add_handler("unrated", regex.compile(r"\bunrated|uncensored\b", regex.IGNORECASE), boolean)
@@ -586,6 +585,7 @@ def add_defaults(parser: Parser):
 
     # Group
     parser.add_handler("group", regex.compile(r"\(([\w-]+)\)(?:$|\.\w{2,4}$)"))
+    parser.add_handler("group", regex.compile(r"\b(INFLATE|DEFLATE)\b", ), value("$1"), {"remove": True})
     parser.add_handler("group", regex.compile(r"\b(?:Erai-raws|Erai-raws\.com)\b", regex.IGNORECASE), value("Erai-raws"), {"remove": True})
     parser.add_handler("group", regex.compile(r"^\[([^[\]]+)]"))
 

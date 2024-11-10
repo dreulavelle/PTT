@@ -62,6 +62,8 @@ def parser():
         ("S.W.A.T.2017.S08E01.720p.HDTV.x264-SYNCOPY[TGx]", "S W A T"),
         ("Grimm.INTEGRAL.MULTI.COMPLETE.BLURAY-BMTH", "Grimm"),
         ("Friends.1994.INTEGRALE.MULTI.1080p.WEB-DL.H265-FTMVHD", "Friends"),
+        ("STEVE.martin.a.documentary.in.2.pieces.S01.COMPLETE.1080p.WEB.H264-SuccessfulCrab[TGx]", "STEVE martin a documentary in 2 pieces"),
+        ("The Lockerbie Bombing (2013) Documentary HDTVRIP", "The Lockerbie Bombing"),
     ],
 )
 def test_title_detection(parser, release_name, expected_title):
