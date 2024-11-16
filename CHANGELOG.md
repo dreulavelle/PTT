@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/dreulavelle/PTT/compare/v1.4.1...v1.5.0) (2024-11-16)
+
+
+### Features
+
+* add adult parsing ([70be90e](https://github.com/dreulavelle/PTT/commit/70be90e8c015197785a8b548f8035e3bbc504216))
+
 ## [1.4.1](https://github.com/dreulavelle/PTT/compare/v1.4.0...v1.4.1) (2024-11-10)
 
 
