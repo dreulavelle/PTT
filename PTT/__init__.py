@@ -11,12 +11,7 @@ def parse_title(raw_title: str, translate_languages: bool = False) -> dict:
 
     :param raw_title: The input raw torrent title to parse.
     :param translate_languages: Whether to translate language codes to language names or short codes (default: False returns short codes)
-    :param parse_anime: Whether to parse anime title (default: False)
     :return: A dictionary with the parsed results.
-
-    Note:
-        If `parse_anime` is True, the anime handlers will be added to the parser instance.
-        This can add more time to the parsing process.
     """
     return _parser.parse(raw_title, translate_languages)
 

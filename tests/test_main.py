@@ -1025,21 +1025,52 @@ def parser():
         "group": "INFLATE",
         "resolution": "720p",
         "scene": True
+    }),
+    ("[BEST-TORRENTS.COM] The.Penguin.S01E07.MULTi.1080p.AMZN.WEB-DL.H264.DDP5.1.Atmos-K83", {
+        "title": "The Penguin",
+        "seasons": [1],
+        "episodes": [7],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "network": "Amazon",
+        "codec": "avc",
+        "dubbed": True,
+        "audio": ["Dolby Digital Plus", "Atmos"],
+        "channels": ["5.1"],
+        # "group": "K83",
+        "site": "BEST-TORRENTS.COM"
+    }),
+    ("[ Torrent911.my ] The.Penguin.S01E07.FRENCH.WEBRip.x264.mp4", {
+        "title": "The Penguin",
+        "seasons": [1],
+        "episodes": [7],
+        "languages": ["fr"],
+        "quality": "WEBRip",
+        "codec": "avc",
+        "site": "Torrent911.my",
+        "container": "mp4",
+        "extension": "mp4"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("[ www.TorrentDay.com ] - The.Lying.Game.S02E07.HDTV.XviD-AFG", {
-#         "title": "The Lying Game",
-#         "seasons": [2],
+#     ("[BEST-TORRENTS.COM] The.Penguin.S01E07.MULTi.1080p.AMZN.WEB-DL.H264.DDP5.1.Atmos-K83", {
+#         "title": "The Penguin",
+#         "seasons": [1],
 #         "episodes": [7],
 #         "languages": [],
-#         "quality": "HDTV",
-#         "codec": "xvid",
-#         "group": "AFG",
-#         "site": "www.TorrentDay.com"
+#         "resolution": "1080p",
+#         "quality": "WEB-DL",
+#         "network": "Amazon",
+#         "codec": "avc",
+#         "dubbed": True,
+#         "audio": ["Dolby Digital Plus", "Atmos"],
+#         "channels": ["5.1"],
+#         # "group": "K83",
+#         "site": "BEST-TORRENTS.COM"
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

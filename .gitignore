@@ -2,6 +2,7 @@
 .vscode
 *.txt
 data.json
+!*/keywords/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

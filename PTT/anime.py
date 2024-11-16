@@ -19,6 +19,7 @@ def anime_handler(parser: Parser):
     parser.add_handler("anime", regex.compile(r"\[Spark\]|-Spark\b"), boolean, {"remove": False, "skipIfAlreadyFound": True})
     parser.add_handler("anime", regex.compile(r"\b(HorribleRips)\b"), boolean, {"remove": False, "skipIfAlreadyFound": True})
     parser.add_handler("anime", regex.compile(r"\b(HorribleSubs)\b"), boolean, {"remove": False, "skipIfAlreadyFound": True})
+    parser.add_handler("anime", regex.compile(r"\b(SubsPlease)\b", regex.IGNORECASE), boolean, {"remove": False, "skipIfAlreadyFound": True})
     parser.add_handler("anime", regex.compile(r"\[EMBER\]|-EMBER\b"), boolean, {"remove": False, "skipIfAlreadyFound": True})
     parser.add_handler("anime", regex.compile(r"\[Judas\]|-Judas"), boolean, {"remove": False, "skipIfAlreadyFound": True})
     parser.add_handler("anime", regex.compile(r"\[Tsundere\]|-Tsundere(?!-)\b"), boolean, {"remove": False, "skipIfAlreadyFound": True})
