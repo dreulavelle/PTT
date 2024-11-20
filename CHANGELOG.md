@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/dreulavelle/PTT/compare/v1.5.0...v1.5.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* tidied adult keywords ([3e6e3b2](https://github.com/dreulavelle/PTT/commit/3e6e3b2a90f5e14008e42bdafd63dc9e834507e2))
+
 ## [1.5.0](https://github.com/dreulavelle/PTT/compare/v1.4.1...v1.5.0) (2024-11-16)
 
 
