@@ -1051,26 +1051,68 @@ def parser():
         "site": "Torrent911.my",
         "container": "mp4",
         "extension": "mp4"
+    }),
+    ("The.O.C.Seasons.01-04.AMZN.1080p.10bit.x265.hevc-Bearfish", {
+        "title": "The O C",
+        "seasons": [1, 2, 3, 4],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "network": "Amazon",
+        "codec": "hevc",
+        "bit_depth": "10bit",
+        "group": "Bearfish"
+    }),
+    ("The Adam Project 2022 2160p NF WEB-DL DDP 5 1 Atmos DoVi HDR HEVC-SiC mkv", {
+        "title": "The Adam Project",
+        "year": 2022,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "resolution": "2160p",
+        "quality": "WEB-DL",
+        "network": "Netflix",
+        "codec": "hevc",
+        "container": "mkv",
+        "audio": [
+            "Atmos",
+            "Dolby Digital Plus"
+        ],
+        "channels": [
+            "5.1"
+        ],
+        "hdr": [
+            "DV",
+            "HDR"
+        ]
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("[BEST-TORRENTS.COM] The.Penguin.S01E07.MULTi.1080p.AMZN.WEB-DL.H264.DDP5.1.Atmos-K83", {
-#         "title": "The Penguin",
-#         "seasons": [1],
-#         "episodes": [7],
+#     ("The Adam Project 2022 2160p NF WEB-DL DDP 5 1 Atmos DoVi HDR HEVC-SiC mkv", {
+#         "title": "The Adam Project",
+#         "year": 2022,
+#         "seasons": [],
+#         "episodes": [],
 #         "languages": [],
-#         "resolution": "1080p",
+#         "resolution": "2160p",
 #         "quality": "WEB-DL",
-#         "network": "Amazon",
-#         "codec": "avc",
-#         "dubbed": True,
-#         "audio": ["Dolby Digital Plus", "Atmos"],
-#         "channels": ["5.1"],
-#         # "group": "K83",
-#         "site": "BEST-TORRENTS.COM"
+#         "network": "Netflix",
+#         "codec": "hevc",
+#         "container": "mkv",
+#         "audio": [
+#             "Atmos",
+#             "Dolby Digital Plus"
+#         ],
+#         "channels": [
+#             "5.1"
+#         ],
+#         "hdr": [
+#             "DV",
+#             "HDR"
+#         ]
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

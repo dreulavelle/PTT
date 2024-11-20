@@ -30,7 +30,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
  
     # Adult
-    parser.add_handler("adult", create_adult_pattern(), boolean, {"remove": True, "skipFromTitle": True})
+    parser.add_handler("adult", regex.compile(r"\b(?:xxx|xx)\b", regex.IGNORECASE), boolean, {"remove": True, "skipFromTitle": True})
+    parser.add_handler("adult", create_adult_pattern(), boolean, {"remove": True, "skipFromTitle": True, "skipIfAlreadyFound": True})
 
     # Anime  
     # anime_handler(parser)  # adds too much time to overall parsing
@@ -330,6 +331,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"[^\w-](\d{1,2})-\d{2}(?=\.\w{2,4}$)"), array(integer))
     parser.add_handler("seasons", regex.compile(r"(?<!\bEp?(?:isode)? ?\d+\b.*)\b(\d{2})[ ._]\d{2}(?:.F)?\.\w{2,4}$"), array(integer))
     parser.add_handler("seasons", regex.compile(r"\bEp(?:isode)?\W+(\d{1,2})\.\d{1,3}\b", regex.IGNORECASE), array(integer))
+    parser.add_handler("seasons", regex.compile(r"\bSeasons?\b.*\b(\d{1,2}-\d{1,2})\b", regex.IGNORECASE), range_func)
 
     # Episodes
     parser.add_handler("episodes", regex.compile(r"(?:[\W\d]|^)e[ .]?[([]?(\d{1,3}(?:[ .-]*(?:[&+]|e){1,2}[ .]?\d{1,3})+)(?:\W|$)", regex.IGNORECASE), range_func)
@@ -609,6 +611,3 @@ def add_defaults(parser: Parser):
     # Title (hardcoded cleanup)
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True}) # episode title
     parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?|INTERNAL|HFR)\b", regex.IGNORECASE), none, {"remove": True})
-
-    # Adult (post-processing)
-    parser.add_handler("adult", regex.compile(r"\b(?:adult|porn|sex|xxx|xx)\b", regex.IGNORECASE), boolean, {"remove": True, "skipIfAlreadyFound": True, "skipFromTitle": True})
