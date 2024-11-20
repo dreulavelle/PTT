@@ -1,9 +1,7 @@
 import regex
 
 from PTT.parse import Parser
-from PTT.transformers import (
-    boolean
-)
+from PTT.transformers import boolean
 
 
 def anime_handler(parser: Parser):

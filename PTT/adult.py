@@ -1,6 +1,7 @@
-import regex
 from pathlib import Path
 from typing import Set
+
+import regex
 
 
 def load_adult_keywords(filename: str = "combined-keywords.txt") -> Set[str]:

@@ -32,6 +32,7 @@ format:
 
 sort:
 	@poetry run isort $(SRC_DIR)
+	@poetry run python cli.py dedupe ./PTT/keywords/combined-keywords.txt
 
 test: clean
 	@poetry run pytest -n 4 --dist=loadscope tests

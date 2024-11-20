@@ -21,7 +21,7 @@ def main():
     combine_parser = subparsers.add_parser('combine', help='Combine and sort keywords from txt files')
     combine_parser.add_argument('directory', type=str, help='Directory containing txt files')
 
-    # Dedup command
+    # Dedupe command
     dedupe_parser = subparsers.add_parser('dedupe', help='Deduplicate and sort a file by count. Requires `keyword` format on every line.')
     dedupe_parser.add_argument('filename', type=str, help='File to deduplicate and sort')
 
