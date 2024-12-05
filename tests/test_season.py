@@ -111,6 +111,7 @@ def parser():
     ("Проклятие острова ОУК_ 5-й сезон 09-я серия_ Прорыв Дэна.avi", [5]),
     ("Разрушители легенд. MythBusters. Сезон 15. Эпизод 09. Скрытая угроза (2015).avi", [15]),
     ("Сезон 5/Серия 11.mkv", [5]),
+    ("Vikkatakavi 01E06.mkv", [1]),
 ])
 def test_season_detection(parser, release_name, expected_seasons):
     result = parser.parse(release_name)
