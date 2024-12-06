@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.2](https://github.com/dreulavelle/PTT/compare/v1.5.1...v1.5.2) (2024-12-06)
+
+
+### Bug Fixes
+
+* allow hyphen, dot or space when parsing for HDR10plus ([57a6b82](https://github.com/dreulavelle/PTT/commit/57a6b82e9ad740a8e79d0a0c52d70d80544bac04))
+* housekeeping ([f4dec25](https://github.com/dreulavelle/PTT/commit/f4dec25b11ca4992b98a12a8e12518bfc2d656b5))
+* removed 'streaming' from adult filter ([6d3b2d4](https://github.com/dreulavelle/PTT/commit/6d3b2d490a38d0a1073cfaf62482da6c208b11d8))
+
 ## [1.5.1](https://github.com/dreulavelle/PTT/compare/v1.5.0...v1.5.1) (2024-11-20)
 
 
