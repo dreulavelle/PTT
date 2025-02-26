@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/dreulavelle/PTT/compare/v1.5.2...v1.5.3) (2025-02-26)
+
+
+### Bug Fixes
+
+* address hdscr and wrongly parsing bracketed resolution as episode ([00fcd87](https://github.com/dreulavelle/PTT/commit/00fcd879a67567c23c13b71f6136a7367144d579))
+
 ## [1.5.2](https://github.com/dreulavelle/PTT/compare/v1.5.1...v1.5.2) (2024-12-06)
 
 
