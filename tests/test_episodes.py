@@ -191,6 +191,7 @@ def parser():
     ("[SubsPlease] Fairy Tail - 100 Years Quest - 05 (1080p) [1107F3A9].mkv", [5]),
     ("Mad.Max.Fury.Road.2015.1080p.BluRay.DDP5.1.x265.10bit-GalaxyRG265[TGx]", []),
     ("Vikkatakavi 01E06.mkv", [6]),
+    ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", [])
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

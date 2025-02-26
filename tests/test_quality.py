@@ -71,7 +71,9 @@ def parser():
     ("Dragon Blade (2015) HDTSRip Exclusive", "TeleSync"),
     ("Criminal (2016) Hindi Dubbed HDTCRip", "TeleCine"),
     ("Avatar La Voie de l'eau.FRENCH.CAMHD.H264.AAC", "CAM"),
-    ("www.1TamilBlasters.link - Indian 2 (2024) [Tamil - 1080p Proper HQ PRE-HDRip - x264 - AAC - 6.3GB - HQ Real Audio].mkv", "SCR")
+    ("www.1TamilBlasters.link - Indian 2 (2024) [Tamil - 1080p Proper HQ PRE-HDRip - x264 - AAC - 6.3GB - HQ Real Audio].mkv", "SCR"),
+    ("Companion.2025.1080p.HDSCR.x264-Nuxl.mkv", "SCR"),
+
 ])
 def test_source_detection(parser, release_name, expected_quality):
     result = parser.parse(release_name)

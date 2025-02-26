@@ -83,7 +83,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("trash", regex.compile(r"\b(?:H[DQ][ .-]*)?S[ \.\-]print\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?(C|S)(?:INE|YNC)?(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bPre.?DVD(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
-    parser.add_handler("trash", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), boolean, {"remove": False})
+    parser.add_handler("trash", regex.compile(r"\b(?:DVD?|BD|BR|HD)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bDVB[ .-]*(?:Rip)?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bSAT[ .-]*Rips?\b", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bLeaked\b", regex.IGNORECASE), boolean, {"remove": True})
@@ -171,7 +171,7 @@ def add_defaults(parser: Parser):
     # Quality
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?S(?:YNC)?(?:Rip)?\b", regex.IGNORECASE), value("TeleSync"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\b(?:HD[ .-]*)?T(?:ELE)?C(?:INE)?(?:Rip)?\b"), value("TeleCine"), {"remove": True})
-    parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
+    parser.add_handler("quality", regex.compile(r"\b(?:DVD?|BD|BR|HD)?[ .-]*Scr(?:eener)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bP(?:RE)?-?(HD|DVD)(?:Rip)?\b", regex.IGNORECASE), value("SCR"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"\bBlu[ .-]*Ray\b(?=.*remux)", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
     parser.add_handler("quality", regex.compile(r"(?:BD|BR|UHD)[- ]?remux", regex.IGNORECASE), value("BluRay REMUX"), {"remove": True})
@@ -361,7 +361,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"-\s?\d{1,2}\.(\d{2,3})\s?-"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<=\D|^)(\d{1,3})[. ]?(?:of|из|iz)[. ]?\d{1,3}(?=\D|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
+    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(?!720|1080)(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(\d+)(?=.?\[([A-Z0-9]{8})])", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<![xh])\b264\b|\b265\b", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("episodes", regex.compile(r"(?<!\bMovie\s-\s)(?<=\s-\s)\d+(?=\s[-(\s])"), array(integer), {"remove": True, "skipIfAlreadyFound": True})
@@ -382,7 +382,9 @@ def add_defaults(parser: Parser):
             beginning_title = title[:end_index]
             middle_title = title[start_index:end_index]
 
-            matches = regex.search(r"(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d|\.\d)?(?:\W|$)(?!movie|film|\d+)", beginning_title, regex.IGNORECASE) or regex.search(r"^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)", middle_title, regex.IGNORECASE)
+            beginning_pattern = regex.compile(r"(?<!movie\W*|film\W*|^)(?:[ .]+-[ .]+|[([][ .]*)(\d{1,4})(?:a|b|v\d|\.\d)?(?:\W|$)(?!movie|film|\d+)(?<!\[(?:480|720|1080)\])", regex.IGNORECASE)
+            middle_pattern = regex.compile(r"^(?:[([-][ .]?)?(\d{1,4})(?:a|b|v\d)?(?:\W|$)(?!movie|film)(?!\[(480|720|1080)\])", regex.IGNORECASE)
+            matches = beginning_pattern.search(beginning_title) or middle_pattern.search(middle_title)
 
             if matches:
                 episode_numbers = [int(num) for num in regex.findall(r"\d+", matches.group(1))]
@@ -391,7 +393,7 @@ def add_defaults(parser: Parser):
 
         return None
 
-    parser.add_handler("episodes", handle_episodes)
+    parser.add_handler("episodes", handle_episodes, {"skipIfAlreadyFound": True})
 
     # Country Code
     parser.add_handler("country", regex.compile(r"\b(US|UK)\b"), value("$1"))
