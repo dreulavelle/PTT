@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.4](https://github.com/dreulavelle/PTT/compare/v1.5.3...v1.5.4) (2025-02-27)
+
+
+### Bug Fixes
+
+* added NZ and AU to country code ([fdcc919](https://github.com/dreulavelle/PTT/commit/fdcc9191696ff868b401ebb25847f795401b65cf))
+* remove episodes with dashes from title ([b6b0ecd](https://github.com/dreulavelle/PTT/commit/b6b0ecd64c4794c7084248ce76038275d77ea27a))
+
 ## [1.5.3](https://github.com/dreulavelle/PTT/compare/v1.5.2...v1.5.3) (2025-02-26)
 
 
