@@ -396,7 +396,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", handle_episodes, {"skipIfAlreadyFound": True})
 
     # Country Code
-    parser.add_handler("country", regex.compile(r"\b(US|UK)\b"), value("$1"))
+    parser.add_handler("country", regex.compile(r"\b(US|UK|AU|NZ)\b"), value("$1"))
 
     # Languages (ISO 639-1 Standardized)
     parser.add_handler("languages", regex.compile(r"\bengl?(?:sub[A-Z]*)?\b", regex.IGNORECASE), uniq_concat(value("en")), {"skipIfAlreadyFound": False})
