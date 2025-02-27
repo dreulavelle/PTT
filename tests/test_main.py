@@ -1090,30 +1090,17 @@ def parser():
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("The Adam Project 2022 2160p NF WEB-DL DDP 5 1 Atmos DoVi HDR HEVC-SiC mkv", {
-#         "title": "The Adam Project",
-#         "year": 2022,
-#         "seasons": [],
-#         "episodes": [],
-#         "languages": [],
-#         "resolution": "2160p",
-#         "quality": "WEB-DL",
-#         "network": "Netflix",
-#         "codec": "hevc",
-#         "container": "mkv",
-#         "audio": [
-#             "Atmos",
-#             "Dolby Digital Plus"
-#         ],
-#         "channels": [
-#             "5.1"
-#         ],
-#         "hdr": [
-#             "DV",
-#             "HDR"
-#         ]
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("[Naruto-Kun.Hu] Naruto - 061 [1080p].mkv", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [61],
+        "languages": [],
+        "resolution": "1080p",
+        "container": "mkv",
+        "extension": "mkv",
+        "site": "Naruto-Kun.Hu"
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected

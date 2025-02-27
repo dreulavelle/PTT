@@ -14,6 +14,7 @@ import PTT
         ("[ Torrent9.cz ] The.InBetween.S01E10.FiNAL.HDTV.XviD-EXTREME.avi", "Torrent9.cz"),
         ("Jurassic.World.Dominion.CUSTOM.EXTENDED.2022.2160p.MULTi.VF2.UHD.Blu-ray.REMUX.HDR.DoVi.HEVC.DTS-X.DTS-HDHRA.7.1-MOONLY.mkv", None),
         ("Last.Call.for.Istanbul.2023.1080p.NF.WEB-DL.DDP5.1.H.264.MKV.torrent", None),
+        ("[Naruto-Kun.Hu] Naruto - 061 [1080p].mkv", "Naruto-Kun.Hu"),
     ],
 )
 def test_group_detection(release_name, expected_site):
