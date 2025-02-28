@@ -20,7 +20,10 @@ def parser():
     ("Empty Nest Season 1 (1988 - 89) fiveofseven", None, False),
     ("04. Practice Two (1324mb 1916x1080 50fps 1970kbps x265 deef).mkv", None, False),
     ("Anatomia De Grey - Temporada 19 [HDTV][Cap.1905][Castellano][www.AtomoHD.nu].avi", None, False),
-    ("Wonder Woman 1984 (2020) [UHDRemux 2160p DoVi P8 Es-DTSHD AC3 En-AC3].mkv", 2020, True)
+    ("Wonder Woman 1984 (2020) [UHDRemux 2160p DoVi P8 Es-DTSHD AC3 En-AC3].mkv", 2020, True),
+    ("1923 S02E01 The Killing Season 1080p AMZN WEB-DL DDP5 1 H 264-FLUX[TGx]", None, False),
+    ("1883 - Season 1 (S01) (A Yellowstone Origin Story) [2160p NVEnc 10Bit HVEC][DDP 5.1Ch][WEBRip][English Subs]", None, False),
+    ("1883.S01E01.1883.2160p.WEB-DL.DDP5.1.H.265-NTb.mkv", None, False),
 ])
 def test_year_detection(parser, release_name, expected_year, expect_year_presence):
     result = parser.parse(release_name)

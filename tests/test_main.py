@@ -1085,21 +1085,38 @@ def parser():
             "DV",
             "HDR"
         ]
+    }),
+    ("1923 S02E01 The Killing Season 1080p AMZN WEB-DL DDP5 1 H 264-FLUX[TGx]", {
+        "title": "1923",
+        "seasons": [2],
+        "episodes": [1],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "network": "Amazon",
+        "codec": "avc",
+        "audio": ["Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "group": "FLUX"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("[Naruto-Kun.Hu] Naruto - 061 [1080p].mkv", {
-        "title": "Naruto",
-        "seasons": [],
-        "episodes": [61],
+    ("1883.S01E01.1883.2160p.WEB-DL.DDP5.1.H.265-NTb.mkv", {
+        "title": "1883",
+        "seasons": [1],
+        "episodes": [1],
         "languages": [],
-        "resolution": "1080p",
-        "container": "mkv",
+        "resolution": "2160p",
+        "quality": "WEB-DL",
+        "codec": "hevc",
+        "audio": ["Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "group": "NTb",
         "extension": "mkv",
-        "site": "Naruto-Kun.Hu"
+        "container": "mkv"
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):
