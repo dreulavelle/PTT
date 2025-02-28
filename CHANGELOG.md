@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/dreulavelle/PTT/compare/v1.5.4...v1.5.5) (2025-02-28)
+
+
+### Bug Fixes
+
+* year in title mismatch ([0231fac](https://github.com/dreulavelle/PTT/commit/0231facc39825ab462ef8d4d26a445814f758ccb))
+
 ## [1.5.4](https://github.com/dreulavelle/PTT/compare/v1.5.3...v1.5.4) (2025-02-27)
 
 
