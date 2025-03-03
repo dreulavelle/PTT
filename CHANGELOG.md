@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6](https://github.com/dreulavelle/PTT/compare/v1.5.5...v1.5.6) (2025-03-03)
+
+
+### Bug Fixes
+
+* french title fixes. ([aa46510](https://github.com/dreulavelle/PTT/commit/aa46510ff535080487a6013d320ea5f118c6de3c))
+
 ## [1.5.5](https://github.com/dreulavelle/PTT/compare/v1.5.4...v1.5.5) (2025-02-28)
 
 
