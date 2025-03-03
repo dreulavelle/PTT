@@ -215,7 +215,8 @@ def parser():
     ("Godzilla.x.Kong.The.New.Empire.2024.2160p.BluRay.REMUX.DV.P7.HDR.ENG.LATINO.GER.ITA.FRE.HINDI.CHINESE.TrueHD.Atmos.7.1.H265-BEN.THE.MEN", ["en", "zh", "fr", "la", "it", "de", "hi"]),
     ("Sampurna.2023.Bengali.S02.1080p.AMZN.WEB-DL.DD+2.0.H.265-TheBiscuitMan", ["bn"]),
     ("Kingdom.of.the.Planet.of.the.Apes.2024.HDRIP.1080P.[xDark [SaveHD] Latin + English + Hindi.mp4", ["en", "la", "hi"]),
-    ("The Karate Kid Part III 1989 1080p DUAL TİVİBU WEB-DL x264 AAC - HdT", ["tr"])
+    ("The Karate Kid Part III 1989 1080p DUAL TİVİBU WEB-DL x264 AAC - HdT", ["tr"]),
+    ("The French Connection 1971 Remastered BluRay 1080p REMUX AVC DTS-HD MA 5 1-LEGi0N", [])
 ])
 def test_languages_detection(release_name, expected_languages, parser):
     result = parser.parse(release_name)

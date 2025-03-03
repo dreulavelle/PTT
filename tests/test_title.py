@@ -64,6 +64,7 @@ def parser():
         ("Friends.1994.INTEGRALE.MULTI.1080p.WEB-DL.H265-FTMVHD", "Friends"),
         ("STEVE.martin.a.documentary.in.2.pieces.S01.COMPLETE.1080p.WEB.H264-SuccessfulCrab[TGx]", "STEVE martin a documentary in 2 pieces"),
         ("The Lockerbie Bombing (2013) Documentary HDTVRIP", "The Lockerbie Bombing"),
+        ("The French Connection 1971 Remastered BluRay 1080p REMUX AVC DTS-HD MA 5 1-LEGi0N", "The French Connection"),
     ],
 )
 def test_title_detection(parser, release_name, expected_title):

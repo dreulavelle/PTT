@@ -1098,12 +1098,7 @@ def parser():
         "audio": ["Dolby Digital Plus"],
         "channels": ["5.1"],
         "group": "FLUX"
-    })
-])
-def test_random_releases_parse(parser, release_name, expected_output):
-    assert parser.parse(release_name) == expected_output
-
-@pytest.mark.parametrize("release_name, expected", [
+    }),
     ("1883.S01E01.1883.2160p.WEB-DL.DDP5.1.H.265-NTb.mkv", {
         "title": "1883",
         "seasons": [1],
@@ -1117,7 +1112,37 @@ def test_random_releases_parse(parser, release_name, expected_output):
         "group": "NTb",
         "extension": "mkv",
         "container": "mkv"
+    }),
+    ("1923 S02E01 1080p WEB H264-SuccessfulCrab", {
+        "title": "1923",
+        "seasons": [2],
+        "episodes": [1],
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "WEB",
+        "codec": "avc",
+        "scene": True,
+        "group": "SuccessfulCrab"
     })
 ])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
+
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("The French Connection 1971 Remastered BluRay 1080p REMUX AVC DTS-HD MA 5 1-LEGi0N", {
+#         "title": "The French Connection",
+#         "year": 1971,
+#         "seasons": [],
+#         "episodes": [],
+#         "languages": [],
+#         "resolution": "1080p",
+#         "codec": "avc",
+#         "group": "LEGi0N",
+#         "audio": ["DTS Lossless"],
+#         "channels": ["5.1"],
+#         "quality": "BluRay REMUX",
+#         "edition": "Remastered"
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
