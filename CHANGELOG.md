@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.7](https://github.com/dreulavelle/PTT/compare/v1.5.6...v1.5.7) (2025-03-05)
+
+
+### Bug Fixes
+
+* add anime additional fixes. ([8e2b235](https://github.com/dreulavelle/PTT/commit/8e2b2356744e213629b32a3ef6979c573c10c6d4))
+
 ## [1.5.6](https://github.com/dreulavelle/PTT/compare/v1.5.5...v1.5.6) (2025-03-03)
 
 
