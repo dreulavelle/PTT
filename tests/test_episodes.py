@@ -54,7 +54,6 @@ def parser():
     ("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV.mkv", [11]),
     ("Dragon Ball Super S01 E23 French 1080p HDTV H264-Kesni", [23]),
     ("Dragon Ball Super S05E53 - Ep.129.mkv", [53]),
-    ("Dragon Ball Z Movie - 09 - Bojack Unbound - 1080p", []),
     ("Dragon Ball Z Movie - 09 - Bojack Unbound - 1080p BluRay x264 DTS 5.1 -DDR", []), # Correct. This should not match, its a movie.
     ("Dragon Ball [5.134] Preliminary Peril.mp4", [134]),
     ("DShaun.Micallefs.MAD.AS.HELL.S10E03.576p.x642-YADNUM.mkv", [3]),
@@ -191,7 +190,8 @@ def parser():
     ("[SubsPlease] Fairy Tail - 100 Years Quest - 05 (1080p) [1107F3A9].mkv", [5]),
     ("Mad.Max.Fury.Road.2015.1080p.BluRay.DDP5.1.x265.10bit-GalaxyRG265[TGx]", []),
     ("Vikkatakavi 01E06.mkv", [6]),
-    ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", [])
+    ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", []),
+    ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", [116]),
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

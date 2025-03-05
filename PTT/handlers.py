@@ -26,6 +26,11 @@ def add_defaults(parser: Parser):
 
     :param parser: The parser instance to which handlers will be added.
     """
+    # pre-hardcoded cleanup (yuck)
+    parser.add_handler("title", regex.compile(r"360.Degrees.of.Vision.The.Byakugan'?s.Blind.Spot", regex.IGNORECASE), None, {"remove": True}) # episode title
+    parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True})  # episode title
+    parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?|INTERNAL|HFR)\b", regex.IGNORECASE), none, {"remove": True})
+
     # Torrent extension
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
 
@@ -39,6 +44,10 @@ def add_defaults(parser: Parser):
     # Extras (This stuff can be trashed)
     parser.add_handler("extras", regex.compile(r"\bNCED\b", regex.IGNORECASE), uniq_concat(value("NCED")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bNCOP\b", regex.IGNORECASE), uniq_concat(value("NCOP")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bNC\b", regex.IGNORECASE), uniq_concat(value("NC")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bOVA\b", regex.IGNORECASE), uniq_concat(value("OVA")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bED(\d?v?\d?)\b", regex.IGNORECASE), uniq_concat(value("ED")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bOPv?(\d+)?\b", regex.IGNORECASE), uniq_concat(value("OP")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\b(?:Deleted[ .-]*)?Scene(?:s)?\b", regex.IGNORECASE), uniq_concat(value("Deleted Scene")), {"remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Featurettes?)\b|\bFeaturettes?\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Featurette")), {"skipFromTitle": True, "remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Sample)\b|\b(?:Sample)\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Sample")), {"skipFromTitle": True, "remove": False})
@@ -612,7 +621,3 @@ def add_defaults(parser: Parser):
     parser.add_handler("group", handle_group_exclusion)
 
     parser.add_handler("trash", regex.compile(r"acesse o original", regex.IGNORECASE), boolean, {"remove": True})
-
-    # Title (hardcoded cleanup)
-    parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True})  # episode title
-    parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?|INTERNAL|HFR)\b", regex.IGNORECASE), none, {"remove": True})

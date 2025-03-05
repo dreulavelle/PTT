@@ -1123,25 +1123,31 @@ def parser():
         "codec": "avc",
         "scene": True,
         "group": "SuccessfulCrab"
+    }),
+    ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [116],
+        "languages": [],
+        "group": "Anime Time",
+        "extension": "mkv",
+        "container": "mkv"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("The French Connection 1971 Remastered BluRay 1080p REMUX AVC DTS-HD MA 5 1-LEGi0N", {
-#         "title": "The French Connection",
-#         "year": 1971,
-#         "seasons": [],
+#     ("{WWW.BLUDV.TV} Love, Death & Robots - 1ª Temporada Completa 2019 (1080p) Acesse o ORIGINAL WWW.BLUDV.TV", {
+#         "title": "Love, Death & Robots",
+#         "year": 2019,
+#         "seasons": [1],
 #         "episodes": [],
-#         "languages": [],
+#         "languages": ["es"],
 #         "resolution": "1080p",
-#         "codec": "avc",
-#         "group": "LEGi0N",
-#         "audio": ["DTS Lossless"],
-#         "channels": ["5.1"],
-#         "quality": "BluRay REMUX",
-#         "edition": "Remastered"
+#         "site": "WWW.BLUDV.TV",
+#         "complete": True,
+#         "trash": True
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):
