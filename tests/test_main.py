@@ -102,7 +102,8 @@ def parser():
         "region": "R9",
         "group": "TBW1973",
         "seasons": [],
-        "episodes": []
+        "episodes": [],
+        "dubbed": True
     }),
     ("Maman, j'ai raté l'avion 1990 VFI 1080p BluRay DTS x265-HTG", {
         "title": "Maman, j'ai raté l'avion",
@@ -1132,22 +1133,49 @@ def parser():
         "group": "Anime Time",
         "extension": "mkv",
         "container": "mkv"
+    }),
+    ("[DKB] Blue Lock - (Season 01) [1080p][HEVC x265 10bit][Multi-Subs]", {
+        "title": "Blue Lock",
+        "seasons": [1],
+        "episodes": [],
+        "languages": [],
+        "resolution": "1080p",
+        "bit_depth": "10bit",
+        "codec": "hevc",
+        "subbed": True,
+        "group": "DKB"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("{WWW.BLUDV.TV} Love, Death & Robots - 1ª Temporada Completa 2019 (1080p) Acesse o ORIGINAL WWW.BLUDV.TV", {
-#         "title": "Love, Death & Robots",
-#         "year": 2019,
+#     ("[DKB] Blue Lock - (Season 01) [1080p][HEVC x265 10bit][Multi-Subs]", {
+#         "title": "Blue Lock",
 #         "seasons": [1],
 #         "episodes": [],
-#         "languages": ["es"],
+#         "languages": [],
 #         "resolution": "1080p",
-#         "site": "WWW.BLUDV.TV",
-#         "complete": True,
-#         "trash": True
+#         "bit_depth": "10bit",
+#         "codec": "hevc",
+#         "subbed": True,
+#         "group": "DKB"
+#     }),
+#     ("Fallout.S01E03.The.Head.2160p.DV.HDR10Plus.Ai-Enhanced.H265.DDP.5.1.MULTI.RIFE.4.15v2-60fps-DirtyHippie.mkv", {
+#         "title": "Fallout",
+#         "seasons": [1],
+#         "episodes": [3],
+#         "languages": [],
+#         "resolution": "2160p",
+#         "audio": ["AC3", "Dolby Digital Plus"],
+#         "channels": ["5.1"],
+#         "codec": "hevc",
+#         "container": "mkv",
+#         "extension": "mkv",
+#         "group": "DirtyHippie",
+#         "hdr": ["DV", "HDR10+"],
+#         "upscaled": True,
+#         "dubbed": True
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):
