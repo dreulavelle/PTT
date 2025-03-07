@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.8](https://github.com/dreulavelle/PTT/compare/v1.5.7...v1.5.8) (2025-03-07)
+
+
+### Bug Fixes
+
+* subbed and dubbed separation fixes ([3619607](https://github.com/dreulavelle/PTT/commit/3619607a339d37c2b43a63836643c7a4aa52c238))
+
 ## [1.5.7](https://github.com/dreulavelle/PTT/compare/v1.5.6...v1.5.7) (2025-03-05)
 
 
