@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.9](https://github.com/dreulavelle/PTT/compare/v1.5.8...v1.5.9) (2025-03-10)
+
+
+### Bug Fixes
+
+* many fixes for anime title parsing and various other fixes ([d9ee196](https://github.com/dreulavelle/PTT/commit/d9ee196a4a8146d19a6bcd998b7468a0eb762329))
+
 ## [1.5.8](https://github.com/dreulavelle/PTT/compare/v1.5.7...v1.5.8) (2025-03-07)
 
 
