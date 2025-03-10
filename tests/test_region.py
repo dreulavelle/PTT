@@ -13,7 +13,8 @@ def parser():
 
 @pytest.mark.parametrize("release_name, expected_region, should_have_region", [
     ("Welcome to New York 2014 R5 XviD AC3-SUPERFAST", "R5", True),
-    ("[Coalgirls]_Code_Geass_R2_06_(1920x1080_Blu-ray_FLAC)_[F8C7FE25].mkv", None, False),
+    ("[Coalgirls]_Code_Geass_R2_06_(1920x1080_Blu-ray_FLAC)_[F8C7FE25].mkv", "R2", True),
+    ("[JySzE] Naruto [v2] [R2J] [VFR] [Dual Audio] [Complete] [Extras] [x264]", "R2J", True),
 ])
 def test_region_detection(parser, release_name, expected_region, should_have_region):
     result = parser.parse(release_name)

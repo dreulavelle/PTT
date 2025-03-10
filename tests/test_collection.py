@@ -36,8 +36,8 @@ def parser():
     ("American.Pie.Heptalogy.SWESUB.DVDRip.XviD-BaZZe", True, "American Pie"),
     ("The Exorcist 1, 2, 3, 4, 5 - Complete Horror Anthology 1973-2005", True, None),
     ("Harry.Potter.Complete.Saga. I - VIII .1080p.Bluray.x264.anoXmous", True, None),
-    # This last test ensures that the collection is recognized but also retains the title appropriately.
-    ("[Erai-raws] Ninja Collection - 05 [720p][Multiple Subtitle].mkv", True, "Ninja Collection"),
+    ("[Erai-raws] Ninja Collection - 05 [720p][Multiple Subtitle].mkv", None, "Ninja Collection"), # this is not a collection, its a title
+    # These last tests ensure that the collection is recognized but also retains the title appropriately.
     ("Furiosa - A Mad Max Saga (2024) 2160p H265 HDR10 D V iTA EnG AC3 5 1 Sub iTA EnG NUiTA NUEnG AsPiDe-MIRCrew mkv", True, "Furiosa - A Mad Max Saga"),
     ("[Judas] Vinland Saga (Season 2) [1080p][HEVC x265 10bit][Multi-Subs]", True, "Vinland Saga"),
 ])

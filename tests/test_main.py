@@ -122,14 +122,15 @@ def parser():
         "seasons": [3],
         "quality": "HDTV",
         "languages": [],
-        "episodes": []
+        "episodes": [],
+        "complete": True
     }),
     ("The Sopranos: The Complete Series (Season 1,2,3,4,5&6) + Extras", {
         "title": "The Sopranos",
         "seasons": [1, 2, 3, 4, 5, 6],
         "complete": True,
         "languages": [],
-        "episodes": []
+        "episodes": [],
     }),
     ("Skins Season S01-S07 COMPLETE UK Soundtrack 720p WEB-DL", {
         "seasons": [1, 2, 3, 4, 5, 6, 7],
@@ -138,7 +139,8 @@ def parser():
         "resolution": "720p",
         "quality": "WEB-DL",
         "languages": [],
-        "episodes": []
+        "episodes": [],
+        "complete": True
     }),
     ("Futurama.COMPLETE.S01-S07.720p.BluRay.x265-HETeam", {
         "title": "Futurama",
@@ -148,7 +150,8 @@ def parser():
         "codec": "hevc",
         "group": "HETeam",
         "languages": [],
-        "episodes": []
+        "episodes": [],
+        "complete": True
     }),
     ("You.[Uncut].S01.SweSub.1080p.x264-Justiso", {
         "title": "You",
@@ -174,7 +177,8 @@ def parser():
         "seasons": [7],
         "container": "mkv",
         "languages": [],
-        "episodes": []
+        "episodes": [],
+        "complete": True
     }),
     ("2008 The Incredible Hulk Feature Film.mp4", {
         "title": "The Incredible Hulk Feature Film",
@@ -301,7 +305,8 @@ def parser():
         "resolution": "1080p",
         "scene": True,
         "codec": "avc",
-        "group": "EDITH"
+        "group": "EDITH",
+        "complete": True
     }),
     ("Madame Web 2024 UHD BluRay 2160p TrueHD Atmos 7 1 DV HEVC REMUX-FraMeSToR", {
         "title": "Madame Web",
@@ -1013,7 +1018,8 @@ def parser():
         "group": "SuccessfulCrab",
         "resolution": "1080p",
         "documentary": True,
-        "scene": True
+        "scene": True,
+        "complete": True
     }),
     ("The New Frontier S01E10 720p WEB H264-INFLATE[eztv] mkv", {
         "title": "The New Frontier",
@@ -1144,38 +1150,130 @@ def parser():
         "codec": "hevc",
         "subbed": True,
         "group": "DKB"
+    }),
+    ("Fallout.S01E03.The.Head.2160p.DV.HDR10Plus.Ai-Enhanced.H265.DDP.5.1.MULTI.RIFE.4.15v2-60fps-DirtyHippie.mkv", {
+        "title": "Fallout",
+        "seasons": [1],
+        "episodes": [3],
+        "languages": [],
+        "resolution": "2160p",
+        "audio": ["AC3", "Dolby Digital Plus"],
+        "channels": ["5.1"],
+        "codec": "hevc",
+        "container": "mkv",
+        "extension": "mkv",
+        "group": "DirtyHippie",
+        "hdr": ["DV", "HDR10+"],
+        "upscaled": True,
+        "dubbed": True
+    }),
+    ("[JySzE] Naruto [v2] [R2J] [VFR] [Dual Audio] [Complete] [Extras] [x264]", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [],
+        "languages": ["fr"],
+        "codec": "avc",
+        "dubbed": True,
+        "group": "JySzE",
+        "complete": True,
+        "region": "R2J"
+    }),
+    ("[JySzE] Naruto [v2] [R2J] [VFR] [Dual Audio] [Complete] [Extras] [x264]", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [],
+        "languages": ["fr"],
+        "codec": "avc",
+        "dubbed": True,
+        "group": "JySzE",
+        "complete": True,
+        "region": "R2J"
+    }),
+    ("Naruto HD [1080p] (001-220) [Complete Series + Movies]", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": list(range(1, 221)),
+        "languages": [],
+        "resolution": "1080p",
+        "quality": "HDTV",
+        "complete": True,
+    }),
+    ("[JySzE] Naruto [v3] [R2J] [VFR] [Dual Audio] [Complete] [Extras] [x264]", {   # check to see if it handles `[v3]`
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [],
+        "languages": ["fr"],
+        "codec": "avc",
+        "dubbed": True,
+        "group": "JySzE",
+        "complete": True,
+        "region": "R2J"
+    }),
+    ("NARUTO CARTOON NETWORK-TOONAMI BROADCAST (2005-2009) [TVRip] [Episodes 001-209 Movies 1 & 3 & OVA)", {
+        "title": "NARUTO",
+        "seasons": [],
+        "episodes": list(range(1, 210)),
+        "languages": [],
+        "quality": "TVRip",
+        "complete": True,
+        "extras": ["OVA"],
+        "network": "Cartoon Network",
+    }),
+    ("NARUTO CARTOON NETWORK-TOONAMI BROADCAST (2005-2009) [TVRip] [Episodes 001-209 Movies 1 & 3 & OVA)", {
+        "title": "NARUTO",
+        "seasons": [],
+        "episodes": list(range(1, 210)),
+        "languages": [],
+        "quality": "TVRip",
+        "complete": True,
+        "extras": ["OVA"],
+        "network": "Cartoon Network",
+    }),
+    ("Naruto Complete [Ep 01 - 220][English][480p]", {  # was incorrectly parsing episodes before
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": list(range(1, 221)),
+        "languages": ["en"],
+        "complete": True,
+        "resolution": "480p",
+    }),
+    ("[DBD-Raws][火影忍者/Naruto/NARUTO -ナルト-][166-192TV][BOX7][美版/USA.Ver][1080P][BDRip][HEVC-10bit][FLAC][MKV]", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": list(range(166, 193)),
+        "languages": ["ja", "zh"],
+        "quality": "BDRip",
+        "audio": ["FLAC"],
+        "resolution": "1080p",
+        "codec": "hevc",
+        "bit_depth": "10bit",
+        "container": "mkv",
+        "group": "DBD-Raws",
+    }),
+    ("Naruto Collection [DB 1080p][ Dual Audio ][ English & Arabic Sub ]", {
+        "title": "Naruto",
+        "seasons": [],
+        "episodes": [],
+        "languages": ["en", "ar"],
+        "resolution": "1080p",
+        "subbed": True,
+        "dubbed": True,
+        "complete": True,
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("[DKB] Blue Lock - (Season 01) [1080p][HEVC x265 10bit][Multi-Subs]", {
-#         "title": "Blue Lock",
-#         "seasons": [1],
+#     ("Naruto Collection [DB 1080p][ Dual Audio ][ English & Arabic Sub ]", {
+#         "title": "Naruto",
+#         "seasons": [],
 #         "episodes": [],
-#         "languages": [],
+#         "languages": ["en", "ar"],
 #         "resolution": "1080p",
-#         "bit_depth": "10bit",
-#         "codec": "hevc",
 #         "subbed": True,
-#         "group": "DKB"
-#     }),
-#     ("Fallout.S01E03.The.Head.2160p.DV.HDR10Plus.Ai-Enhanced.H265.DDP.5.1.MULTI.RIFE.4.15v2-60fps-DirtyHippie.mkv", {
-#         "title": "Fallout",
-#         "seasons": [1],
-#         "episodes": [3],
-#         "languages": [],
-#         "resolution": "2160p",
-#         "audio": ["AC3", "Dolby Digital Plus"],
-#         "channels": ["5.1"],
-#         "codec": "hevc",
-#         "container": "mkv",
-#         "extension": "mkv",
-#         "group": "DirtyHippie",
-#         "hdr": ["DV", "HDR10+"],
-#         "upscaled": True,
-#         "dubbed": True
+#         "dubbed": True,
+#         "complete": True,
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):
