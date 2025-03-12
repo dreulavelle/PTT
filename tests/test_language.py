@@ -83,13 +83,13 @@ def parser():
     ("Subs/Brazilian.por.srt", ["pt"]),
     ("Brazilian Portuguese.por.srt", ["pt"]),
     ("[S0.E07] Gambit królowej - Gra końcowa.Portuguese Brazil.srt", ["pt"]),
-    ("The Hit List (2011) DVD NTSC WS (eng-fre-pt-spa) [Sk]", ["en", "fr", "es"]), # TODO: does not include pt
+    ("The Hit List (2011) DVD NTSC WS (eng-fre-pt-spa) [Sk]", ["en", "fr", "es", "pt"]),
     ("[POPAS] Neon Genesis Evangelion: The End of Evangelion [jp_PT-pt", ["ja", "pt"]),
     ("Zola Maseko - Drum (2004) PT subs", ["pt"]),
-    ("Idrissa Ouedraogo - Yaaba (1989) EN ES FR PT", ["en", "fr", "es"]), # TODO: does not include pt
+    ("Idrissa Ouedraogo - Yaaba (1989) EN ES FR PT", ["en", "fr", "es", "pt"]),
     ("Metallica.Through.The.Never.2013 O Filme(leg.pt-pt)", ["pt"]),
-    ("Dinossauro (2000) --[ Ing / Pt / Esp ]", ["en", "es"]), # TODO: does not include pt
-    ("The Guard 2011.DK.EN.ES.HR.NL.PT.RO.Subtitles", ["en", "es", "ro", "hr", "nl", "da"]),
+    ("Dinossauro (2000) --[ Ing / Pt / Esp ]", ["en", "es", "pt"]),
+    ("The Guard 2011.DK.EN.ES.HR.NL.PT.RO.Subtitles", ["en", "es", "pt", "ro", "hr", "nl", "da"]),
     ("Titan.A.E.2000 720p  HDTV DTS Eng Fra Hun Rom Rus multisub", ["en", "fr", "ru", "hu", "ro"]),
     ("Frieren - Beyond Journey's End - S01E01 - TBA WEBDL-1080p.Latin American es.ass", ["la"]),
     ("Frieren - Beyond Journey's End - S01E01 - TBA WEBDL-1080p.Brazilian pt.ass", ["pt"]),
@@ -130,7 +130,7 @@ def parser():
     ("A Freira (2018) Dublado HD-TS 720p", ["pt"]),
     ("Escobar El Patron Del Mal Capitulo 91 SD (2012-10-10) [SiRaDuDe]", ["pt"]),
     ("Bleach - 215 ao 220 - [DB-BR]", ["pt"]),
-    ("Joker.2019.MULTi.Bluray.1080p.Atmos.7.1.En.Fr.Sp.Pt-DDR[EtHD]", ["en", "fr"]), # TODO: does not include sp,pt
+    ("Joker.2019.MULTi.Bluray.1080p.Atmos.7.1.En.Fr.Sp.Pt-DDR[EtHD]", ["en", "fr", "es", "pt"]), # TODO: does not include sp,pt
     ("Dilbert complete series + en subs", ["en"]),
     ("The Next Karate Kid (1994) NTSC WS -Eng/Fre/Spa/Por- [ctang]", ["en", "fr", "es", "pt"]),
     ("arsenico por compasion 1944 Capra spanish castellano", ['es', 'pt']),

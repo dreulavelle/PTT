@@ -1264,17 +1264,20 @@ def parser():
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("Naruto Collection [DB 1080p][ Dual Audio ][ English & Arabic Sub ]", {
-#         "title": "Naruto",
-#         "seasons": [],
-#         "episodes": [],
-#         "languages": ["en", "ar"],
-#         "resolution": "1080p",
-#         "subbed": True,
-#         "dubbed": True,
-#         "complete": True,
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("Агентство / The Agency / Сезон: 1 / Серии: 1-10 из 10 [2024 HEVC HDR10 Dolby Vision WEB-DL 2160p 4k] MVO (HDRezka Studio) + DVO (Viruse Project) + Original + Sub (Eng)", {
+        "title": "The Agency",
+        "seasons": [1],
+        "episodes": list(range(1, 11)),
+        "languages": ["en", "ru"],
+        "quality": "WEB-DL",
+        "resolution": "2160p",
+        "bit_depth": "10bit",
+        "codec": "hevc",
+        "hdr": ["DV", "HDR"],
+        "subbed": True,
+        "year": 2024,
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected
