@@ -32,6 +32,9 @@ def add_defaults(parser: Parser):
     parser.add_handler("title", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?|INTERNAL|HFR)\b", regex.IGNORECASE), none, {"remove": True})
     parser.add_handler("title", regex.compile(r"\[?(\+.)?Extras\]?", regex.IGNORECASE), none, {"remove": True})
 
+    # Container
+    parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
+
     # Torrent extension
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
 
@@ -278,9 +281,6 @@ def add_defaults(parser: Parser):
 
     # Group
     parser.add_handler("group", regex.compile(r"- ?(?!\d+$|S\d+|\d+x|ep?\d+|[^[]+]$)([^\-. []+[^\-. [)\]\d][^\-. [)\]]*)(?:\[[\w.-]+])?(?=\.\w{2,4}$|$)", regex.IGNORECASE), none, {"remove": False})
-
-    # Container
-    parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
 
     # Volume
     parser.add_handler("volumes", regex.compile(r"\bvol(?:s|umes?)?[. -]*(?:\d{1,2}[., +/\\&-]+)+\d{1,2}\b", regex.IGNORECASE), range_func, {"remove": True})
@@ -605,7 +605,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("network", regex.compile(r"\bAMC\b", regex.IGNORECASE), value("AMC"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bPBS\b", regex.IGNORECASE), value("PBS"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\b(Crunchyroll|[. -]CR[. -])\b", regex.IGNORECASE), value("Crunchyroll"), {"remove": True})
-    parser.add_handler("network", regex.compile(r"\bVICE\b", regex.IGNORECASE), value("VICE"), {"remove": True})
+    parser.add_handler("network", regex.compile(r"\bVICE\b"), value("VICE"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bSony\b", regex.IGNORECASE), value("Sony"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bHallmark\b", regex.IGNORECASE), value("Hallmark"), {"remove": True})
     parser.add_handler("network", regex.compile(r"\bAdult.?Swim\b", regex.IGNORECASE), value("Adult Swim"), {"remove": True})
