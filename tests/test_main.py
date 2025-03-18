@@ -1290,20 +1290,21 @@ def parser():
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("Агентство / The Agency / Сезон: 1 / Серии: 1-10 из 10 [2024 HEVC HDR10 Dolby Vision WEB-DL 2160p 4k] MVO (HDRezka Studio) + DVO (Viruse Project) + Original + Sub (Eng)", {
-#         "title": "The Agency",
-#         "seasons": [1],
-#         "episodes": list(range(1, 11)),
-#         "languages": ["en", "ru"],
-#         "quality": "WEB-DL",
-#         "resolution": "2160p",
-#         "bit_depth": "10bit",
-#         "codec": "hevc",
-#         "hdr": ["DV", "HDR"],
-#         "subbed": True,
-#         "year": 2024,
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("www 1TamilMV ms - The Electric State (2025) HQ HDRip - x264 - [Tam + Tel + Hin] - AAC - 450MB - ESub mkv", {
+        "title": "The Electric State",
+        "year": 2025,
+        "seasons": [],
+        "episodes": [],
+        "languages": ["en", "hi", "te", "ta"],
+        "quality": "HDRip",
+        "codec": "avc",
+        "trash": True,
+        "size": "450MB",
+        "container": "mkv",
+        "audio": ["AAC"],
+        "site": "www 1TamilMV ms",
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected

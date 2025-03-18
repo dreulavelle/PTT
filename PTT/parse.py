@@ -38,6 +38,7 @@ STAR_REGEX_1 = regex.compile(r"^[[【★].*[\]】★][ .]?(.+)")
 STAR_REGEX_2 = regex.compile(r"(.+)[ .]?[[【★].*[\]】★]$")
 MP3_REGEX = regex.compile(r"\bmp3$")
 SPACING_REGEX = regex.compile(r"\s+")
+SPECIAL_CHAR_SPACING = regex.compile(r"[\-\+\_\{\}\[\]]\W{2,}")
 
 BEFORE_TITLE_MATCH_REGEX = regex.compile(r"^\[([^[\]]+)]")
 
@@ -133,6 +134,7 @@ def clean_title(raw_title: str) -> str:
     cleaned_title = EMPTY_BRACKETS_REGEX.sub("", cleaned_title)
     cleaned_title = MP3_REGEX.sub("", cleaned_title)
     cleaned_title = PARANTHESES_WITHOUT_CONTENT.sub("", cleaned_title)
+    cleaned_title = SPECIAL_CHAR_SPACING.sub("", cleaned_title)
 
     # Remove brackets if only one is present
     for open_bracket, close_bracket in BRACKETS:
