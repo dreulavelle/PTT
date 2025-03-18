@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.10](https://github.com/dreulavelle/PTT/compare/v1.5.9...v1.5.10) (2025-03-18)
+
+
+### Bug Fixes
+
+* further improvements to languages ([e18fce8](https://github.com/dreulavelle/PTT/commit/e18fce8af7563c5fd33a1467f49cd1e8d3dadb21))
+* miami vice incorrectly seen as a network ([89743e3](https://github.com/dreulavelle/PTT/commit/89743e33855a11d64b3406487ac3e17edad2a2e0))
+* tamil site fix ([4905217](https://github.com/dreulavelle/PTT/commit/4905217358eeb3664d7715d7ca4531edada5d78f))
+
 ## [1.5.9](https://github.com/dreulavelle/PTT/compare/v1.5.8...v1.5.9) (2025-03-10)
 
 
