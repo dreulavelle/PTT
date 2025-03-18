@@ -1,6 +1,7 @@
 import argparse
 import sys
 import os
+import json
 
 def main():
     parser = argparse.ArgumentParser(description="Parse filename or torrent name using Parsett")
@@ -33,12 +34,11 @@ def main():
             sys.exit(1)
 
         from PTT import parse_title
-        print(
-            parse_title(
-                args.filename,
-                translate_languages=args.translate_languages
-            )
+        result = parse_title(
+            args.filename,
+            translate_languages=args.translate_languages
         )
+        print(json.dumps(result, indent=4))
     elif args.command == 'sort':
         sort_by_count(args.filename)
     elif args.command == 'combine':
