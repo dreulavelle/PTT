@@ -20,6 +20,7 @@ def parser():
     ("The Fifth Element 1997 REMASTERED MULTi 1080p BluRay HDLight AC3 x264 Zone80", "Remastered"),
     ("Predator 1987 REMASTER MULTi 1080p BluRay x264 FiDELiO", "Remastered"),
     ("Have I Got News For You S53E02 EXTENDED 720p HDTV x264-QPEL", "Extended Edition"),
+    ("Uncut.Gems.2019.1080p.NF.WEB-DL.DDP5.1.x264-NTG", None)
 ])
 def test_extended_detection(parser, release_name, expected_edition):
     result = parser.parse(release_name)

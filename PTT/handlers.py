@@ -142,7 +142,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("edition", regex.compile(r"\bDirector\"?s[\.\s\-\+_\/(),]Cut\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bCollector\"?s\b", regex.IGNORECASE), value("Collectors Edition"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bTheatrical\b", regex.IGNORECASE), value("Theatrical"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bUncut\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\buncut(?!.gems)\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\b\.Diamond\.\b", regex.IGNORECASE), value("Diamond Edition"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), value("Remastered"), {"remove": True, "skipIfAlreadyFound": True})
