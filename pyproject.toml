@@ -30,8 +30,8 @@ build-backend = "poetry.core.masonry.api"
 include = "PTT"
 
 [tool.poetry.scripts]
-parsett = "cli:main"
-ptt = "cli:main"
+parsett = "PTT.cli:main"
+ptt = "PTT.cli:main"
 
 [tool.coverage.run]
 branch = true
