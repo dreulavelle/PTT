@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/dreulavelle/PTT/compare/v1.5.10...v1.6.0) (2025-03-18)
+
+
+### Features
+
+* added cli feature. ([9ae1f89](https://github.com/dreulavelle/PTT/commit/9ae1f899a7a5cf022d8360f29d1c4a8e53126eef))
+
+
+### Bug Fixes
+
+* fixed 'uncut gems' movie from edition ([b00a756](https://github.com/dreulavelle/PTT/commit/b00a756bca4c88a83539f445c038ab01d09c28e5))
+
 ## [1.5.10](https://github.com/dreulavelle/PTT/compare/v1.5.9...v1.5.10) (2025-03-18)
 
 
