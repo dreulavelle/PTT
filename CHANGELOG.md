@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/dreulavelle/PTT/compare/v1.6.1...v1.6.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* output cli parse as json instead of single line ([4041811](https://github.com/dreulavelle/PTT/commit/4041811530b9bd7c3c3ee908b88a77c6b2a2488c))
+
 ## [1.6.1](https://github.com/dreulavelle/PTT/compare/v1.6.0...v1.6.1) (2025-03-18)
 
 
