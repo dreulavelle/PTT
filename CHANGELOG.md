@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/dreulavelle/PTT/compare/v1.6.0...v1.6.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* leftover chars at end of title ([b4f8d29](https://github.com/dreulavelle/PTT/commit/b4f8d29d1200755965a783491a448876fd77b083))
+
 ## [1.6.0](https://github.com/dreulavelle/PTT/compare/v1.5.10...v1.6.0) (2025-03-18)
 
 
