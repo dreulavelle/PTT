@@ -39,13 +39,14 @@ STAR_REGEX_2 = regex.compile(r"(.+)[ .]?[[【★].*[\]】★]$")
 MP3_REGEX = regex.compile(r"\bmp3$")
 SPACING_REGEX = regex.compile(r"\s+")
 SPECIAL_CHAR_SPACING = regex.compile(r"[\-\+\_\{\}\[\]]\W{2,}")
+SUB_PATTERN = regex.compile(r"_+")
 
 BEFORE_TITLE_MATCH_REGEX = regex.compile(r"^\[([^[\]]+)]")
 
 DEBUG_HANDLER = False
 
 
-def extend_options(options: Dict[str, Any] = None) -> Dict[str, Any]:
+def extend_options(options: Dict[str, Any] = {}) -> Dict[str, Any]:
     """
     Extend the options dictionary with default values.
 
@@ -58,8 +59,6 @@ def extend_options(options: Dict[str, Any] = None) -> Dict[str, Any]:
         "skipIfFirst": False,
         "remove": False,
     }
-    if options is None:
-        options = {}
     for key, value in default_options.items():
         options.setdefault(key, value)
     return options
@@ -220,7 +219,7 @@ class Parser:
         :param translate_languages: Whether to translate language codes to language names or short codes (default: False returns short codes)
         :return: A dictionary containing the parsed data.
         """
-        title = regex.sub(r"_+", " ", title)
+        title = SUB_PATTERN.sub(" ", title)
         result: Dict[str, Any] = {}
         matched: Dict[str, Any] = {}
         end_of_title = len(title)
