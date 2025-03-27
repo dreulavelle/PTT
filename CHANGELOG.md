@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/dreulavelle/PTT/compare/v1.6.2...v1.6.3) (2025-03-27)
+
+
+### Bug Fixes
+
+* ensure all regex is compiled ([173db12](https://github.com/dreulavelle/PTT/commit/173db1238297e4af6b2921fdf41a428d1736931c))
+
 ## [1.6.2](https://github.com/dreulavelle/PTT/compare/v1.6.2...v1.6.2) (2025-03-27)
 
 
