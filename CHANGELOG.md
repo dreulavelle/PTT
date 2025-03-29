@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/dreulavelle/PTT/compare/v1.6.3...v1.6.4) (2025-03-29)
+
+
+### Bug Fixes
+
+* fixed directors cut edition pattern ([1eb055e](https://github.com/dreulavelle/PTT/commit/1eb055e2df8617c3a74e33b3c0abda5e57775251))
+
 ## [1.6.3](https://github.com/dreulavelle/PTT/compare/v1.6.2...v1.6.3) (2025-03-27)
 
 
