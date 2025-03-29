@@ -137,10 +137,10 @@ def add_defaults(parser: Parser):
     # Edition
     parser.add_handler("edition", regex.compile(r"\b\d{2,3}(th)?[\.\s\-\+_\/(),]Anniversary[\.\s\-\+_\/(),](Edition|Ed)?\b", regex.IGNORECASE), value("Anniversary Edition"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bUltimate[\.\s\-\+_\/(),]Edition\b", regex.IGNORECASE), value("Ultimate Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bExtended[\.\s\-\+_\/(),]Director\"?s\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bExtended[\.\s\-\+_\/(),]Director(\')?s\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\b(custom.?)?Extended\b", regex.IGNORECASE), value("Extended Edition"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bDirector\"?s[\.\s\-\+_\/(),]Cut\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
-    parser.add_handler("edition", regex.compile(r"\bCollector\"?s\b", regex.IGNORECASE), value("Collectors Edition"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bDirector(\')?s.?Cut\b", regex.IGNORECASE), value("Directors Cut"), {"remove": True})
+    parser.add_handler("edition", regex.compile(r"\bCollector(\')?s\b", regex.IGNORECASE), value("Collectors Edition"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bTheatrical\b", regex.IGNORECASE), value("Theatrical"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\buncut(?!.gems)\b", regex.IGNORECASE), value("Uncut"), {"remove": True})
     parser.add_handler("edition", regex.compile(r"\bIMAX\b", regex.IGNORECASE), value("IMAX"), {"remove": True})
