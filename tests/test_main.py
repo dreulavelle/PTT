@@ -1297,23 +1297,36 @@ def parser():
         "container": "mkv",
         "audio": ["Dolby Digital Plus", "Atmos"],
         "channels": ["5.1"],
+    }),
+    ("[Ex-torrenty.org]iCarly.S04.PLDUB.1080p.AMZN.WEB-DL.DDP2.0.H264-Ralf", {
+        "title": "iCarly",
+        "seasons": [4],
+        "episodes": [],
+        "languages": ["pl"], # check to see if it handles `PLDUB`
+        "quality": "WEB-DL",
+        "resolution": "1080p",
+        "codec": "avc",
+        "audio": ["Dolby Digital Plus"],
+        "group": "Ralf",
+        "network": "Amazon",
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
-@pytest.mark.parametrize("release_name, expected", [
-    ("Futurama.COMPLETE.S01-S07.720p.BluRay.x265-HETeam", {
-        "title": "Futurama",
-        "seasons": [1, 2, 3, 4, 5, 6, 7],
-        "episodes": [],
-        "languages": [],
-        "quality": "BluRay",
-        "resolution": "720p",
-        "codec": "hevc",
-        "complete": True,
-        "group": "HETeam",
-    })
-])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+# @pytest.mark.parametrize("release_name, expected", [
+#     (" Game of Thrones - Sezon 4 Odcinek 10 [480p.720p.WEB-DL.H264-NitroTeam] [Lektor PL].mkv", {
+#         "title": "Game of Thrones",
+#         "seasons": [4],
+#         "episodes": [10],
+#         "languages": ["pl"],
+#         "quality": "WEB-DL",
+#         "resolution": "720p",
+#         "codec": "avc",
+#         "container": "mkv",
+#         "extension": "mkv",
+#         "site": "480p...-NitroTeam",
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
