@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.5](https://github.com/dreulavelle/PTT/compare/v1.6.4...v1.6.5) (2025-03-31)
+
+
+### Bug Fixes
+
+* fixed 'a complete unknown' title ([5b56dce](https://github.com/dreulavelle/PTT/commit/5b56dce456789fbe84830acbf92877ddf2ddfe3e))
+* improve polish language ([c860a86](https://github.com/dreulavelle/PTT/commit/c860a861ea2697f0e7674dca1d6161f574998f1e))
+
 ## [1.6.4](https://github.com/dreulavelle/PTT/compare/v1.6.3...v1.6.4) (2025-03-29)
 
 
