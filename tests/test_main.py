@@ -123,7 +123,6 @@ def parser():
         "quality": "HDTV",
         "languages": [],
         "episodes": [],
-        "complete": True
     }),
     ("The Sopranos: The Complete Series (Season 1,2,3,4,5&6) + Extras", {
         "title": "The Sopranos",
@@ -1285,25 +1284,35 @@ def parser():
         "hdr": ["DV", "HDR"],
         "subbed": True,
         "year": 2024,
+    }),
+    ("A Complete Unknown 2024 1080p MA WEB-DL DDP5 1 Atmos H 264-BYNDR mkv", {
+        "title": "A Complete Unknown",
+        "year": 2024,
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "WEB-DL",
+        "resolution": "1080p",
+        "codec": "avc",
+        "container": "mkv",
+        "audio": ["Dolby Digital Plus", "Atmos"],
+        "channels": ["5.1"],
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("www 1TamilMV ms - The Electric State (2025) HQ HDRip - x264 - [Tam + Tel + Hin] - AAC - 450MB - ESub mkv", {
-        "title": "The Electric State",
-        "year": 2025,
-        "seasons": [],
+    ("Futurama.COMPLETE.S01-S07.720p.BluRay.x265-HETeam", {
+        "title": "Futurama",
+        "seasons": [1, 2, 3, 4, 5, 6, 7],
         "episodes": [],
-        "languages": ["en", "hi", "te", "ta"],
-        "quality": "HDRip",
-        "codec": "avc",
-        "trash": True,
-        "size": "450MB",
-        "container": "mkv",
-        "audio": ["AAC"],
-        "site": "www 1TamilMV ms",
+        "languages": [],
+        "quality": "BluRay",
+        "resolution": "720p",
+        "codec": "hevc",
+        "complete": True,
+        "group": "HETeam",
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):

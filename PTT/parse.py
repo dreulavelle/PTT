@@ -43,7 +43,7 @@ SUB_PATTERN = regex.compile(r"_+")
 
 BEFORE_TITLE_MATCH_REGEX = regex.compile(r"^\[([^[\]]+)]")
 
-DEBUG_HANDLER = False
+DEBUG_HANDLER = "complete"
 
 
 def extend_options(options: Dict[str, Any] = {}) -> Dict[str, Any]:
