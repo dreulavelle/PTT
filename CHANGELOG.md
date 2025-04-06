@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.7](https://github.com/dreulavelle/PTT/compare/v1.6.6...v1.6.7) (2025-04-06)
+
+
+### Bug Fixes
+
+* integrale missing boolean ([2f7e53b](https://github.com/dreulavelle/PTT/commit/2f7e53b1b0029560a956dd5d1007cdbc5c1b2194))
+
 ## [1.6.6](https://github.com/dreulavelle/PTT/compare/v1.6.5...v1.6.6) (2025-04-06)
 
 
