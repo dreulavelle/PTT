@@ -305,7 +305,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\b(temporadas?|completa)\b", regex.IGNORECASE), uniq_concat(value("es")), {"skipIfAlreadyFound": False})
 
     # Complete
-    parser.add_handler("complete", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?)\b", regex.IGNORECASE), none, {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("complete", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?)\b", regex.IGNORECASE), boolean, {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("complete", regex.compile(r"(Movie|Complete).Collection"), boolean, {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("complete", regex.compile(r"Complete(.\d{1,2})"), boolean, {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("complete", regex.compile(r"(?:\bthe\W)?(?:\bcomplete|collection|dvd)?\b[ .]?\bbox[ .-]?set\b", regex.IGNORECASE), boolean, {"remove": True})
