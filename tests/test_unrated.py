@@ -12,9 +12,18 @@ def parser():
 
 @pytest.mark.parametrize("release_name, expected_unrated", [
     ("Identity.Thief.2013.Vostfr.UNRATED.BluRay.720p.DTS.x264-Nenuko", True),
-    ("Charlie.les.filles.lui.disent.merci.2007.UNCENSORED.TRUEFRENCH.DVDRiP.AC3.Libe", True),
+    ("Charlie.les.filles.lui.disent.merci.2007.UNCENSORED.TRUEFRENCH.DVDRiP.AC3.Libe", False),
     ("Have I Got News For You S53E02 EXTENDED 720p HDTV x264-QPEL", False),
 ])
 def test_unrated_detection(parser, release_name, expected_unrated):
     result = parser.parse(release_name)
     assert ("unrated" in result) == expected_unrated, f"Expected 'unrated' detection to be {expected_unrated} for {release_name}"
+
+@pytest.mark.parametrize("release_name, expected_uncensored", [
+    ("Identity.Thief.2013.Vostfr.UNRATED.BluRay.720p.DTS.x264-Nenuko", False),
+    ("Charlie.les.filles.lui.disent.merci.2007.UNCENSORED.TRUEFRENCH.DVDRiP.AC3.Libe", True),
+    ("Have I Got News For You S53E02 EXTENDED 720p HDTV x264-QPEL", False),
+])
+def test_uncensored_detection(parser, release_name, expected_uncensored):
+    result = parser.parse(release_name)
+    assert ("uncensored" in result) == expected_uncensored, f"Expected 'uncensored' detection to be {expected_uncensored} for {release_name}"

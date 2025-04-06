@@ -53,7 +53,7 @@ def parser():
         "languages": [],
         "dubbed": True,
         "codec": "avc",
-        "audio": ["AC3"],
+        "audio": ["Dolby Digital"],
         "group": "gismo65",
         "seasons": [],
         "episodes": []
@@ -76,7 +76,7 @@ def parser():
         "year": 2017,
         "resolution": "720p",
         "codec": "avc",
-        "audio": ["AC3"],
+        "audio": ["Dolby Digital"],
         "group": "EVO",
         "languages": [],
         "seasons": [],
@@ -254,7 +254,7 @@ def parser():
         "year": 2005,
         "resolution": "720p",
         "quality": "BRRip",
-        "audio": ["AC3"],
+        "audio": ["Dolby Digital"],
         "languages": ["en", "it"],
         "group": "LIFE",
         "seasons": [],
@@ -356,7 +356,7 @@ def parser():
         "quality": "BluRay",
         "codec": "hevc",
         "bit_depth": "10bit",
-        "audio": ["AC3", "AAC"],
+        "audio": ["AAC"],
         "channels": ["5.1"]
     }),
     ("[DB]_Bleach_264_[012073FE].avi", {
@@ -431,8 +431,8 @@ def parser():
         "quality": "BDRip",
         "codec": "hevc",
         "resolution": "1896x1048p",  # this needs to be 1080p instead probably
-        "audio": ["TrueHD", "FLAC", "AC3"],
-        "channels": ["5.1"],
+        "audio": ["TrueHD", "FLAC", "Dolby Digital"],
+        "channels": ["5.1", "2.0"],
         # "group": "sxales",
         "dubbed": True,
         "container": "mkv",
@@ -626,7 +626,7 @@ def parser():
         "resolution": "2160p",
         "quality": "WEB-DL",
         "codec": "hevc",
-        "audio": ["Dolby Digital Plus", "Atmos"],
+        "audio": ["Atmos", "Dolby Digital Plus"],
         "channels": ["5.1"],
         "group": "FLUX",
         "episodes": [],
@@ -717,7 +717,7 @@ def parser():
         "resolution": "1080p",
         "codec": "avc",
         "audio": ["Dolby Digital Plus"],
-        # "channels": ["2.0"],
+        "channels": ["2.0"],
         "group": "NTb",
         "extension": "mkv",
         "container": "mkv",
@@ -730,7 +730,7 @@ def parser():
         "languages": [],
         "resolution": "2160p",
         "codec": "hevc",
-        "audio": ["AC3", "Dolby Digital Plus"],
+        "audio": ["Dolby Digital Plus"],
         "channels": ["5.1"],
         "group": "DirtyHippie",
         "container": "mkv",
@@ -765,6 +765,7 @@ def parser():
         "quality": "PDTV",
         "codec": "avc",
         "audio": ["AAC"],
+        "channels": ["2.0"],
         "group": "BTN"
     }),
     ("www.1Tamilblasters.co - Guardians of the Galaxy Vol. 3 (2023) [4K IMAX UHD HEVC - BDRip - [Tam + Mal + Tel + Hin + Eng] - x264 - DDP5.1 (192Kbps) - 8.3GB - ESub].mkv", {
@@ -887,7 +888,7 @@ def parser():
         "resolution": "1080p",
         "quality": "WEB-DL",
         "codec": "avc",
-        "audio": ["Dolby Digital Plus", "Atmos"],
+        "audio": ["Atmos", "Dolby Digital Plus"],
         "channels": ["5.1"],
         "group": "XEBEC",
         "container": "mkv",
@@ -980,7 +981,7 @@ def parser():
         "resolution": "1080p",
         "quality": "HDTVRip",
         "codec": "avc",
-        "audio": ["AC3", "AAC"],
+        "audio": ["AAC"],
         "channels": ["5.1"],
         "group": "QRips",
         "size": "2.2GB"
@@ -1042,7 +1043,7 @@ def parser():
         "network": "Amazon",
         "codec": "avc",
         "dubbed": True,
-        "audio": ["Dolby Digital Plus", "Atmos"],
+        "audio": ["Atmos", "Dolby Digital Plus"],
         "channels": ["5.1"],
         # "group": "K83",
         "site": "BEST-TORRENTS.COM"
@@ -1149,22 +1150,6 @@ def parser():
         "codec": "hevc",
         "subbed": True,
         "group": "DKB"
-    }),
-    ("Fallout.S01E03.The.Head.2160p.DV.HDR10Plus.Ai-Enhanced.H265.DDP.5.1.MULTI.RIFE.4.15v2-60fps-DirtyHippie.mkv", {
-        "title": "Fallout",
-        "seasons": [1],
-        "episodes": [3],
-        "languages": [],
-        "resolution": "2160p",
-        "audio": ["AC3", "Dolby Digital Plus"],
-        "channels": ["5.1"],
-        "codec": "hevc",
-        "container": "mkv",
-        "extension": "mkv",
-        "group": "DirtyHippie",
-        "hdr": ["DV", "HDR10+"],
-        "upscaled": True,
-        "dubbed": True
     }),
     ("[JySzE] Naruto [v2] [R2J] [VFR] [Dual Audio] [Complete] [Extras] [x264]", {
         "title": "Naruto",
@@ -1295,7 +1280,7 @@ def parser():
         "resolution": "1080p",
         "codec": "avc",
         "container": "mkv",
-        "audio": ["Dolby Digital Plus", "Atmos"],
+        "audio": ["Atmos", "Dolby Digital Plus"],
         "channels": ["5.1"],
     }),
     ("[Ex-torrenty.org]iCarly.S04.PLDUB.1080p.AMZN.WEB-DL.DDP2.0.H264-Ralf", {
@@ -1303,29 +1288,125 @@ def parser():
         "seasons": [4],
         "episodes": [],
         "languages": ["pl"], # check to see if it handles `PLDUB`
+        "channels": ["2.0"],
         "quality": "WEB-DL",
         "resolution": "1080p",
         "codec": "avc",
         "audio": ["Dolby Digital Plus"],
         "group": "Ralf",
         "network": "Amazon",
+    }),
+    ("Deadpool (2016) [2160p] [7.1 AAC ENG] [5.1 AAC ENG FRE GER ITA SPA] [COMMENTARY] [Multi-Sub] [10bit] [UHD] [HEVC] [x265] [pseudo].mkv", {
+        "container": "mkv",
+        "resolution": "2160p",
+        "year": 2016,
+        "bit_depth": "10bit",
+        "codec": "hevc",
+        "channels": [ # make sure it handles multiple channels
+            "5.1",
+            "7.1"
+        ],
+        "audio": [
+            "AAC"
+        ],
+        "episodes": [],
+        "languages": [
+            "en",
+            "fr",
+            "es",
+            "it",
+            "de"
+        ],
+        "subbed": True,
+        "commentary": True,
+        "extension": "mkv",
+        "seasons": [],
+        "title": "Deadpool"
+    }),
+    ("Deadpool [BDremux 1080p][AC3 5.1-DTS 5.1 Castellano-DTSEX 5.1 Ingles+Subs][ES-EN]", {
+        "resolution": "1080p",
+        "quality": "BluRay REMUX",
+        "channels": [
+            "5.1"
+        ],
+        "audio": [
+            "DTS Lossless",
+            "DTS Lossy",
+            "Dolby Digital"
+        ],
+        "episodes": [],
+        "languages": [
+            "en",
+            "es"
+        ],
+        "subbed": True,
+        "seasons": [],
+        "title": "Deadpool"
+    }),
+    ("X-Men Complete 13 Movie Collection Sci-Fi 2000 - 2020 Eng Rus Multi-Subs 1080p [H264-mp4]", {
+        "container": "mp4",
+        "resolution": "1080p",
+        "complete": True,
+        "codec": "avc",
+        "languages": [
+            "en",
+            "ru"
+        ],
+        "subbed": True,
+        "episodes": [],
+        "seasons": [],
+        "title": "X-Men"
+    }),
+    ("BLACK PANTHER - Wakanda Forever (2022) 10bit.m1080p.BRRip.H265.MKV.AC3-5.1 DUBPL-ENG-NapisyPL [StarLord]", {
+        "container": "mkv",
+        "resolution": "1080p",
+        "codec": "hevc",
+        "languages": ["en", "pl"],
+        "episodes": [],
+        "seasons": [],
+        "audio": ["Dolby Digital"],
+        "bit_depth": "10bit",
+        "channels": ["5.1"],
+        "episode_code": "STARLORD",
+        "quality": "BRRip",
+        "year": 2022,
+        "title": "BLACK PANTHER - Wakanda Forever",
+    }),
+    ("The.White.Lotus.2.Sezon.7.Bölüm.2021.1080p.BLUTV.WEB-DL.AAC2.0.H.264-TURG.mkv", {
+        "container": "mkv",
+        "resolution": "1080p",
+        "codec": "avc",
+        "languages": [],
+        "episodes": [7], # check to see if it handles `7.Bölüm`
+        "seasons": [2], # check to see if it handles `2.Sezon`
+        "audio": ["AAC"],
+        "channels": ["2.0"],
+        "quality": "WEB-DL",
+        "title": "The White Lotus",
+        "year": 2021,
+        "extension": "mkv",
+        "group": "TURG",
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
+
 # @pytest.mark.parametrize("release_name, expected", [
-#     (" Game of Thrones - Sezon 4 Odcinek 10 [480p.720p.WEB-DL.H264-NitroTeam] [Lektor PL].mkv", {
-#         "title": "Game of Thrones",
-#         "seasons": [4],
-#         "episodes": [10],
-#         "languages": ["pl"],
-#         "quality": "WEB-DL",
-#         "resolution": "720p",
-#         "codec": "avc",
+#     ("The.White.Lotus.2.Sezon.7.Bölüm.2021.1080p.BLUTV.WEB-DL.AAC2.0.H.264-TURG.mkv", {
 #         "container": "mkv",
+#         "resolution": "1080p",
+#         "codec": "avc",
+#         "languages": [],
+#         "episodes": [7],
+#         "seasons": [2],
+#         "audio": ["AAC"],
+#         "channels": ["2.0"],
+#         "quality": "WEB-DL",
+#         "title": "The White Lotus",
+#         "year": 2021,
 #         "extension": "mkv",
-#         "site": "480p...-NitroTeam",
+#         "group": "TURG",
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

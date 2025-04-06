@@ -17,21 +17,21 @@ def parser():
     ("Rain Man 1988 REMASTERED 1080p BRRip x264 AAC-m2g", ["AAC"]),
     ("The Vet Life S02E01 Dunk-A-Doctor 1080p ANPL WEB-DL AAC2 0 H 264-RTN", ["AAC"]),
     ("Jimmy Kimmel 2017 05 03 720p HDTV DD5 1 MPEG2-CTL", ["Dolby Digital"]),
-    ("A Dog's Purpose 2016 BDRip 720p X265 Ac3-GANJAMAN", ["AC3"]),
-    ("Retroactive 1997 BluRay 1080p AC-3 HEVC-d3g", ["AC3"]),
+    ("A Dog's Purpose 2016 BDRip 720p X265 Ac3-GANJAMAN", ["Dolby Digital"]),
+    ("Retroactive 1997 BluRay 1080p AC-3 HEVC-d3g", ["Dolby Digital"]),
     ("Tempete 2016-TrueFRENCH-TVrip-H264-mp3", ["MP3"]),
     ("Detroit.2017.BDRip.MD.GERMAN.x264-SPECTRE", None),
-    ("The Blacklist S07E04 (1080p AMZN WEB-DL x265 HEVC 10bit EAC-3 5.1)[Bandi]", ["EAC3"]),
-    ("Condor.S01E03.1080p.WEB-DL.x265.10bit.EAC3.6.0-Qman[UTR].mkv", ["EAC3"]),
-    ("The 13 Ghosts of Scooby-Doo (1985) S01 (1080p AMZN Webrip x265 10bit EAC-3 2.0 - Frys) [TAoE]", ["EAC3"]),
+    ("The Blacklist S07E04 (1080p AMZN WEB-DL x265 HEVC 10bit EAC-3 5.1)[Bandi]", ["Dolby Digital Plus"]),
+    ("Condor.S01E03.1080p.WEB-DL.x265.10bit.EAC3.6.0-Qman[UTR].mkv", ["Dolby Digital Plus"]),
+    ("The 13 Ghosts of Scooby-Doo (1985) S01 (1080p AMZN Webrip x265 10bit EAC-3 2.0 - Frys) [TAoE]", ["Dolby Digital Plus"]),
     ("[Thund3r3mp3ror] Attack on Titan - 23.mp4", None),
-    ("Buttobi!! CPU - 02 (DVDRip 720x480p x265 HEVC AC3x2 2.0x2)(Dual Audio)[sxales].mkv", ["AC3"]),
+    ("Buttobi!! CPU - 02 (DVDRip 720x480p x265 HEVC AC3x2 2.0x2)(Dual Audio)[sxales].mkv", ["Dolby Digital"]),
     ("[naiyas] Fate Stay Night - Unlimited Blade Works Movie [BD 1080P HEVC10 QAACx2 Dual Audio]", ["AAC"]),
-    ("Sakura Wars the Movie (2001) (BDRip 1920x1036p x265 HEVC FLACx2, AC3 2.0+5.1x2)(Dual Audio)[sxales].mkv", ["FLAC", "AC3"]),
+    ("Sakura Wars the Movie (2001) (BDRip 1920x1036p x265 HEVC FLACx2, AC3 2.0+5.1x2)(Dual Audio)[sxales].mkv", ["FLAC", "Dolby Digital"]),
     ("Spider-Man.No.Way.Home.2021.2160p.BluRay.REMUX.HEVC.TrueHD.7.1.Atmos-FraMeSToR", ["Atmos", "TrueHD"]),
     ("Monk.S01.1080p.AMZN.WEBRip.DDP2.0.x264-AJP69[rartv]", ["Dolby Digital Plus"]),
     ("Monk.S01E01E02.1080p.WEB-DL.DD2.0.x264-AJP69.mkv", ["Dolby Digital"]),
-    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", ["FLAC", "AC3"]),
+    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", ["FLAC", "Dolby Digital"]),
 ])
 def test_audio_detection(parser, release_name, expected_audio):
     result = parser.parse(release_name)
@@ -42,8 +42,8 @@ def test_audio_detection(parser, release_name, expected_audio):
         assert "audio" not in result, f"Unexpected audio detection for {release_name}"
 
 @pytest.mark.parametrize("release_name, expected_audio", [
-    ("Macross ~ Do You Remember Love (1984) (BDRip 1920x1036p x265 HEVC DTS-HD MA, FLAC, AC3x2 5.1+2.0x3)(Dual Audio)[sxales].mkv", ["DTS Lossless", "FLAC", "AC3"]),
-    ("Escaflowne (2000) (BDRip 1896x1048p x265 HEVC TrueHD, FLACx3, AC3 5.1x2+2.0x3)(Triple Audio)[sxales].mkv", ["TrueHD", "FLAC", "AC3"]),
+    ("Macross ~ Do You Remember Love (1984) (BDRip 1920x1036p x265 HEVC DTS-HD MA, FLAC, AC3x2 5.1+2.0x3)(Dual Audio)[sxales].mkv", ["DTS Lossless", "FLAC", "Dolby Digital"]),
+    ("Escaflowne (2000) (BDRip 1896x1048p x265 HEVC TrueHD, FLACx3, AC3 5.1x2+2.0x3)(Triple Audio)[sxales].mkv", ["TrueHD", "FLAC", "Dolby Digital"]),
     ("[SAD] Inuyasha - The Movie 4 - Fire on the Mystic Island [BD 1920x1036 HEVC10 FLAC2.0x2] [84E9A4A1].mkv", ["FLAC"]),
 ])
 def test_audio_detection_without_episode(parser, release_name, expected_audio):
@@ -56,8 +56,8 @@ def test_audio_detection_without_episode(parser, release_name, expected_audio):
     assert result.get("episodes") == [], f"Unexpected episode detection for {release_name}"
 
 @pytest.mark.parametrize("release_name, expected_audio, expected_episode", [
-    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", ["FLAC", "AC3"], [23]),
-    ("Buttobi!! CPU - 02 (DVDRip 720x480p x265 HEVC AC3x2 2.0x2)(Dual Audio)[sxales].mkv", ["AC3"], [2]),
+    ("Outlaw Star - 23 (BDRip 1440x1080p x265 HEVC AC3, FLACx2 2.0x3)(Dual Audio)[sxales].mkv", ["FLAC", "Dolby Digital"], [23]),
+    ("Buttobi!! CPU - 02 (DVDRip 720x480p x265 HEVC AC3x2 2.0x2)(Dual Audio)[sxales].mkv", ["Dolby Digital"], [2]),
 ])
 def test_audio_detection_with_episode(parser, release_name, expected_audio, expected_episode):
     result = parser.parse(release_name)
@@ -84,7 +84,7 @@ def test_audio_detection_with_episode(parser, release_name, expected_audio, expe
     ("Ocean's.Thirteen.2007.UHD.BluRay.2160p.DTS-HD.MA.5.1.DV.HEVC.HYBRID.REMUX-FraMeSToR.mkv", ["DTS Lossless"], "Ocean's Thirteen"),
     ("Sleepy.Hollow.1999.BluRay.1080p.2Audio.DTS-HD.HR.5.1.x265.10bit-ALT", ["DTS Lossy"], "Sleepy Hollow"),
     ("The Flash 2023 WEBRip 1080p DTS DD+ 5.1 Atmos x264-MgB", ["DTS Lossy", "Atmos", "Dolby Digital Plus"], "The Flash"),
-    ("Indiana Jones and the Last Crusade 1989 BluRay 1080p DTS AC3 x264-MgB", ["DTS Lossy", "AC3"], "Indiana Jones and the Last Crusade"),
+    ("Indiana Jones and the Last Crusade 1989 BluRay 1080p DTS AC3 x264-MgB", ["DTS Lossy", "Dolby Digital"], "Indiana Jones and the Last Crusade"),
     ("2012.London.Olympics.BBC.Bluray.Set.1080p.DTS-HD", ["DTS Lossy"], "London Olympics BBC"),
     ("www.1TamilMV.phd - Oppenheimer (2023) English BluRay - 1080p - x264 - (DTS 5.1) - 7.3GB - ESub.mkv", ["DTS Lossy"], "Oppenheimer"),
     ("【高清影视之家发布 www.HDBTHD.com】年会不能停！[60帧率版本][国语音轨+中文字幕].Johnny.Keep.Walking.2023.60FPS.2160p.WEB-DL.H265.10bit.DTS.5.1-GPTHD", ["DTS Lossy"], "高清影视之家发布"),
