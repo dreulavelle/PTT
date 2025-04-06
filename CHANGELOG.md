@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.6](https://github.com/dreulavelle/PTT/compare/v1.6.5...v1.6.6) (2025-04-06)
+
+
+### Bug Fixes
+
+* cleaned up separations on multiple attributes. light housekeeping! ([acdf000](https://github.com/dreulavelle/PTT/commit/acdf000ddadcc6d51231ff39421c0199208cc686))
+
 ## [1.6.5](https://github.com/dreulavelle/PTT/compare/v1.6.4...v1.6.5) (2025-03-31)
 
 
