@@ -1,7 +1,6 @@
 import regex
 
 from PTT.adult import create_adult_pattern
-from PTT.anime import anime_handler
 from PTT.parse import Parser
 from PTT.transformers import (
     array,
@@ -65,10 +64,6 @@ def add_defaults(parser: Parser):
     parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
     parser.add_handler("site", regex.compile(r"\bwww.+rodeo\b", regex.IGNORECASE), lowercase, {"remove": True})
 
-    # Episode code
-    parser.add_handler("episode_code", regex.compile(r"[[(]([a-zA-Z0-9]{8})[\])](?=\.[a-zA-Z0-9]{1,5}$|$)"), uppercase, {"remove": True})
-    parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
-
     # Resolution
     parser.add_handler("resolution", regex.compile(r"\[?\]?3840x\d{4}[\])?]?", regex.IGNORECASE), value("2160p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\[?\]?1920x\d{3,4}[\])?]?", regex.IGNORECASE), value("1080p"), {"remove": True})
@@ -85,6 +80,10 @@ def add_defaults(parser: Parser):
     parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("2160p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
+
+    # Episode code
+    parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
+    parser.add_handler("episode_code", regex.compile(r"(?:\[|\()(?=\D+\d|\d+\D)\b([A-Z0-9]{8}|[a-z0-9]{8})(?:\]|\))"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
 
     # Trash (Equivalent to RTN auto-trasher) - DO NOT REMOVE HERE!
     # This one is pretty strict, but it removes a lot of the garbage
@@ -152,34 +151,34 @@ def add_defaults(parser: Parser):
     parser.add_handler("upscaled", regex.compile(r"\b\.AI\.\b", regex.IGNORECASE), boolean)
 
     # Convert
-    parser.add_handler("convert", regex.compile(r"\bCONVERT\b", regex.IGNORECASE), boolean)
+    parser.add_handler("convert", regex.compile(r"\bCONVERT\b"), boolean, {"remove": True})
 
     # Hardcoded
-    parser.add_handler("hardcoded", regex.compile(r"\b(HC|HARDCODED)\b", regex.IGNORECASE), boolean)
+    parser.add_handler("hardcoded", regex.compile(r"\b(HC|HARDCODED)\b"), boolean, {"remove": True})
 
     # Proper
-    parser.add_handler("proper", regex.compile(r"\b(?:REAL.)?PROPER\b", regex.IGNORECASE), boolean)
+    parser.add_handler("proper", regex.compile(r"\b(?:REAL.)?PROPER\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Repack
-    parser.add_handler("repack", regex.compile(r"\bREPACK|RERIP\b", regex.IGNORECASE), boolean)
+    parser.add_handler("repack", regex.compile(r"\bREPACK|RERIP\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Retail
-    parser.add_handler("retail", regex.compile(r"\bRetail\b", regex.IGNORECASE), boolean)
+    parser.add_handler("retail", regex.compile(r"\bRetail\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Remastered
-    parser.add_handler("remastered", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), boolean)
+    parser.add_handler("remastered", regex.compile(r"\bRemaster(?:ed)?\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Documentary
     parser.add_handler("documentary", regex.compile(r"\bDOCU(?:menta?ry)?\b", regex.IGNORECASE), boolean, {"skipFromTitle": True})
 
     # Unrated
-    parser.add_handler("unrated", regex.compile(r"\bunrated\b", regex.IGNORECASE), boolean)
+    parser.add_handler("unrated", regex.compile(r"\bunrated\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Uncensored
-    parser.add_handler("uncensored", regex.compile(r"\buncensored\b", regex.IGNORECASE), boolean)
+    parser.add_handler("uncensored", regex.compile(r"\buncensored\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Commentary
-    parser.add_handler("commentary", regex.compile(r"\bcommentary\b", regex.IGNORECASE), boolean)
+    parser.add_handler("commentary", regex.compile(r"\bcommentary\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Region
     parser.add_handler("region", regex.compile(r"R\dJ?\b"), uppercase, {"remove": True})
@@ -321,6 +320,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("complete", regex.compile(r"\b\[Complete\]\b", regex.IGNORECASE), boolean, {"remove": True})
     parser.add_handler("complete", regex.compile(r"(?<!A.?|The.?)\bComplete\b", regex.IGNORECASE), boolean, {"remove": True})
     parser.add_handler("complete", regex.compile(r"COMPLETE"), boolean, {"remove": True})
+    parser.add_handler("complete", regex.compile(r"\bkolekcja\b(?:\Wfilm(?:y|ów|ow)?)?"), boolean, {"remove": True})
 
     # Seasons
     parser.add_handler("seasons", regex.compile(r"(?:complete\W|seasons?\W|\W|^)((?:s\d{1,2}[., +/\\&-]+)+s\d{1,2}\b)", regex.IGNORECASE), range_func, {"remove": True})

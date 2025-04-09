@@ -1367,7 +1367,6 @@ def parser():
         "audio": ["Dolby Digital"],
         "bit_depth": "10bit",
         "channels": ["5.1"],
-        "episode_code": "STARLORD",
         "quality": "BRRip",
         "year": 2022,
         "title": "BLACK PANTHER - Wakanda Forever",
