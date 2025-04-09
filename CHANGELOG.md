@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.9](https://github.com/dreulavelle/PTT/compare/v1.6.8...v1.6.9) (2025-04-09)
+
+
+### Bug Fixes
+
+* MunifTanjim was here.. ([647c46e](https://github.com/dreulavelle/PTT/commit/647c46edf1ea650264225e9f6013d70bb58e3d7e))
+
 ## [1.6.8](https://github.com/dreulavelle/PTT/compare/v1.6.7...v1.6.8) (2025-04-09)
 
 
