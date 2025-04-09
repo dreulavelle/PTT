@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.8](https://github.com/dreulavelle/PTT/compare/v1.6.7...v1.6.8) (2025-04-09)
+
+
+### Bug Fixes
+
+* tidy up episode code handler ([29cc316](https://github.com/dreulavelle/PTT/commit/29cc31615dd0b5d829f354d14bc383bad2c30a92))
+
 ## [1.6.7](https://github.com/dreulavelle/PTT/compare/v1.6.6...v1.6.7) (2025-04-06)
 
 
