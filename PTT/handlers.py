@@ -83,7 +83,7 @@ def add_defaults(parser: Parser):
 
     # Episode code
     parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
-    parser.add_handler("episode_code", regex.compile(r"(?:\[|\()(?=\D+\d|\d+\D)\b([A-Z0-9]{8}|[a-z0-9]{8})(?:\]|\))"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
+    parser.add_handler("episode_code", regex.compile(r"(?:\[|\()(?=\D+\d|\d+[^\d\])])\b([A-Z0-9]{8}|[a-z0-9]{8})(?:\]|\))"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
 
     # Trash (Equivalent to RTN auto-trasher) - DO NOT REMOVE HERE!
     # This one is pretty strict, but it removes a lot of the garbage
