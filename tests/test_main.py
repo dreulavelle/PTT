@@ -1385,6 +1385,43 @@ def parser():
         "year": 2021,
         "extension": "mkv",
         "group": "TURG",
+    }),
+    ("Apollo 13 (1995) [1080p] [WEB-DL] [x264] [E-AC3-S78] [Lektor PL]", {
+        "resolution": "1080p",
+        "year": 1995,
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "audio": ["Dolby Digital Plus"], # check to see if it handles `E-AC3-S78`
+        "seasons": [],
+        "languages": [
+            "pl"
+        ],
+        "episodes": [],
+        "title": "Apollo 13"
+    }),
+    ("The Killer's Game 2024 PL 1080p WEB-DL H264 DD5.1-S56", {
+        "resolution": "1080p",
+        "year": 2024,
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "channels": ["5.1"],
+        "audio": ["Dolby Digital"],
+        "seasons": [], # make sure it doesnt pick up `S56`
+        "languages": ["pl"],
+        "episodes": [],
+        "title": "The Killer's Game"
+    }),
+    ("[a-s]_fairy_tail_-_003_-_infiltrate_the_everlue_mansion__rs2_[1080p_bd-rip][4CB16872].mkv", {
+        "container": "mkv",
+        "resolution": "1080p",
+        "episode_code": "4CB16872",
+        "quality": "BDRip",
+        "seasons": [], # make sure it doesnt pick up `rs2`
+        "episodes": [3],
+        "extension": "mkv",
+        "group": "a-s",
+        "languages": [],
+        "title": "fairy tail"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
@@ -1392,20 +1429,17 @@ def test_random_releases_parse(parser, release_name, expected_output):
 
 
 # @pytest.mark.parametrize("release_name, expected", [
-#     ("The.White.Lotus.2.Sezon.7.Bölüm.2021.1080p.BLUTV.WEB-DL.AAC2.0.H.264-TURG.mkv", {
+#     ("[a-s]_fairy_tail_-_003_-_infiltrate_the_everlue_mansion__rs2_[1080p_bd-rip][4CB16872].mkv", {
 #         "container": "mkv",
 #         "resolution": "1080p",
-#         "codec": "avc",
-#         "languages": [],
-#         "episodes": [7],
-#         "seasons": [2],
-#         "audio": ["AAC"],
-#         "channels": ["2.0"],
-#         "quality": "WEB-DL",
-#         "title": "The White Lotus",
-#         "year": 2021,
+#         "episode_code": "4CB16872",
+#         "quality": "BDRip",
+#         "seasons": [],
+#         "episodes": [3],
 #         "extension": "mkv",
-#         "group": "TURG",
+#         "group": "a-s",
+#         "languages": [],
+#         "title": "fairy tail"
 #     })
 # ])
 # def test_debug_releases_parse(parser, release_name, expected):

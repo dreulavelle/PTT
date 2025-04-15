@@ -256,7 +256,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("codec", handle_space_in_codec)
 
     # Channels
-    parser.add_handler("channels", regex.compile(r"5[\.\s]1(ch)?\b", regex.IGNORECASE), uniq_concat(value("5.1")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("channels", regex.compile(r"5[\.\s]1(?:ch|-S\d+)?\b", regex.IGNORECASE), uniq_concat(value("5.1")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\b(?:x[2-4]|5[\W]1(?:x[2-4])?)\b", regex.IGNORECASE), uniq_concat(value("5.1")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\b7[\.\- ]1(.?ch(annel)?)?\b", regex.IGNORECASE), uniq_concat(value("7.1")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\+?2[\.\s]0(?:x[2-4])?\b", regex.IGNORECASE), uniq_concat(value("2.0")), {"remove": True, "skipIfAlreadyFound": False})
@@ -271,8 +271,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\b(True[ .-]?HD|\.True\.)\b", regex.IGNORECASE), uniq_concat(value("TrueHD")), {"remove": True, "skipIfAlreadyFound": False, "skipFromTitle": True})
     parser.add_handler("audio", regex.compile(r"\bTRUE\b"), uniq_concat(value("TrueHD")), {"remove": True, "skipIfAlreadyFound": False, "skipFromTitle": True})
     parser.add_handler("audio", regex.compile(r"\bFLAC(?:\d\.\d)?(?:x\d+)?\b", regex.IGNORECASE), uniq_concat(value("FLAC")), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("audio", regex.compile(r"DD2?[\+p]|DD Plus|Dolby Digital Plus|DDP5[ \.\_]1|EAC-?3", regex.IGNORECASE), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("audio", regex.compile(r"\b(DD|Dolby.?Digital|DolbyD|AC-?3(x2)?)\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"DD2?[\+p]|DD Plus|Dolby Digital Plus|DDP5[ \.\_]1|E-?AC-?3(?:-S\d+)?", regex.IGNORECASE), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\b(DD|Dolby.?Digital|DolbyD|AC-?3(x2)?(?:-S\d+)?)\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("AAC")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bL?PCM\b", regex.IGNORECASE), uniq_concat(value("PCM")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bOPUS(\b|\d)(?!.*[ ._-](\d{3,4}p))"), uniq_concat(value("OPUS")), {"remove": True, "skipIfAlreadyFound": False})
@@ -336,7 +336,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"[Сс]езон:?[. _]?№?(\d{1,2})(?!\d)", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("seasons", regex.compile(r"(?:\D|^)(\d{1,2})Â?[°ºªa]?[. ]*temporada", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("seasons", regex.compile(r"t(\d{1,3})(?:[ex]+|$)", regex.IGNORECASE), array(integer), {"remove": True})
-    parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete)?s(\d{1,3})(?:[\Wex]|\d{2}\b|$)", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": False})
+    parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete)?(?<![a-z])\bs(\d{1,3})(?:[\Wex]|\d{2}\b|$)", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": False})
     parser.add_handler("seasons", regex.compile(r"(?:(?:\bthe\W)?\bcomplete\W)?(?:\W|^)(\d{1,2})[. ]?(?:st|nd|rd|th)[. ]*season", regex.IGNORECASE), array(integer))
     parser.add_handler("seasons", regex.compile(r"(?<=S)\d{2}(?=E\d+)"), array(integer), {"remove": True})
     parser.add_handler("seasons", regex.compile(r"(?:\D|^)(\d{1,2})[xх]\d{1,3}(?:\D|$)"), array(integer))
