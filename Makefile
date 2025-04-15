@@ -37,6 +37,9 @@ sort:
 test: clean
 	@poetry run pytest -n 4 --dist=loadscope tests
 
+diff:
+	@git diff HEAD~1 HEAD
+
 debug:
 	@poetry run pytest tests/test_main.py::test_debug_releases_parse -v -ss
 
