@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.10](https://github.com/dreulavelle/PTT/compare/v1.6.9...v1.6.10) (2025-04-15)
+
+
+### Bug Fixes
+
+* slight tweaks to eac3 and 5.1 parsing ([df45f07](https://github.com/dreulavelle/PTT/commit/df45f07d41c4536fd4f08d9915bc992240915f7d))
+
 ## [1.6.9](https://github.com/dreulavelle/PTT/compare/v1.6.8...v1.6.9) (2025-04-09)
 
 
