@@ -16,7 +16,7 @@ import PTT
         ("Last.Call.for.Istanbul.2023.1080p.NF.WEB-DL.DDP5.1.H.264.MKV.torrent", None),
         ("[Naruto-Kun.Hu] Naruto - 061 [1080p].mkv", "Naruto-Kun.Hu"),
         ("www 1TamilMV ms - The Electric State (2025) HQ HDRip - x264 - [Tam + Tel + Hin] - AAC - 450MB - ESub mkv", "www 1TamilMV ms"),
-        ("www 1TamilBlasters rodeo - The Electric State (2025) [1080p HQ HD AVC - x264 - [Tam + Tel + Hin + Eng(ATMOS)] - DDP5 1(640Kbps) - 6 6GB - ESub] mkv", "www 1tamilblasters rodeo"),
+        ("www 1TamilBlasters rodeo - The Electric State (2025) [1080p HQ HD AVC - x264 - [Tam + Tel + Hin + Eng(ATMOS)] - DDP5 1(640Kbps) - 6 6GB - ESub] mkv", "www 1TamilBlasters rodeo"),
     ],
 )
 def test_group_detection(release_name, expected_site):

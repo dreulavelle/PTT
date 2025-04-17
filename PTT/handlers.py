@@ -60,7 +60,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("ppv", regex.compile(r"\b\W?Fight.?Nights?\W?\b", regex.IGNORECASE), boolean, {"skipFromTitle": True, "remove": False})
 
     # Site before languages to get rid of domain name with country code.
-    parser.add_handler("site", regex.compile(r"^(www?[\.,][\w-]+\.[\w-]+(?:\.[\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("site", regex.compile(r"^(www?[., ][\w-]+[. ][\w-]+(?:[. ][\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
     parser.add_handler("site", regex.compile(r"\bwww.+rodeo\b", regex.IGNORECASE), lowercase, {"remove": True})
 

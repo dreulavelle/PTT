@@ -1426,13 +1426,7 @@ def parser():
         "group": "a-s",
         "languages": [],
         "title": "fairy tail"
-    })
-])
-def test_random_releases_parse(parser, release_name, expected_output):
-    assert parser.parse(release_name) == expected_output
-
-
-@pytest.mark.parametrize("release_name, expected", [
+    }),
     ("[Taxi 1998] [BDRemux Rutracker.org].mkv", {
         "container": "mkv",
         "year": 1998,
@@ -1443,7 +1437,55 @@ def test_random_releases_parse(parser, release_name, expected_output):
         "seasons": [],
         "languages": [],
         "title": "Taxi"
+    }),
+    ("www 1TamilBlasters tel - Migration (2023) [English - 720p HQ HDRip - x264 - [DD5 1  (192Kbps) + AAC] - 850MB - ESub] mkv", {
+        "audio": ["Dolby Digital", "AAC"],
+        "bitrate": "192kbps",
+        "channels": ["5.1"],
+        "codec": "avc",
+        "container": "mkv",
+        "episodes": [],
+        "languages": ["en"],
+        "quality": "HDRip",
+        "resolution": "720p",
+        "seasons": [],
+        "site": "www 1TamilBlasters tel",
+        "size": "850MB",
+        "title": "Migration",
+        "trash": True,
+        "year": 2023
+    }),
+    ("www TamilBlasters tel - Sonic the Hedgehog 2 (2022) English 720p HDRip x264 AAC 800MB ESubs mkv", {
+        "audio": ["AAC"],
+        "codec": "avc",
+        "container": "mkv",
+        "episodes": [],
+        "languages": ["en"],
+        "quality": "HDRip",
+        "resolution": "720p",
+        "seasons": [],
+        "site": "www TamilBlasters tel",
+        "size": '800MB',
+        "title": "Sonic the Hedgehog 2",
+        "year": 2022
     })
 ])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
+
+
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("[Taxi 1998] [BDRemux Rutracker.org].mkv", {
+#         "container": "mkv",
+#         "year": 1998,
+#         "quality": "BluRay REMUX",
+#         "site": "Rutracker.org",
+#         "extension": "mkv",
+#         "episodes": [],
+#         "seasons": [],
+#         "languages": [],
+#         "title": "Taxi"
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
