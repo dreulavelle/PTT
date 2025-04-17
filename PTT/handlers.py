@@ -594,8 +594,9 @@ def add_defaults(parser: Parser):
     parser.add_handler("size", regex.compile(r"\b(\d+(\.\d+)?\s?(MB|GB|TB))\b", regex.IGNORECASE), none, {"remove": True})
 
     # Site
+    parser.add_handler("site", regex.compile(r"\b(?:www?.?)?(?:\w+\-)?\w+[\.\s](?:com|org|net|ms|tv|mx|co|party|vip|nu|pics|show)\b", regex.IGNORECASE), value("$1"), {"remove": True})
+    parser.add_handler("site", regex.compile(r"rarbg|torrentleech|(?:the)?piratebay", regex.IGNORECASE), value("$1"), {"remove": True})
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
-    parser.add_handler("site", regex.compile(r"\bwww.\w*.\w+\b", regex.IGNORECASE), value("$1"), {"remove": True})
 
     # Networks
     parser.add_handler("network", regex.compile(r"\bATVP?\b", regex.IGNORECASE), value("Apple TV"), {"remove": True})
@@ -618,7 +619,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("network", regex.compile(r"\bCartoon.?Network(.TOONAMI.BROADCAST)?\b", regex.IGNORECASE), value("Cartoon Network"), {"remove": True})
 
     # Extension
-    parser.add_handler("extension", regex.compile(r"\.(3g2|3gp|avi|flv|mkv|mk3d|mov|mp2|mp4|m4v|mpe|mpeg|mpg|mpv|webm|wmv|ogm|divx|ts|m2ts|iso|vob|sub|idx|ttxt|txt|smi|srt|ssa|ass|vtt|nfo|html)$", regex.IGNORECASE), lowercase)
+    parser.add_handler("extension", regex.compile(r"\.(3g2|3gp|avi|flv|mkv|mk3d|mov|mp2|mp4|m4v|mpe|mpeg|mpg|mpv|webm|wmv|ogm|divx|ts|m2ts|iso|vob|sub|idx|ttxt|txt|smi|srt|ssa|ass|vtt|nfo|html)$", regex.IGNORECASE), lowercase, {"remove": True})
     parser.add_handler("audio", regex.compile(r"\bMP3\b", regex.IGNORECASE), uniq_concat(value("MP3")), {"remove": True, "skipIfAlreadyFound": False})
 
     # Group

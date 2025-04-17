@@ -656,7 +656,8 @@ def parser():
         "episodes": [],
         "resolution": "1080p",
         "quality": "BluRay",
-        "3d": True
+        "3d": True,
+        "site": "YTS.MX"
     }),
     ("Wonder.Woman.1984.2020.3D.1080p.BluRay.x264-SURCODE[rarbg]", {
         "title": "Wonder Woman 1984",
@@ -669,7 +670,8 @@ def parser():
         "quality": "BluRay",
         "codec": "avc",
         "group": "SURCODE",
-        "3d": True
+        "3d": True,
+        "site": "rarbg"
     }),
     ("The.Last.of.Us.S01E08.1080p.WEB.H264-CAKES[TGx]", {
         "title": "The Last of Us",
@@ -1256,6 +1258,7 @@ def parser():
         "channels": ["5.1"],
         "group": "RARBG",
         "quality": "BluRay",
+        "site": "RARBG"
     }),
     ("Агентство / The Agency / Сезон: 1 / Серии: 1-10 из 10 [2024 HEVC HDR10 Dolby Vision WEB-DL 2160p 4k] MVO (HDRezka Studio) + DVO (Viruse Project) + Original + Sub (Eng)", {
         "title": "The Agency",
@@ -1295,6 +1298,7 @@ def parser():
         "audio": ["Dolby Digital Plus"],
         "group": "Ralf",
         "network": "Amazon",
+        "site": "Ex-torrenty.org",
     }),
     ("Deadpool (2016) [2160p] [7.1 AAC ENG] [5.1 AAC ENG FRE GER ITA SPA] [COMMENTARY] [Multi-Sub] [10bit] [UHD] [HEVC] [x265] [pseudo].mkv", {
         "container": "mkv",
@@ -1428,19 +1432,18 @@ def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("[a-s]_fairy_tail_-_003_-_infiltrate_the_everlue_mansion__rs2_[1080p_bd-rip][4CB16872].mkv", {
-#         "container": "mkv",
-#         "resolution": "1080p",
-#         "episode_code": "4CB16872",
-#         "quality": "BDRip",
-#         "seasons": [],
-#         "episodes": [3],
-#         "extension": "mkv",
-#         "group": "a-s",
-#         "languages": [],
-#         "title": "fairy tail"
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("[Taxi 1998] [BDRemux Rutracker.org].mkv", {
+        "container": "mkv",
+        "year": 1998,
+        "quality": "BluRay REMUX",
+        "site": "Rutracker.org",
+        "extension": "mkv",
+        "episodes": [],
+        "seasons": [],
+        "languages": [],
+        "title": "Taxi"
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected
