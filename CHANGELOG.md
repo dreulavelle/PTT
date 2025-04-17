@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.12](https://github.com/dreulavelle/PTT/compare/v1.6.11...v1.6.12) (2025-04-17)
+
+
+### Bug Fixes
+
+* improvements to site handler ([d96f9be](https://github.com/dreulavelle/PTT/commit/d96f9be8d3e6ff95e1ccefbde224b78020054d8f))
+
 ## [1.6.11](https://github.com/dreulavelle/PTT/compare/v1.6.10...v1.6.11) (2025-04-17)
 
 
