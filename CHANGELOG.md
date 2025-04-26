@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.13](https://github.com/dreulavelle/PTT/compare/v1.6.12...v1.6.13) (2025-04-26)
+
+
+### Bug Fixes
+
+* cleaned up site parsing ([eb603bb](https://github.com/dreulavelle/PTT/commit/eb603bbe334d8f4f8809a3f3a7f6e3a7feb01b22))
+
 ## [1.6.12](https://github.com/dreulavelle/PTT/compare/v1.6.11...v1.6.12) (2025-04-17)
 
 
