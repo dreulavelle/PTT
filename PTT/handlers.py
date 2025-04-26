@@ -414,7 +414,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", handle_episodes, {"skipIfAlreadyFound": True})
 
     # Country Code
-    parser.add_handler("country", regex.compile(r"\b(US|UK|AU|NZ)\b"), value("$1"))
+    parser.add_handler("country", regex.compile(r"\b(US|UK|AU|NZ|CA)\b"), value("$1"))
 
     # Languages (ISO 639-1 Standardized)
     parser.add_handler("languages", regex.compile(r"\bengl?(?:sub[A-Z]*)?\b", regex.IGNORECASE), uniq_concat(value("en")), {"remove": True, "skipIfAlreadyFound": False})
@@ -594,7 +594,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("size", regex.compile(r"\b(\d+(\.\d+)?\s?(MB|GB|TB))\b", regex.IGNORECASE), none, {"remove": True})
 
     # Site
-    parser.add_handler("site", regex.compile(r"\b(?:www?.?)?(?:\w+\-)?\w+[\.\s](?:com|org|net|ms|tv|mx|co|party|vip|nu|pics|show)\b", regex.IGNORECASE), value("$1"), {"remove": True})
+    parser.add_handler("site", regex.compile(r"\b(?:www?.?)?(?:\w+\-)?\w+[\.\s](?:com|org|net|ms|tv|mx|co|party|vip|nu|pics)\b", regex.IGNORECASE), value("$1"), {"remove": True})
     parser.add_handler("site", regex.compile(r"rarbg|torrentleech|(?:the)?piratebay", regex.IGNORECASE), value("$1"), {"remove": True})
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
 

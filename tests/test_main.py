@@ -1474,18 +1474,25 @@ def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("[Taxi 1998] [BDRemux Rutracker.org].mkv", {
-#         "container": "mkv",
-#         "year": 1998,
-#         "quality": "BluRay REMUX",
-#         "site": "Rutracker.org",
-#         "extension": "mkv",
-#         "episodes": [],
-#         "seasons": [],
-#         "languages": [],
-#         "title": "Taxi"
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("That 70s Show S02 1080p BluRay REMUX AVC DTS-HD MA 5 1-EPSiLON", {
+        "resolution": "1080p",
+        "quality": "BluRay REMUX",
+        "codec": "avc",
+        "channels": [
+            "5.1"
+        ],
+        "audio": [
+            "DTS Lossless"
+        ],
+        "group": "EPSiLON",
+        "seasons": [
+            2
+        ],
+        "episodes": [],
+        "languages": [],
+        "title": "That 70s Show"
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected
