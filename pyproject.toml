@@ -7,7 +7,7 @@ license = "MIT"
 package-mode = true
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 regex = "^2023.12.25"
 arrow = "^1.3.0"
 
