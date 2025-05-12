@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.14](https://github.com/dreulavelle/PTT/compare/v1.6.13...v1.6.14) (2025-05-12)
+
+
+### Bug Fixes
+
+* allows python 3.10 ([#62](https://github.com/dreulavelle/PTT/issues/62)) ([20ad7c5](https://github.com/dreulavelle/PTT/commit/20ad7c5cd04be624c0eb0f7af9b8380d8c50db12))
+
 ## [1.6.13](https://github.com/dreulavelle/PTT/compare/v1.6.12...v1.6.13) (2025-04-26)
 
 
