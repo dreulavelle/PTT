@@ -26,7 +26,7 @@ def parser():
     ("[Erai-raws] Evangelion 3.0 You Can (Not) Redo - Movie [1920x960][Multiple Subtitle].mkv", None),
     ("BLACK PANTHER - Wakanda Forever (2022) 10bit.m1080p.BRRip.H265.MKV.AC3-5.1 DUBPL-ENG-NapisyPL [StarLord]", None),
     ("Lost.[Perdidos].6x05.HDTV.XviD.[www.DivxTotaL.com].avi", None),
-    ("[Exiled-Destiny]_Tokyo_Underground_Ep02v2_(41858470).mkv", None),
+    ("[Exiled-Destiny]_Tokyo_Underground_Ep02v2_(41858470).mkv", "41858470"),
 ])
 def test_episode_code_detection(parser, release_name, expected_episode_code):
     result = parser.parse(release_name)

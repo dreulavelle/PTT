@@ -82,8 +82,11 @@ def add_defaults(parser: Parser):
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
 
     # Episode code
-    parser.add_handler("episode_code", regex.compile(r"\[([A-Z0-9]{8})]"), uppercase, {"remove": True})
-    parser.add_handler("episode_code", regex.compile(r"(?:\[|\()(?=\D+\d|\d+[^\d\])])\b([A-Z0-9]{8}|[a-z0-9]{8})(?:\]|\))"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
+    parser.add_handler("episode_code", regex.compile(r"[\[\()]([A-Za-f0-9]{8})[\]\)]"), uppercase, {"remove": True})
+    parser.add_handler("episode_code", regex.compile(r"[\[\()]([0-9]{8})[\]\)]"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
+
+    # This one doesn't seem like its needed for all the test cases.
+    # parser.add_handler("episode_code", regex.compile(r"(?:\[|\()(?=\D+\d|\d+[^\d\])])\b([A-Z0-9]{8}|[a-z0-9]{8})(?:\]|\))"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
 
     # Trash (Equivalent to RTN auto-trasher) - DO NOT REMOVE HERE!
     # This one is pretty strict, but it removes a lot of the garbage
@@ -221,7 +224,7 @@ def add_defaults(parser: Parser):
 
     # Video depth
     parser.add_handler("bit_depth", regex.compile(r"\bhevc\s?10\b", regex.IGNORECASE), value("10bit"))
-    parser.add_handler("bit_depth", regex.compile(r"(?:8|10|12)[-\.]?(?=bit)", regex.IGNORECASE), value("$1bit"), {"remove": True})
+    parser.add_handler("bit_depth", regex.compile(r"(?:8|10|12)[-\.]?(?=bit\b)", regex.IGNORECASE), value("$1bit"), {"remove": True})
     parser.add_handler("bit_depth", regex.compile(r"\bhdr10\b", regex.IGNORECASE), value("10bit"))
     parser.add_handler("bit_depth", regex.compile(r"\bhi10\b", regex.IGNORECASE), value("10bit"))
 

@@ -1468,13 +1468,7 @@ def parser():
         "size": '800MB',
         "title": "Sonic the Hedgehog 2",
         "year": 2022
-    })
-])
-def test_random_releases_parse(parser, release_name, expected_output):
-    assert parser.parse(release_name) == expected_output
-
-
-@pytest.mark.parametrize("release_name, expected", [
+    }),
     ("That 70s Show S02 1080p BluRay REMUX AVC DTS-HD MA 5 1-EPSiLON", {
         "resolution": "1080p",
         "quality": "BluRay REMUX",
@@ -1492,6 +1486,36 @@ def test_random_releases_parse(parser, release_name, expected_output):
         "episodes": [],
         "languages": [],
         "title": "That 70s Show"
+    }),
+    ("[bonkai77].RahXephon.Episode.08.Bitterly.Cold.Holy.Night.[BD.1080p.Dual.Audio.x265.HEVC.10bit].mkv", {
+        "title": "RahXephon",
+        "resolution": "1080p",
+        "bit_depth": "10bit",
+        "codec": "hevc",
+        "container": "mkv",
+        "dubbed": True,
+        "seasons": [],
+        "episodes": [8],
+        "languages": [],
+        "extension": "mkv",
+        "quality": "BDRip",
+        "group": "bonkai77",
+    })
+])
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
+
+
+@pytest.mark.parametrize("release_name, expected", [
+    ("[Exiled-Destiny]_Tokyo_Underground_Ep02v2_(41858470).mkv", {
+        "container": "mkv",
+        "episodes": [2],
+        "extension": "mkv",
+        "languages": [],
+        "seasons": [],
+        "group": "Exiled-Destiny",
+        "episode_code": "41858470",
+        "title": "Tokyo Underground"
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):
