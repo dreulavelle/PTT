@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.15](https://github.com/dreulavelle/PTT/compare/v1.6.14...v1.6.15) (2025-05-30)
+
+
+### Bug Fixes
+
+* bit depth fix when word starts with 'bit' ([0e8e226](https://github.com/dreulavelle/PTT/commit/0e8e226c741f0296537f7673572aede1930ed023))
+
 ## [1.6.14](https://github.com/dreulavelle/PTT/compare/v1.6.13...v1.6.14) (2025-05-12)
 
 
