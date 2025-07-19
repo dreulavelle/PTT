@@ -112,6 +112,7 @@ def parser():
     ("Разрушители легенд. MythBusters. Сезон 15. Эпизод 09. Скрытая угроза (2015).avi", [15]),
     ("Сезон 5/Серия 11.mkv", [5]),
     ("Vikkatakavi 01E06.mkv", [1]),
+    ("Клинок, рассекающий демонов (ТВ-1) / Kimetsu no Yaiba / Demon Slayer [TV] [26 из 26] [RUS(ext), ENG, JAP+Sub] [2019, BDRip] [1080p]", [1])
 ])
 def test_season_detection(parser, release_name, expected_seasons):
     result = parser.parse(release_name)
