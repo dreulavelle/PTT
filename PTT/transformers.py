@@ -143,6 +143,20 @@ def range_func(input_str: str) -> Optional[List[int]]:
     return None
 
 
+def range_x_of_y_func(input_str: str) -> Optional[List[int]]:
+    """
+    Parse a range of numbers (episodes) from the input string likes "16 of 26", "16-26", "16 из 26"
+    when it means that episodes from 16 to 26 are included.
+
+    :param input_str: The input string.
+    :return: A list of integers representing the range, or None if invalid.
+    """
+    numbers = [int(x) for x in regex.findall(r"\d+", input_str)]
+    if len(numbers) != 1:
+        return None
+    return list(range(1, numbers[0] + 1))
+
+
 def year_range(input_value: str) -> Optional[str]:
     """
     Parse a range of years from the input string.
