@@ -382,7 +382,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"[[(]\d{1,2}\.(\d{1,3})[)\]]"), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b[Ss]\d{1,2}[ .](\d{1,2})\b"), array(integer))
     parser.add_handler("episodes", regex.compile(r"-\s?\d{1,2}\.(\d{2,3})\s?-"), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?:\[|\()(\d+)\s(?:of|из|iz)\s(\d+)(?:\]|\))", regex.IGNORECASE), range_x_of_y_func)
+    parser.add_handler("episodes", regex.compile(r"(?:\[|\()(\d+)\s(?:of|из|iz)\s\d+(?:\]|\))", regex.IGNORECASE), range_x_of_y_func)
     parser.add_handler("episodes", regex.compile(r"(?<=\D|^)(\d{1,3})[. ]?(?:of|из|iz)[. ]?\d{1,3}(?=\D|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<!^)\[(?!720|1080)(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
