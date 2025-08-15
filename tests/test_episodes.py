@@ -191,6 +191,7 @@ def parser():
     ("Vikkatakavi 01E06.mkv", [6]),
     ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", []),
     ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", [116]),
+    ("[Erai-raws] Boku no Hero Academia S2 - 00~25 [1080p][Multiple Subtitle]", list(range(0, 26))), # We shouldn't be getting 0, but its not a big deal
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)
