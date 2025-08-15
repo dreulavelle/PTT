@@ -112,6 +112,8 @@ def parser():
     ("Разрушители легенд. MythBusters. Сезон 15. Эпизод 09. Скрытая угроза (2015).avi", [15]),
     ("Сезон 5/Серия 11.mkv", [5]),
     ("Vikkatakavi 01E06.mkv", [1]),
+    ("Swamp People 2010 Seasons 1 to 15 Complete 720p WEB x264 [i_c]", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]),
+    ("Swamp People - Season 1 to 6 Plus Specials - 720P - HDTV - X265-HEVC - O69", [1, 2, 3, 4, 5, 6]),
 ])
 def test_season_detection(parser, release_name, expected_seasons):
     result = parser.parse(release_name)
