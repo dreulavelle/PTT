@@ -1515,6 +1515,19 @@ def parser():
         "container": "mkv",
         "group": "KQRM",
         "network": "Netflix"
+    }),
+    ("[Anime Time] One Piece (0001-1071+Movies+Specials) [BD+CR] [Dual Audio] [1080p][HEVC 10bit x265][AAC][Multi Sub]", {
+        "title": "One Piece",
+        "resolution": "1080p",
+        "codec": "hevc",
+        "audio": ["AAC"],
+        "seasons": [],
+        "episodes": list(range(1, 1072)),
+        "languages": [],
+        "group": "Anime Time",
+        "dubbed": True,
+        "subbed": True,
+        "bit_depth": "10bit",
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):

@@ -29,6 +29,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("title", regex.compile(r"360.Degrees.of.Vision.The.Byakugan'?s.Blind.Spot", regex.IGNORECASE), none, {"remove": True}) # episode title
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True})  # episode title
     parser.add_handler("title", regex.compile(r"\[?(\+.)?Extras\]?", regex.IGNORECASE), none, {"remove": True})
+    parser.add_handler("title", regex.compile(r"(\+Movies)?\+Specials", regex.IGNORECASE), none, {"remove": True})
 
     # Container
     parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
@@ -389,6 +390,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"(?:\W|^)(?:\d+)?(?:e|ep)(\d{1,3})(?:\W|$)", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("episodes", regex.compile(r"\d+.-.\d+TV", regex.IGNORECASE), range_func, {"remove": True})
     parser.add_handler("episodes", regex.compile(r"E(\d+)\b", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": True})
+    parser.add_handler("episodes", regex.compile(r"\b\d{1,4}-\d{1,4}\b", regex.IGNORECASE), range_func, {"remove": False, "skipIfAlreadyFound": True})
 
     def handle_episodes(context):
         title = context["title"]
