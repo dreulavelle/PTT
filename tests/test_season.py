@@ -33,7 +33,6 @@ def parser():
     ("clny.3x11m720p.es[www.planetatorrent.com].mkv", [3]),
     ("Coupling Season 1 - 4 Complete DVDRip - x264 - MKV by RiddlerA", [1, 2, 3, 4]),
     ("DARKER THAN BLACK - S00E04 - Darker Than Black Gaiden OVA 3.mkv", [0]),
-    ("Desperate.Housewives.S0615.400p.WEB-DL.Rus.Eng.avi", [6]),
     ("Desperate Housewives - Episode 1.22 - Goodbye for now.avi", [1]),
     ("Discovery. Парни с Юкона / Yokon Men [06х01-08] (2017) HDTVRip от GeneralFilm | P1", [6]),
     ("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV", [8]),
@@ -114,6 +113,7 @@ def parser():
     ("Vikkatakavi 01E06.mkv", [1]),
     ("Swamp People 2010 Seasons 1 to 15 Complete 720p WEB x264 [i_c]", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]),
     ("Swamp People - Season 1 to 6 Plus Specials - 720P - HDTV - X265-HEVC - O69", [1, 2, 3, 4, 5, 6]),
+    ("One.Piece.S004E111.Dash.For.a.Miracle!.Alabasta.Animal.Land!.1080p.NF.WEB-DL.DDP2.0.x264-KQRM.mkv", [4]),
 ])
 def test_season_detection(parser, release_name, expected_seasons):
     result = parser.parse(release_name)

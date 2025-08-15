@@ -352,6 +352,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"\bEp(?:isode)?\W+(\d{1,2})\.\d{1,3}\b", regex.IGNORECASE), array(integer))
     parser.add_handler("seasons", regex.compile(r"\bSeasons?\b.*\b(\d{1,2}-\d{1,2})\b", regex.IGNORECASE), range_func, {"remove": True})
     parser.add_handler("seasons", regex.compile(r"(?:\W|^)(\d{1,2})(?:e|ep)\d{1,3}(?:\W|$)", regex.IGNORECASE), array(integer))
+    parser.add_handler("seasons", regex.compile(r"\bs(\d{1,3})\b", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": True})
 
     # Episodes
     parser.add_handler("episodes", regex.compile(r"(?:[\W\d]|^)e[ .]?[([]?(\d{1,3}(?:[ .-]*(?:[&+]|e){1,2}[ .]?\d{1,3})+)(?:\W|$)", regex.IGNORECASE), range_func)
@@ -387,6 +388,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"(?<!\bMovie\s-\s)(?<=\s-\s)\d+(?=\s[-(\s])"), array(integer), {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("episodes", regex.compile(r"(?:\W|^)(?:\d+)?(?:e|ep)(\d{1,3})(?:\W|$)", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("episodes", regex.compile(r"\d+.-.\d+TV", regex.IGNORECASE), range_func, {"remove": True})
+    parser.add_handler("episodes", regex.compile(r"E(\d+)\b", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": True})
 
     def handle_episodes(context):
         title = context["title"]

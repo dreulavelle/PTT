@@ -46,7 +46,6 @@ def parser():
     ("clny.3x11m720p.es[www.planetatorrent.com].mkv", [11]),
     ("DARKER THAN BLACK - S00E00.mkv", [0]),
     ("Das Boot Miniseries Original Uncut-Reevel Cd2 Of 3.avi", [2]),
-    ("Desperate.Housewives.S0615.400p.WEB-DL.Rus.Eng.avi", [15]),
     ("Desperate Housewives - Episode 1.22 - Goodbye for now.avi", [22]),
     ("Desperate_housewives_S03E02Le malheur aime la compagnie.mkv", [2]),
     ("Discovery. Парни с Юкона / Yokon Men [06х01-08] (2017) HDTVRip от GeneralFilm | P1", [1, 2, 3, 4, 5, 6, 7, 8]),

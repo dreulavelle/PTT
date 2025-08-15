@@ -1500,6 +1500,21 @@ def parser():
         "extension": "mkv",
         "quality": "BDRip",
         "group": "bonkai77",
+    }),
+    ("One.Piece.S004E111.Dash.For.a.Miracle!.Alabasta.Animal.Land!.1080p.NF.WEB-DL.DDP2.0.x264-KQRM.mkv", {
+        "title": "One Piece",
+        "resolution": "1080p",
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "channels": ["2.0"],
+        "audio": ["Dolby Digital Plus"],
+        "seasons": [4],
+        "episodes": [111],
+        "languages": [],
+        "extension": "mkv",
+        "container": "mkv",
+        "group": "KQRM",
+        "network": "Netflix"
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
