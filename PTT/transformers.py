@@ -44,6 +44,17 @@ def integer(input_value: str) -> Optional[int]:
     except ValueError:
         return None
 
+def first_integer(input_value: str) -> Optional[int]:
+    """
+    Convert the input values and return the first integer.
+
+    :param input_value: The input string.
+    :return: The first integer value or None if conversion fails.
+    """
+    try:
+        return int(regex.findall(r"\d+", input_value)[0])
+    except ValueError:
+        return None
 
 def boolean(*args, **kwargs) -> bool:
     """

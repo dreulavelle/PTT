@@ -1528,23 +1528,59 @@ def parser():
         "dubbed": True,
         "subbed": True,
         "bit_depth": "10bit",
+    }),
+    ("[Kaerizaki-Fansub] One Piece 1098 VOSTFR FHD (1920x1080).mp4", {
+        "title": "One Piece",
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [1098],
+        "languages": ["fr"],
+        "group": "Kaerizaki-Fansub",
+        "container": "mp4",
+        "extension": "mp4",
+    }),
+    ("One Punch Man (2019) - S02 - E01 à E12 - [WEB-DL][1080p][Multiple Subtitle][x264][Intégrale Saison 02]", {
+        "title": "One Punch Man",
+        "year": 2019,
+        "resolution": "1080p",
+        "seasons": [2],
+        "episodes": list(range(1, 13)),
+        "languages": ["fr"],
+        "subbed": True,
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "complete": True,
+    }),
+    ("FRASIER 1993-2004 [S01-11] [1080P WEB-DL H265 EAC3-FT] [ENG-LEKTOR PL] [ALUSIA]", {
+        "title": "FRASIER",
+        "year": 1993,
+        "resolution": "1080p",
+        "seasons": list(range(1, 12)),
+        "episodes": [],
+        "languages": ["en", "pl"],
+        "quality": "WEB-DL",
+        "codec": "hevc",
+        "complete": True,
+        "audio": ["Dolby Digital Plus"]
     })
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-@pytest.mark.parametrize("release_name, expected", [
-    ("[Exiled-Destiny]_Tokyo_Underground_Ep02v2_(41858470).mkv", {
-        "container": "mkv",
-        "episodes": [2],
-        "extension": "mkv",
-        "languages": [],
-        "seasons": [],
-        "group": "Exiled-Destiny",
-        "episode_code": "41858470",
-        "title": "Tokyo Underground"
-    })
-])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("FRASIER 1993-2004 [S01-11] [1080P WEB-DL H265 EAC3-FT] [ENG-LEKTOR PL] [ALUSIA]", {
+#         "title": "FRASIER",
+#         "year": 1993,
+#         "resolution": "1080p",
+#         "seasons": list(range(1, 12)),
+#         "episodes": [],
+#         "languages": ["en", "pl"],
+#         "quality": "WEB-DL",
+#         "codec": "hevc",
+#         "complete": True,
+#         "audio": ["Dolby Digital Plus"]
+#     })
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected

@@ -7,6 +7,7 @@ from PTT.transformers import (
     boolean,
     date,
     integer,
+    first_integer,
     lowercase,
     none,
     range_func,
@@ -25,6 +26,9 @@ def add_defaults(parser: Parser):
 
     :param parser: The parser instance to which handlers will be added.
     """
+    # Year Pre-check (Use first year in year range)
+    parser.add_handler("year", regex.compile(r"\b19\d{2}\s?-\s?20\d{2}\b"), first_integer, {"remove": False})
+
     # pre-hardcoded cleanup (yuck)
     parser.add_handler("title", regex.compile(r"360.Degrees.of.Vision.The.Byakugan'?s.Blind.Spot", regex.IGNORECASE), none, {"remove": True}) # episode title
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True})  # episode title
@@ -306,6 +310,8 @@ def add_defaults(parser: Parser):
 
     # Pre-Language
     parser.add_handler("languages", regex.compile(r"\b(temporadas?|completa)\b", regex.IGNORECASE), uniq_concat(value("es")), {"skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\b(?:INT[EÉ]GRALE?)\b", regex.IGNORECASE), uniq_concat(value("fr")), {"remove": False, "skipIfAlreadyFound": False})
+    parser.add_handler("languages", regex.compile(r"\b(?:Saison)\b", regex.IGNORECASE), uniq_concat(value("fr")), {"remove": False, "skipIfAlreadyFound": False})
 
     # Complete
     parser.add_handler("complete", regex.compile(r"\b(?:INTEGRALE?|INTÉGRALE?)\b", regex.IGNORECASE), boolean, {"remove": True, "skipIfAlreadyFound": False})
@@ -363,6 +369,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"[([]?(?:\D|^)(\d{1,3}[ .]?ao[ .]?\d{1,3})[)\]]?(?:\W|$)", regex.IGNORECASE), range_func)
     parser.add_handler("episodes", regex.compile(r"(?:[\W\d]|^)(?:e|eps?|episodes?|[Сс]ерии:?|\d+[xх])[ .]*[([]?(\d{1,3}(?:-\d{1,3})+)(?:\W|$)", regex.IGNORECASE), range_func)
     parser.add_handler("episodes", regex.compile(r"(?:\W|^)(\d{1,3}(?:[ .]*~[ .]*\d{1,3})+)(?:\W|$)", regex.IGNORECASE), range_func)
+    parser.add_handler("episodes", regex.compile(r"\bE\d{1,4}\s*à\s*E\d{1,4}\b", regex.IGNORECASE), range_func, {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("episodes", regex.compile(r"[st]\d{1,2}[. ]?[xх-]?[. ]?(?:e|x|х|ep|-|\.)[. ]?(\d{1,4})(?:[abc]|v0?[1-4]|\D|$)", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("episodes", regex.compile(r"\b[st]\d{2}(\d{2})\b", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"-\s(\d{1,3}[ .]*-[ .]*\d{1,3})(?!-\d)(?:\W|$)", regex.IGNORECASE), range_func)
@@ -420,6 +427,26 @@ def add_defaults(parser: Parser):
 
     parser.add_handler("episodes", handle_episodes, {"skipIfAlreadyFound": True})
 
+    def handle_anime_eps(context):
+        title = context["title"]
+        result = context.get("result", {})
+        anime_search = regex.compile(r"One.*?Piece|Bleach|Naruto")
+
+        if anime_search.search(title):
+            if result.get("episodes", None):
+                return None
+
+            ep_pattern = regex.compile(r"\b\d{1,4}\b")
+            matches = ep_pattern.search(title)
+            if matches:
+                result["episodes"] = [int(matches.group(0))]
+                return {"match_index": title.index(matches.group(0))}
+
+        return None
+
+    # handles One Piece, Bleach and Naruto shows more effectively that have single episodes
+    parser.add_handler("episodes", handle_anime_eps, {"skipIfAlreadyFound": True})
+
     # Country Code
     parser.add_handler("country", regex.compile(r"\b(US|UK|AU|NZ|CA)\b"), value("$1"))
 
@@ -445,7 +472,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("languages", regex.compile(r"\b\[?(VF[FQRIB2]?\]?\b|(VOST)?FR2?)\b"), uniq_concat(value("fr")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(TRUE|SUB).?FRENCH\b|\bFRENCH\b|\bFre?\b"), uniq_concat(value("fr")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(VOST(?:FR?|A)?)\b", regex.IGNORECASE), uniq_concat(value("fr")), {"skipIfAlreadyFound": False})
-    # parser.add_handler("languages", regex.compile(r"\b(VF[FQIB2]?|(TRUE|SUB).?FRENCH|(VOST)?FR2?)\b", regex.IGNORECASE), uniq_concat(value("fr")), {"remove": True, "skipIfAlreadyFound": True})
+    parser.add_handler("languages", regex.compile(r"\b(VF[FQIB2]?|(TRUE|SUB).?FRENCH|(VOST)?FR2?)\b", regex.IGNORECASE), uniq_concat(value("fr")), {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("languages", regex.compile(r"\bspanish\W?latin|american\W*(?:spa|esp?)", regex.IGNORECASE), uniq_concat(value("la")), {"skipFromTitle": True, "skipIfAlreadyFound": False, "remove": True})
     parser.add_handler("languages", regex.compile(r"\b(?:\bla\b.+(?:cia\b))", regex.IGNORECASE), uniq_concat(value("es")), {"skipFromTitle": True, "skipIfAlreadyFound": False})
     parser.add_handler("languages", regex.compile(r"\b(?:audio.)?lat(?:in?|ino)?\b", regex.IGNORECASE), uniq_concat(value("la")), {"skipIfAlreadyFound": False})
