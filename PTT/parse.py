@@ -82,10 +82,10 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
 
         if name in result and options.get("skipIfAlreadyFound", False):
             return None
-        if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in name):
+        if DEBUG_HANDLER is True or (isinstance(DEBUG_HANDLER, str) and DEBUG_HANDLER in name):
             print(name, "Try to match " + title, "To " + reg_exp.pattern)
         match = reg_exp.search(title)
-        if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in name):
+        if DEBUG_HANDLER is True or (isinstance(DEBUG_HANDLER, str) and DEBUG_HANDLER in name):
             print("Matched " + str(match))
         if match:
             raw_match = match.group(0)
@@ -93,7 +93,7 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
             sig = inspect.signature(transformer)
             param_count = len(sig.parameters)
             transformed = transformer(clean_match or raw_match, *([result.get(name)] if param_count > 1 else []))
-            if type(transformed) is str:
+            if isinstance(transformed, str):
                 transformed = transformed.strip()
 
             before_title_match = BEFORE_TITLE_MATCH_REGEX.match(title)
@@ -109,7 +109,7 @@ def create_handler_from_regexp(name: str, reg_exp: regex.Pattern, transformer: C
         return None
 
     handler.__name__ = name
-    handler.handler_name = name
+    setattr(handler, "handler_name", name)
     return handler
 
 
@@ -159,6 +159,7 @@ LANGUAGES_TRANSLATION_TABLE = {
     "da": "Danish", "fi": "Finnish", "sv": "Swedish", "no": "Norwegian", "ms": "Malay", "la": "Latino"
 }
 
+
 def translate_langs(langs: List[str]) -> List[str]:
     """Translate a list of language codes to their corresponding language names."""
     return [LANGUAGES_TRANSLATION_TABLE.get(lang, "") for lang in langs if lang in LANGUAGES_TRANSLATION_TABLE]
@@ -188,7 +189,7 @@ class Parser:
     def __init__(self):
         self.handlers: List[Callable] = []
 
-    def add_handler(self, handler_name: str, handler: Union[Callable, regex.Pattern] = None, transformer: Callable = None, options: Dict[str, Any] = None):
+    def add_handler(self, handler_name: str, handler: Union[Callable, regex.Pattern, None] = None, transformer: Union[Callable, None] = None, options: Union[Dict[str, Any], None] = None):
         """
         Add a handler to the parser. The handler can be a function or a regular expression pattern.
 
@@ -199,13 +200,13 @@ class Parser:
         """
         if handler is None and callable(handler_name):
             handler = handler_name
-            handler.handler_name = handler_name.__name__ if hasattr(handler_name, "__name__") else "unknown"
+            setattr(handler, "handler_name", getattr(handler_name, "__name__", "unknown"))
         elif isinstance(handler_name, str) and isinstance(handler, regex.Pattern):
             transformer = transformer if callable(transformer) else none
             options = extend_options(options if isinstance(options, dict) else {})
             handler = create_handler_from_regexp(handler_name, handler, transformer, options)
         elif isinstance(handler_name, str) and callable(handler):
-            handler.handler_name = handler_name
+            setattr(handler, "handler_name", handler_name)
         else:
             raise ValueError(f"Handler for {handler_name} should be either a regex pattern or a function. Got {type(handler)}")
 
@@ -227,8 +228,8 @@ class Parser:
         for handler in self.handlers:
             match_result = handler({"title": title, "result": result, "matched": matched})
 
-            if DEBUG_HANDLER is True or (type(DEBUG_HANDLER) is str and DEBUG_HANDLER in handler.handler_name):
-                print(handler.handler_name, match_result, title)
+            if DEBUG_HANDLER is True or (isinstance(DEBUG_HANDLER, str) and hasattr(handler, "handler_name") and DEBUG_HANDLER in getattr(handler, "handler_name", "")):
+                print(getattr(handler, "handler_name", "unknown"), match_result, title)
 
             if match_result is None:
                 continue

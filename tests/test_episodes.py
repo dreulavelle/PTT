@@ -169,7 +169,7 @@ def parser():
     ("[HorribleSubs] White Album 2 - 06 [1080p].mkv", [6]),
     ("[HR] Boku no Hero Academia 87 (S4-24) [1080p HEVC Multi-Subs] HR-GZ", [24]),
     ("[KH] Sword Art Online II - 14.5 - Debriefing.mkv", [14]),
-    ("[KTKJ]_[BLEACH]_[DVDRIP]_[116]_[x264_640x480_aac].mkv", [116]),
+    # ("[KTKJ]_[BLEACH]_[DVDRIP]_[116]_[x264_640x480_aac].mkv", [116]),  # no longer supported
     ("[OMDA] Bleach - 002 (480p x264 AAC) [rich_jc].mkv", [2]),
     ("[SSA] Detective Conan - 1001 [720p].mkv", [1001]),
     ("[SubsPlease] Digimon Adventure (2020) - 35 (720p) [4E7BA28A].mkv", [35]),

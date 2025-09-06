@@ -1562,25 +1562,83 @@ def parser():
         "codec": "hevc",
         "complete": True,
         "audio": ["Dolby Digital Plus"]
+    }),
+    ("The Shawshank Redemption 1994 1080p BluRay DDP 5 1 x265-EDGE2020 mkv", {
+        "title": "The Shawshank Redemption",
+        "year": 1994,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "BluRay",
+        "codec": "hevc",
+        "channels": ["5.1"],
+        "audio": ["Dolby Digital Plus"],
+        "container": "mkv",
+        "group": "EDGE2020",
+    }),
+    ("Mission Impossible Dead Reckoning Part One 2023 1080p BluRay DDP 7 1 x265-EDGE2020 mkv", {
+        "title": "Mission Impossible Dead Reckoning Part One",
+        "year": 2023,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "BluRay",
+        "codec": "hevc",
+        "channels": ["7.1"],
+        "audio": ["Dolby Digital Plus"],
+        "container": "mkv",
+        "group": "EDGE2020",
+    }),
+    ("The Dark Knight 2008 IMAX 1080p BluRay DDP 5 1 H 265-EDGE2020 mkv", {
+        "title": "The Dark Knight",
+        "year": 2008,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "edition": "IMAX",
+        "quality": "BluRay",
+        "codec": "hevc",
+        "channels": ["5.1"],
+        "audio": ["Dolby Digital Plus"],
+        "container": "mkv",
+        "group": "EDGE2020",
+    }),
+    ("Interstellar 2014 1080p BluRay DDP 5 1 x265-EDGE2020 mkv", {
+        "title": "Interstellar",
+        "year": 2014,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "BluRay",
+        "codec": "hevc",
+        "channels": ["5.1"],
+        "audio": ["Dolby Digital Plus"],
+        "container": "mkv",
+        "group": "EDGE2020",
     })
+    
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("FRASIER 1993-2004 [S01-11] [1080P WEB-DL H265 EAC3-FT] [ENG-LEKTOR PL] [ALUSIA]", {
-#         "title": "FRASIER",
-#         "year": 1993,
-#         "resolution": "1080p",
-#         "seasons": list(range(1, 12)),
-#         "episodes": [],
-#         "languages": ["en", "pl"],
-#         "quality": "WEB-DL",
-#         "codec": "hevc",
-#         "complete": True,
-#         "audio": ["Dolby Digital Plus"]
-#     })
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("The Conjuring 2013 1080p BluRay AV1 Opus 5 1 [981] mkv", {
+        "title": "The Conjuring",
+        "year": 2013,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "BluRay",
+        "codec": "av1",
+        "channels": ["5.1"],
+        "container": "mkv",
+    })
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected

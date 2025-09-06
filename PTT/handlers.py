@@ -30,10 +30,11 @@ def add_defaults(parser: Parser):
     parser.add_handler("year", regex.compile(r"\b19\d{2}\s?-\s?20\d{2}\b"), first_integer, {"remove": False})
 
     # pre-hardcoded cleanup (yuck)
-    parser.add_handler("title", regex.compile(r"360.Degrees.of.Vision.The.Byakugan'?s.Blind.Spot", regex.IGNORECASE), none, {"remove": True}) # episode title
+    parser.add_handler("title", regex.compile(r"360.Degrees.of.Vision.The.Byakugan'?s.Blind.Spot", regex.IGNORECASE), none, {"remove": True})  # episode title
     parser.add_handler("title", regex.compile(r"\b100[ .-]*years?[ .-]*quest\b", regex.IGNORECASE), none, {"remove": True})  # episode title
     parser.add_handler("title", regex.compile(r"\[?(\+.)?Extras\]?", regex.IGNORECASE), none, {"remove": True})
     parser.add_handler("title", regex.compile(r"(\+Movies)?\+Specials", regex.IGNORECASE), none, {"remove": True})
+    parser.add_handler("group", regex.compile(r"-?EDGE2020"), value("EDGE2020"), {"remove": True})
 
     # Container
     parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
@@ -55,7 +56,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("extras", regex.compile(r"\bOVA\b", regex.IGNORECASE), uniq_concat(value("OVA")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bED(\d?v?\d?)\b", regex.IGNORECASE), uniq_concat(value("ED")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bOPv?(\d+)?\b", regex.IGNORECASE), uniq_concat(value("OP")), {"remove": True})
-    parser.add_handler("extras", regex.compile(r"\b(?:Deleted[ .-]*)?Scene(?:s)?\b", regex.IGNORECASE), uniq_concat(value("Deleted Scene")), {"remove": False})
+    parser.add_handler("extras", regex.compile(r"\bDeleted.*Scenes?\b", regex.IGNORECASE), uniq_concat(value("Deleted Scene")), {"remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Featurettes?)\b|\bFeaturettes?\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Featurette")), {"skipFromTitle": True, "remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Sample)\b|\b(?:Sample)\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Sample")), {"skipFromTitle": True, "remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Trailers?)\b|\bTrailers?\b(?!.*\b(?:19\d{2}|20\d{2}|.(Park|And))\b))", regex.IGNORECASE), uniq_concat(value("Trailer")), {"skipFromTitle": True, "remove": False})
@@ -106,7 +107,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("trash", regex.compile(r"\bLeaked\b", regex.IGNORECASE), boolean, {"remove": True})
     parser.add_handler("trash", regex.compile(r"threesixtyp", regex.IGNORECASE), boolean, {"remove": False})
     parser.add_handler("trash", regex.compile(r"\bR5|R6\b", regex.IGNORECASE), boolean, {"remove": False})
-    parser.add_handler("trash", regex.compile(r"\b(?:Deleted[ .-]*)?Scene(?:s)?\b", regex.IGNORECASE), boolean, {"remove": True})
+    parser.add_handler("trash", regex.compile(r"\bDeleted.*Scenes?\b", regex.IGNORECASE), boolean, {"remove": True})
     parser.add_handler("trash", regex.compile(r"\bHQ.?(Clean)?.?(Aud(io)?)?\b", regex.IGNORECASE), boolean, {"remove": True})
 
     # Date
@@ -390,7 +391,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("episodes", regex.compile(r"-\s?\d{1,2}\.(\d{2,3})\s?-"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<=\D|^)(\d{1,3})[. ]?(?:of|из|iz)[. ]?\d{1,3}(?=\D|$)", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"\b\d{2}[ ._-](\d{2})(?:.F)?\.\w{2,4}$"), array(integer))
-    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(?!720|1080)(\d{2,3})](?!(?:\.\w{2,4})?$)"), array(integer))
+    parser.add_handler("episodes", regex.compile(r"(?<!^)\[(?!720|1080)([\.\-\s\W]\d{2,3}[\.\-\s\W])](?!(?:\.\w{2,4})?$)"), array(integer))
     parser.add_handler("episodes", regex.compile(r"(\d+)(?=.?\[([A-Z0-9]{8})])", regex.IGNORECASE), array(integer))
     parser.add_handler("episodes", regex.compile(r"(?<![xh])\b264\b|\b265\b", regex.IGNORECASE), array(integer), {"remove": True})
     parser.add_handler("episodes", regex.compile(r"(?<!\bMovie\s-\s)(?<=\s-\s)\d+(?=\s[-(\s])"), array(integer), {"remove": True, "skipIfAlreadyFound": True})
@@ -425,7 +426,7 @@ def add_defaults(parser: Parser):
 
         return None
 
-    parser.add_handler("episodes", handle_episodes, {"skipIfAlreadyFound": True})
+    parser.add_handler("episodes", handle_episodes, options={"skipIfAlreadyFound": True})
 
     def handle_anime_eps(context):
         title = context["title"]
@@ -445,7 +446,7 @@ def add_defaults(parser: Parser):
         return None
 
     # handles One Piece, Bleach and Naruto shows more effectively that have single episodes
-    parser.add_handler("episodes", handle_anime_eps, {"skipIfAlreadyFound": True})
+    parser.add_handler("episodes", handle_anime_eps, options={"skipIfAlreadyFound": True})
 
     # Country Code
     parser.add_handler("country", regex.compile(r"\b(US|UK|AU|NZ|CA)\b"), value("$1"))
