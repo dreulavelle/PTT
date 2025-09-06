@@ -45,6 +45,19 @@ def integer(input_value: str) -> Optional[int]:
         return None
 
 
+def first_integer(input_value: str) -> Optional[int]:
+    """
+    Convert the input values and return the first integer.
+
+    :param input_value: The input string.
+    :return: The first integer value or None if conversion fails.
+    """
+    try:
+        return int(regex.findall(r"\d+", input_value)[0])
+    except ValueError:
+        return None
+
+
 def boolean(*args, **kwargs) -> bool:
     """
     Return True for any input, used for boolean flags.
@@ -187,7 +200,7 @@ def year_range(input_value: str) -> Optional[str]:
     return f"{start}-{end}"
 
 
-def array(chain: Optional[Callable[[str], Union[str, int]]] = None) -> Callable[[str], List[Union[str, int]]]:
+def array(chain: Optional[Callable[[str], Union[str, Optional[int]]]] = None) -> Callable[[str], List[Union[str, Optional[int]]]]:
     """
     Return a transformer that wraps the input value in a list.
 
@@ -195,7 +208,7 @@ def array(chain: Optional[Callable[[str], Union[str, int]]] = None) -> Callable[
     :return: The transformer function.
     """
 
-    def inner(input_value: str) -> List[Union[str, int]]:
+    def inner(input_value: str) -> List[Union[str, Optional[int]]]:
         return [chain(input_value) if chain else input_value]
 
     return inner

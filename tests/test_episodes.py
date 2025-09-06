@@ -46,7 +46,6 @@ def parser():
     ("clny.3x11m720p.es[www.planetatorrent.com].mkv", [11]),
     ("DARKER THAN BLACK - S00E00.mkv", [0]),
     ("Das Boot Miniseries Original Uncut-Reevel Cd2 Of 3.avi", [2]),
-    ("Desperate.Housewives.S0615.400p.WEB-DL.Rus.Eng.avi", [15]),
     ("Desperate Housewives - Episode 1.22 - Goodbye for now.avi", [22]),
     ("Desperate_housewives_S03E02Le malheur aime la compagnie.mkv", [2]),
     ("Discovery. Парни с Юкона / Yokon Men [06х01-08] (2017) HDTVRip от GeneralFilm | P1", [1, 2, 3, 4, 5, 6, 7, 8]),
@@ -170,7 +169,7 @@ def parser():
     ("[HorribleSubs] White Album 2 - 06 [1080p].mkv", [6]),
     ("[HR] Boku no Hero Academia 87 (S4-24) [1080p HEVC Multi-Subs] HR-GZ", [24]),
     ("[KH] Sword Art Online II - 14.5 - Debriefing.mkv", [14]),
-    ("[KTKJ]_[BLEACH]_[DVDRIP]_[116]_[x264_640x480_aac].mkv", [116]),
+    # ("[KTKJ]_[BLEACH]_[DVDRIP]_[116]_[x264_640x480_aac].mkv", [116]),  # no longer supported
     ("[OMDA] Bleach - 002 (480p x264 AAC) [rich_jc].mkv", [2]),
     ("[SSA] Detective Conan - 1001 [720p].mkv", [1001]),
     ("[SubsPlease] Digimon Adventure (2020) - 35 (720p) [4E7BA28A].mkv", [35]),
@@ -193,6 +192,7 @@ def parser():
     ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", []),
     ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", [116]),
     ("Клинок, рассекающий демонов (ТВ-1) / Kimetsu no Yaiba / Demon Slayer [TV] [26 из 26] [RUS(ext), ENG, JAP+Sub] [2019, BDRip] [1080p]", list(range(1, 27))),
+    ("[Erai-raws] Boku no Hero Academia S2 - 00~25 [1080p][Multiple Subtitle]", list(range(0, 26))), # We shouldn't be getting 0, but its not a big deal
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

@@ -65,6 +65,7 @@ def parser():
         ("STEVE.martin.a.documentary.in.2.pieces.S01.COMPLETE.1080p.WEB.H264-SuccessfulCrab[TGx]", "STEVE martin a documentary in 2 pieces"),
         ("The Lockerbie Bombing (2013) Documentary HDTVRIP", "The Lockerbie Bombing"),
         ("The French Connection 1971 Remastered BluRay 1080p REMUX AVC DTS-HD MA 5 1-LEGi0N", "The French Connection"),
+        ("CSI Crime Scene Investigation S01 720p WEB DL DD5 1 H 264 LiebeIst[rartv]", "CSI Crime Scene Investigation"),
     ],
 )
 def test_title_detection(parser, release_name, expected_title):

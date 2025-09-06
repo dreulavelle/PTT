@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.16](https://github.com/dreulavelle/PTT/compare/v1.6.15...v1.6.16) (2025-08-16)
+
+
+### Bug Fixes
+
+* added explicit check on SxxExx on season and episode attrs ([76fffb4](https://github.com/dreulavelle/PTT/commit/76fffb4af2ca40520dc5f4b68982f30d9f7fff03))
+* added PLSUB parsing for polish lang ([debb526](https://github.com/dreulavelle/PTT/commit/debb52677306b9c5c0bf23b4980b5fba79de90a5))
+* episode range with ~ separator ([c19c423](https://github.com/dreulavelle/PTT/commit/c19c423ef3b51d6cc298a1dffc6b69c530fa577e))
+* episode range with xxxx-xxxx and extra bloat removal from string ([ae365c0](https://github.com/dreulavelle/PTT/commit/ae365c0508ea77f44c5e71227345a2dddae8ee0b))
+* season handling for 'X to X' season counts ([a623455](https://github.com/dreulavelle/PTT/commit/a6234553abfac3fd4c38c88b4f0ca8832dd1934b))
+* use first year in year range. handle certain anime more explicitly. handle à separator in episode parsing. ([bed5cd0](https://github.com/dreulavelle/PTT/commit/bed5cd01310aabd9ca110587eeba0413a9c7398f))
+
 ## [1.6.15](https://github.com/dreulavelle/PTT/compare/v1.6.14...v1.6.15) (2025-05-30)
 
 
