@@ -174,8 +174,8 @@ def parser():
     ("[SSA] Detective Conan - 1001 [720p].mkv", [1001]),
     ("[SubsPlease] Digimon Adventure (2020) - 35 (720p) [4E7BA28A].mkv", [35]),
     ("[TBox] Dragon Ball Z Full 1-291(Subbed Jap Vers)", list(range(1, 292))),
-    ("Викинги / Vikings / Сезон: 5 / Серии: 1 [2017, WEB-DL 1080p] MVO", [1]),
-    ("Викинги / Vikings / Сезон: 5 / Серии: 1 из 20 [2017, WEB-DL 1080p] MVO", [1]),
+    ("Викинги / Vikings / Сезон: 5 / Серия: 1 [2017, WEB-DL 1080p] MVO", [1]),
+    ("Викинги / Vikings / Сезон: 5 / Серии: 5 из 20 [2017, WEB-DL 1080p] MVO", [1, 2, 3, 4, 5]),
     ("Доктор Хаус 03-20.mkv", [20]),
     ("Интерны. Сезон №9. Серия №180.avi", [180]),
     ("Комиссар Рекс 11-13.avi", [13]),
@@ -191,6 +191,7 @@ def parser():
     ("Vikkatakavi 01E06.mkv", [6]),
     ("[Deadfish] Hakkenden_Touhou Hakken Ibun S2 [720][AAC]", []),
     ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", [116]),
+    ("Клинок, рассекающий демонов (ТВ-1) / Kimetsu no Yaiba / Demon Slayer [TV] [26 из 26] [RUS(ext), ENG, JAP+Sub] [2019, BDRip] [1080p]", list(range(1, 27))),
     ("[Erai-raws] Boku no Hero Academia S2 - 00~25 [1080p][Multiple Subtitle]", list(range(0, 26))), # We shouldn't be getting 0, but its not a big deal
 ])
 def test_episode_parser(release_name, expected_episode, parser):
