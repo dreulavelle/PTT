@@ -1619,25 +1619,35 @@ def parser():
         "audio": ["Dolby Digital Plus"],
         "container": "mkv",
         "group": "EDGE2020",
+    }),
+    ("The Fairly OddParents Fairly Odder S01 720p PMTP WEBRip DDP5 1 x264 TEPES rartv ORARBG", {
+        "title": "The Fairly OddParents Fairly Odder",
+        "resolution": "720p",
+        "seasons": [1],
+        "episodes": [],
+        "languages": [],
+        "quality": "WEBRip",
+        "codec": "avc",
+        "channels": ["5.1"],
+        "site": "RARBG",
+        "audio": ["Dolby Digital Plus"]
     })
-    
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
 @pytest.mark.parametrize("release_name, expected", [
-    ("The Conjuring 2013 1080p BluRay AV1 Opus 5 1 [981] mkv", {
-        "title": "The Conjuring",
-        "year": 2013,
-        "resolution": "1080p",
-        "seasons": [],
-        "episodes": [],
+    ("Formula1.S2025E86.Italy.Grand.Prix.1080i.HDTV.MPA2.0.H.264-playTV", {
+        "title": "Formula1",
+        "resolution": "1080i",
+        "seasons": [2025],
+        "episodes": [86],
         "languages": [],
-        "quality": "BluRay",
-        "codec": "av1",
-        "channels": ["5.1"],
-        "container": "mkv",
+        "quality": "HDTV",
+        "codec": "avc",
+        "channels": ["2.0"],
+        "group": "playTV",
     })
 ])
 def test_debug_releases_parse(parser, release_name, expected):

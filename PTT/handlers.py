@@ -139,7 +139,7 @@ def add_defaults(parser: Parser):
 
     # Year
     parser.add_handler("year", regex.compile(r"\b(20[0-9]{2}|2100)(?!\D*\d{4}\b)"), integer, {"remove": True})
-    parser.add_handler("year", regex.compile(r"[([]?(?!^)(?<!\d|Cap[. ]?)((?:19\d|20[012])\d)(?!\d|kbps)[)\]]?", regex.IGNORECASE), integer, {"remove": True})
+    parser.add_handler("year", regex.compile(r"[^SE][([]?(?!^)(?<!\d|Cap[. ]?)((?:19\d|20[012])\d)(?!\d|kbps)[)\]]?", regex.IGNORECASE), integer, {"remove": True})
     parser.add_handler("year", regex.compile(r"(?!^\w{4})^[([]?((?:19\d|20[012])\d)(?!\d|kbps)[)\]]?", regex.IGNORECASE), integer, {"remove": True})
 
     # Edition
@@ -281,7 +281,8 @@ def add_defaults(parser: Parser):
     parser.add_handler("audio", regex.compile(r"\b(True[ .-]?HD|\.True\.)\b", regex.IGNORECASE), uniq_concat(value("TrueHD")), {"remove": True, "skipIfAlreadyFound": False, "skipFromTitle": True})
     parser.add_handler("audio", regex.compile(r"\bTRUE\b"), uniq_concat(value("TrueHD")), {"remove": True, "skipIfAlreadyFound": False, "skipFromTitle": True})
     parser.add_handler("audio", regex.compile(r"\bFLAC(?:\d\.\d)?(?:x\d+)?\b", regex.IGNORECASE), uniq_concat(value("FLAC")), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("audio", regex.compile(r"DD2?[\+p]|DD Plus|Dolby Digital Plus|DDP5[ \.\_]1|E-?AC-?3(?:-S\d+)?", regex.IGNORECASE), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"DD2?[\+p]|DD Plus|Dolby Digital Plus|DDP(5[ \.\_]1)?|E-?AC-?3(?:-S\d+)?"), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": False})
+    parser.add_handler("audio", regex.compile(r"\bddp(5.1)?", regex.IGNORECASE), uniq_concat(value("Dolby Digital Plus")), {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("audio", regex.compile(r"\b(DD|Dolby.?Digital|DolbyD|AC-?3(x2)?(?:-S\d+)?)\b", regex.IGNORECASE), uniq_concat(value("Dolby Digital")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bQ?Q?AAC(x?2)?\b", regex.IGNORECASE), uniq_concat(value("AAC")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("audio", regex.compile(r"\bL?PCM\b", regex.IGNORECASE), uniq_concat(value("PCM")), {"remove": True, "skipIfAlreadyFound": False})
@@ -361,7 +362,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("seasons", regex.compile(r"\bEp(?:isode)?\W+(\d{1,2})\.\d{1,3}\b", regex.IGNORECASE), array(integer))
     parser.add_handler("seasons", regex.compile(r"\bSeasons?\b.*\b(\d{1,2}-\d{1,2})\b", regex.IGNORECASE), range_func, {"remove": True})
     parser.add_handler("seasons", regex.compile(r"(?:\W|^)(\d{1,2})(?:e|ep)\d{1,3}(?:\W|$)", regex.IGNORECASE), array(integer))
-    parser.add_handler("seasons", regex.compile(r"\bs(\d{1,3})\b", regex.IGNORECASE), array(integer), {"remove": False, "skipIfAlreadyFound": True})
+    parser.add_handler("seasons", regex.compile(r"\bs(\d{1,4})", regex.IGNORECASE), array(integer), {"remove": True, "skipIfAlreadyFound": True})
     parser.add_handler("seasons", regex.compile(r"\bТВ-(\d{1,2})\b", regex.IGNORECASE), array(integer))
 
     # Episodes
