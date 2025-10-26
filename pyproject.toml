@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parsett"
-version = "1.8.1"
+version = "1.8.2"
 description = "Parsett - Torrent Parser with Adult Content Detection"
 authors = ["Dreu LaVelle <dreu.lavelle@gmail.com>"]
 license = "MIT"

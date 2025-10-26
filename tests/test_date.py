@@ -25,10 +25,11 @@ def parser():
     ("WWE NXT 30th Sept 2020 WEBRip h264-TJ", "2020-09-30"),
     ("WWE Main Event 6th August 2020 WEBRip h264-TJ", "2020-08-06"),
     ("wwf.raw.is.war.18.09.00.avi", "2000-09-18"),
+    ("Dorcel.25.09.03.Joe.Blogs.XXX.2160p.MP4-P2P", "2025-09-03"),
     # Negative cases
     ("11 22 63 - Temporada 1 [HDTV][Cap.103][Español Castellano]", None),
     ("September 30 1955 1977 1080p BluRay", None),
-    ("11-11-11.2011.1080p.BluRay.x264.DTS-FGT", None),
+    ("11-11-11.2011.1080p.BluRay.x264.DTS-FGT", None), # movie titled "11/11/11"
 ])
 def test_date_detection(parser, release_name, expected_date):
     result = parser.parse(release_name)
