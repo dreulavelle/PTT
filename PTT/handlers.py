@@ -253,6 +253,8 @@ def add_defaults(parser: Parser):
     # Codec
     parser.add_handler("codec", regex.compile(r"\b[hx][\. \-]?264\b", regex.IGNORECASE), value("avc"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\b[hx][\. \-]?265\b", regex.IGNORECASE), value("hevc"), {"remove": True})
+    parser.add_handler("codec", regex.compile(r"\b\W264\W\b"), value("avc"), {"remove": True, "skipIfAlreadyFound": True, "skipFromTitle": True})
+    parser.add_handler("codec", regex.compile(r"\b\W265\W\b"), value("hevc"), {"remove": True, "skipIfAlreadyFound": True, "skipFromTitle": True})
     parser.add_handler("codec", regex.compile(r"\bHEVC10(bit)?\b|\b[xh][\. \-]?265\b", regex.IGNORECASE), value("hevc"), {"remove": True})
     parser.add_handler("codec", regex.compile(r"\bhevc(?:\s?10)?\b", regex.IGNORECASE), value("hevc"), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("codec", regex.compile(r"\bdivx|xvid\b", regex.IGNORECASE), value("xvid"), {"remove": True, "skipIfAlreadyFound": False})
@@ -272,7 +274,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("channels", regex.compile(r"\b7[\.\- ]1(.?ch(annel)?)?\b", regex.IGNORECASE), uniq_concat(value("7.1")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\+?2[\.\s]0(?:x[2-4])?\b", regex.IGNORECASE), uniq_concat(value("2.0")), {"remove": True, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\b2\.0\b", regex.IGNORECASE), uniq_concat(value("2.0")), {"remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("channels", regex.compile(r"\bstereo\b", regex.IGNORECASE), uniq_concat(value("stereo")), {"remove": False, "skipIfAlreadyFound": False})
+    parser.add_handler("channels", regex.compile(r"\b(?:24-bit\s)?stereo\b", regex.IGNORECASE), uniq_concat(value("stereo")), {"remove": False, "skipIfAlreadyFound": False})
     parser.add_handler("channels", regex.compile(r"\bmono\b", regex.IGNORECASE), uniq_concat(value("mono")), {"remove": False, "skipIfAlreadyFound": False})
 
     # Audio
