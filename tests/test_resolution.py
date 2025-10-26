@@ -20,7 +20,7 @@ def parser():
     ("[Beatrice-Raws] Evangelion 3.333 You Can (Not) Redo [BDRip 3840x1632 HEVC TrueHD]", "2160p"),
     ("[Erai-raws] Evangelion 3.0 You Can (Not) Redo - Movie [1920x960][Multiple Subtitle].mkv", "1080p"),
     ("[JacobSwaggedUp] Kizumonogatari I: Tekketsu-hen (BD 1280x544) [MP4 Movie]", "720p"),
-    ("UFC 187 PPV 720i HDTV X264-KYR", "720p"),
+    ("UFC 187 PPV 720i HDTV X264-KYR", "720i"),
     ("IT Chapter Two.2019.7200p.AMZN WEB-DL.H264.[Eng Hin Tam Tel]DDP 5.1.MSubs.D0T.Telly", "720p"),
     ("Dumbo (1941) BRRip XvidHD 10800p-NPW", "1080p"),
     ("The Boys S04E01 E02 E03 4k to 1080p AMZN WEBrip x265 DDP5 1 D0c", "1080p"),

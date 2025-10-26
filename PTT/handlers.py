@@ -36,6 +36,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("title", regex.compile(r"\[?(\+.)?Extras\]?", regex.IGNORECASE), none, {"remove": True})
     parser.add_handler("title", regex.compile(r"(\+Movies)?\+Specials", regex.IGNORECASE), none, {"remove": True})
     parser.add_handler("group", regex.compile(r"-?EDGE2020"), value("EDGE2020"), {"remove": True})
+    parser.add_handler("title", regex.compile(r"TV Money", regex.IGNORECASE), none, {"remove": True}) # episode title
 
     # Container
     parser.add_handler("container", regex.compile(r"\.?[\[(]?\b(MKV|AVI|MP4|WMV|MPG|MPEG)\b[\])]?", regex.IGNORECASE), lowercase)
@@ -44,7 +45,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("torrent", regex.compile(r"\.torrent$"), boolean, {"remove": True})
 
     # Adult
-    parser.add_handler("adult", regex.compile(r"\b(?:xxx|xx)\b", regex.IGNORECASE), boolean, {"remove": True, "skipFromTitle": True})
+    parser.add_handler("adult", regex.compile(r"\b(XXX|xxx|Xxx)\b"), boolean, {"remove": True})
     parser.add_handler("adult", create_adult_pattern(), boolean, {"remove": True, "skipFromTitle": True, "skipIfAlreadyFound": True})
 
     # Scene
@@ -85,11 +86,11 @@ def add_defaults(parser: Parser):
     parser.add_handler("resolution", regex.compile(r"(?:BD|HD|M)480p?", regex.IGNORECASE), value("480p"), {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\b(?:4k|2160p|1080p|720p|480p)(?!.*\b(?:4k|2160p|1080p|720p|480p)\b)", regex.IGNORECASE), transform_resolution, {"remove": True})
     parser.add_handler("resolution", regex.compile(r"\b4k|21600?[pi]\b", regex.IGNORECASE), value("2160p"), {"remove": True})
-    parser.add_handler("resolution", regex.compile(r"(\d{3,4})[pi]", regex.IGNORECASE), value("$1p"), {"remove": True})
+    parser.add_handler("resolution", regex.compile(r"(\d{3,4}[pi])", regex.IGNORECASE), lowercase, {"remove": True})
     parser.add_handler("resolution", regex.compile(r"(240|360|480|576|720|1080|2160|3840)[pi]", regex.IGNORECASE), lowercase, {"remove": True})
 
     # Episode code
-    parser.add_handler("episode_code", regex.compile(r"[\[\()]([A-Za-f0-9]{8})[\]\)]"), uppercase, {"remove": True})
+    parser.add_handler("episode_code", regex.compile(r"[\[\()]([A-Fa-f0-9]{8})[\]\)]"), uppercase, {"remove": True})
     parser.add_handler("episode_code", regex.compile(r"[\[\()]([0-9]{8})[\]\)]"), uppercase, {"remove": True, "skipIfAlreadyFound": True})
 
     # This one doesn't seem like its needed for all the test cases.

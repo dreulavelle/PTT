@@ -1621,7 +1621,7 @@ def parser():
         "group": "EDGE2020",
     }),
     ("The Fairly OddParents Fairly Odder S01 720p PMTP WEBRip DDP5 1 x264 TEPES rartv ORARBG", {
-        "title": "The Fairly OddParents Fairly Odder",
+        "title": "The Fairly OddParents Fairly Odder", # make sure `ddp` isn't parsed as Dolby Digital Plus
         "resolution": "720p",
         "seasons": [1],
         "episodes": [],
@@ -1631,24 +1631,61 @@ def parser():
         "channels": ["5.1"],
         "site": "RARBG",
         "audio": ["Dolby Digital Plus"]
-    })
-])
-def test_random_releases_parse(parser, release_name, expected_output):
-    assert parser.parse(release_name) == expected_output
-
-
-@pytest.mark.parametrize("release_name, expected", [
+    }),
     ("Formula1.S2025E86.Italy.Grand.Prix.1080i.HDTV.MPA2.0.H.264-playTV", {
         "title": "Formula1",
         "resolution": "1080i",
-        "seasons": [2025],
+        "seasons": [2025], # parse 4-digit season
         "episodes": [86],
         "languages": [],
         "quality": "HDTV",
         "codec": "avc",
         "channels": ["2.0"],
         "group": "playTV",
+    }),
+    ("Georgie and Mandys First Marriage S01E18 TV Money 720p AMZN WEB DL DDP5 1 H 264 FLUX EZTV", {
+        "title": "Georgie and Mandys First Marriage", # make sure it has full title
+        "resolution": "720p",
+        "seasons": [1],
+        "episodes": [18],
+        "languages": [],
+        "quality": "WEB-DL",
+        "codec": "avc",
+        "channels": ["5.1"],
+        "network": "Amazon",
+        "audio": ["Dolby Digital Plus"]
+    }),
+    ("xXx.2002.15th.Anniversary.Edition.1080p.BluRay.Remux.AVC.DTS-HD.MA.5.1-FraMeSToR", {
+        "title": "xXx", # make sure we don't parse as adult title
+        "year": 2002,
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": [],
+        "quality": "BluRay REMUX",
+        "codec": "avc",
+        "channels": ["5.1"],
+        "audio": ["DTS Lossless"],
+        "group": "FraMeSToR",
+        "edition": "Anniversary Edition"
     })
 ])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
+
+
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("Formula1.S2025E86.Italy.Grand.Prix.1080i.HDTV.MPA2.0.H.264-playTV", {
+#         "title": "Formula1",
+#         "resolution": "1080i",
+#         "seasons": [2025],
+#         "episodes": [86],
+#         "languages": [],
+#         "quality": "HDTV",
+#         "codec": "avc",
+#         "channels": ["2.0"],
+#         "group": "playTV",
+#     }),
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
