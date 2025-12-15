@@ -1674,18 +1674,16 @@ def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-# @pytest.mark.parametrize("release_name, expected", [
-#     ("Formula1.S2025E86.Italy.Grand.Prix.1080i.HDTV.MPA2.0.H.264-playTV", {
-#         "title": "Formula1",
-#         "resolution": "1080i",
-#         "seasons": [2025],
-#         "episodes": [86],
-#         "languages": [],
-#         "quality": "HDTV",
-#         "codec": "avc",
-#         "channels": ["2.0"],
-#         "group": "playTV",
-#     }),
-# ])
-# def test_debug_releases_parse(parser, release_name, expected):
-#     assert parser.parse(release_name) == expected
+@pytest.mark.parametrize("release_name, expected", [
+    ("Dragon Ball Z (Complete Series) [1080p] [MP4] [English Audio]", {
+        "title": "Dragon Ball Z",
+        "resolution": "1080p",
+        "seasons": [],
+        "episodes": [],
+        "languages": ["en"],
+        "container": "mp4",
+        "complete": True,
+    }),
+])
+def test_debug_releases_parse(parser, release_name, expected):
+    assert parser.parse(release_name) == expected

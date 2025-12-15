@@ -16,7 +16,7 @@ help:
 	@echo "  publish     Publish to PyPI"
 
 install:
-	@poetry install --with dev
+	@uv sync --all-extras
 
 clean:
 	@find . -type f -name '*.pyc' -exec rm -f {} +
@@ -25,31 +25,32 @@ clean:
 	@find . -type d -name '.ruff_cache' -exec rm -rf {} +
 
 keywords:
-	@python cli.py combine ./PTT/keywords/
+	@uv run python cli.py combine ./PTT/keywords/
 
 format:
-	@poetry run black $(SRC_DIR)
+	@uv run black $(SRC_DIR)
 
 sort:
-	@poetry run isort $(SRC_DIR)
-	@poetry run python cli.py dedupe ./PTT/keywords/combined-keywords.txt
+	@uv run isort $(SRC_DIR)
+	@uv run python cli.py dedupe ./PTT/keywords/combined-keywords.txt
 
 lint:
-	@poetry run ruff check $(SRC_DIR)
+	@uv run ruff check $(SRC_DIR)
 
 test: clean
-	@poetry run pytest -n 4 --dist=loadscope tests
+	@uv run pytest -n 4 --dist=loadscope tests
 
 diff:
 	@git diff HEAD~1 HEAD
 
 debug:
-	@poetry run pytest tests/test_main.py::test_debug_releases_parse -v -ss
+	@uv run pytest tests/test_main.py::test_debug_releases_parse -v -ss
 
 coverage: clean
-	@poetry run pytest -n 4 --dist=loadscope tests --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
+	@uv run pytest -n 4 --dist=loadscope tests --cov=$(SRC_DIR) --cov-report=xml --cov-report=term
 
 pr-ready: sort format test
 
 publish:
-	@poetry publish --build
+	@uv build
+	@uv publish
