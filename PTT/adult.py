@@ -1,9 +1,6 @@
 from pathlib import Path
 from typing import Set
 
-import regex
-
-
 def load_adult_keywords(filename: str = "combined-keywords.txt") -> Set[str]:
     """Load adult keywords from the keywords file."""
     keywords_file = Path(__file__).parent / "keywords" / filename
@@ -11,14 +8,23 @@ def load_adult_keywords(filename: str = "combined-keywords.txt") -> Set[str]:
 
     with open(keywords_file, "r") as f:
         for line in f:
-            keyword = line.strip()
+            keyword = line.strip().lower()
             if keyword and not keyword.isspace():
-                keywords.add(regex.escape(keyword))
+                keywords.add(keyword)
 
     return keywords
 
+# Cached keywords
+_adult_keywords: Set[str] | None = None
 
-def create_adult_pattern() -> regex.Pattern:
-    """Create a compiled regex pattern for adult content detection."""
-    keywords = load_adult_keywords()
-    return regex.compile(r"\b(" + "|".join(keywords) + r")\b", regex.IGNORECASE)
+def get_adult_keywords() -> Set[str]:
+    """Get cached adult keywords."""
+    global _adult_keywords
+    if _adult_keywords is None:
+        _adult_keywords = load_adult_keywords()
+    return _adult_keywords
+
+def is_adult_content(context):
+    """Check if title contains adult content."""
+    title_lower = context['title'].lower()
+    context['aduly']= any(keyword in title_lower for keyword in get_adult_keywords())
