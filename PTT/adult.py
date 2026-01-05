@@ -27,4 +27,4 @@ def get_adult_keywords() -> Set[str]:
 def is_adult_content(context):
     """Check if title contains adult content."""
     title_lower = context['title'].lower()
-    context['aduly']= any(keyword in title_lower for keyword in get_adult_keywords())
+    context['adult']= any(keyword in title_lower for keyword in get_adult_keywords())

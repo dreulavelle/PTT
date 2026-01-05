@@ -46,7 +46,7 @@ def add_defaults(parser: Parser):
 
     # Adult
     parser.add_handler("adult", regex.compile(r"\b(XXX|xxx|Xxx)\b"), boolean, {"remove": True})
-    parser.add_handler("adult", is_adult_content, boolean, {"remove": True, "skipFromTitle": True, "skipIfAlreadyFound": True})
+    parser.add_handler("adult", is_adult_content)
 
     # Scene
     parser.add_handler("scene", regex.compile(r"^(?=.*(\b\d{3,4}p\b).*([_. ]WEB[_. ])(?!DL)\b)|\b(-CAKES|-GGEZ|-GGWP|-GLHF|-GOSSIP|-NAISU|-KOGI|-PECULATE|-SLOT|-EDITH|-ETHEL|-ELEANOR|-B2B|-SPAMnEGGS|-FTP|-DiRT|-SYNCOPY|-BAE|-SuccessfulCrab|-NHTFS|-SURCODE|-B0MBARDIERS)"), boolean, {"remove": False})
