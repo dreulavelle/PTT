@@ -23,15 +23,14 @@ jobs:
           path: |
             ~/.cache/uv
             .venv
-          key: ${{ runner.os }}-uv-${{ matrix.python-version }}-${{ hashFiles('**/uv.lock') }}
+          key: ${{ runner.os }}-uv-${{ matrix.python-version }}
           restore-keys: |
-            ${{ runner.os }}-uv-${{ matrix.python-version }}-
             ${{ runner.os }}-uv-
 
       - name: Install dependencies
         run: |
           pip install uv
-          uv sync
+          make install
 
       - name: Run Coverage
         run: make coverage
