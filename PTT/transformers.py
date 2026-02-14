@@ -40,6 +40,7 @@ def integer(input_value: str) -> Optional[int]:
     :return: The integer value or None if conversion fails.
     """
     try:
+        input_value = regex.sub(r"\D", "", input_value)
         return int(input_value)
     except ValueError:
         return None

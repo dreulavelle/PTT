@@ -193,6 +193,7 @@ def parser():
     ("[Anime Time] Naruto - 116 - 360 Degrees of Vision The Byakugan's Blind Spot.mkv", [116]),
     ("Клинок, рассекающий демонов (ТВ-1) / Kimetsu no Yaiba / Demon Slayer [TV] [26 из 26] [RUS(ext), ENG, JAP+Sub] [2019, BDRip] [1080p]", list(range(1, 27))),
     ("[Erai-raws] Boku no Hero Academia S2 - 00~25 [1080p][Multiple Subtitle]", list(range(0, 26))), # We shouldn't be getting 0, but its not a big deal
+    ("Show Something [.01.] 720p.mkv", [1]),
 ])
 def test_episode_parser(release_name, expected_episode, parser):
     result = parser.parse(release_name)

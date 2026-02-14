@@ -1668,13 +1668,7 @@ def parser():
         "audio": ["DTS Lossless"],
         "group": "FraMeSToR",
         "edition": "Anniversary Edition"
-    })
-])
-def test_random_releases_parse(parser, release_name, expected_output):
-    assert parser.parse(release_name) == expected_output
-
-
-@pytest.mark.parametrize("release_name, expected", [
+    }),
     ("Dragon Ball Z (Complete Series) [1080p] [MP4] [English Audio]", {
         "title": "Dragon Ball Z",
         "resolution": "1080p",
@@ -1683,6 +1677,22 @@ def test_random_releases_parse(parser, release_name, expected_output):
         "languages": ["en"],
         "container": "mp4",
         "complete": True,
+    }),
+])
+def test_random_releases_parse(parser, release_name, expected_output):
+    assert parser.parse(release_name) == expected_output
+
+
+@pytest.mark.parametrize("release_name, expected", [
+    ("Breaking.Bad.S01.720p.BRRip.Hindi-English.ESUB - Cukister", {
+        "episodes": [],
+        "group": "Cukister",
+        "languages": ["en", "hi"],
+        "quality": "BRRip",
+        "resolution": "720p",
+        "seasons": [1],
+        # "site": "Breaking.Bad.S01.720p.BRRip.Hindi-English.ESUB",
+        "title": "Breaking Bad"
     }),
 ])
 def test_debug_releases_parse(parser, release_name, expected):

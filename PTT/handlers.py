@@ -69,7 +69,7 @@ def add_defaults(parser: Parser):
 
     # Site before languages to get rid of domain name with country code.
     parser.add_handler("site", regex.compile(r"^(www?[., ][\w-]+[. ][\w-]+(?:[. ][\w-]+)?)\s+-\s*", regex.IGNORECASE), options={"skipFromTitle": True, "remove": True, "skipIfAlreadyFound": False})
-    parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
+    # parser.add_handler("site", regex.compile(r"^((?:www?[\.,])?[\w-]+\.[\w-]+(?:\.[\w-]+)*?)\s+-\s*", regex.IGNORECASE), options={"skipIfAlreadyFound": False})
     parser.add_handler("site", regex.compile(r"\bwww.+rodeo\b", regex.IGNORECASE), lowercase, {"remove": True})
 
     # Resolution
