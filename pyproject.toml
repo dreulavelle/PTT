@@ -1,6 +1,6 @@
 [project]
 name = "parsett"
-version = "1.8.3"
+version = "1.8.4"
 description = "Parsett - Torrent Parser with Adult Content Detection"
 authors = [{ name = "Dreu LaVelle", email = "dreu.lavelle@gmail.com" }]
 requires-python = ">=3.10,<4"
