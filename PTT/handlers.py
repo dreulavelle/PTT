@@ -52,12 +52,12 @@ def add_defaults(parser: Parser):
     parser.add_handler("scene", regex.compile(r"^(?=.*(\b\d{3,4}p\b).*([_. ]WEB[_. ])(?!DL)\b)|\b(-CAKES|-GGEZ|-GGWP|-GLHF|-GOSSIP|-NAISU|-KOGI|-PECULATE|-SLOT|-EDITH|-ETHEL|-ELEANOR|-B2B|-SPAMnEGGS|-FTP|-DiRT|-SYNCOPY|-BAE|-SuccessfulCrab|-NHTFS|-SURCODE|-B0MBARDIERS)"), boolean, {"remove": False})
 
     # Extras (This stuff can be trashed)
-    parser.add_handler("extras", regex.compile(r"\bNCED\b", regex.IGNORECASE), uniq_concat(value("NCED")), {"remove": True})
-    parser.add_handler("extras", regex.compile(r"\bNCOP\b", regex.IGNORECASE), uniq_concat(value("NCOP")), {"remove": True})
-    parser.add_handler("extras", regex.compile(r"\bNC\b", regex.IGNORECASE), uniq_concat(value("NC")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bNCED\b"), uniq_concat(value("NCED")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bNCOP\b"), uniq_concat(value("NCOP")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bNC\b"), uniq_concat(value("NC")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bOVA\b", regex.IGNORECASE), uniq_concat(value("OVA")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bED(\d?v?\d?)\b", regex.IGNORECASE), uniq_concat(value("ED")), {"remove": True})
-    parser.add_handler("extras", regex.compile(r"\bOPv?(\d+)?\b", regex.IGNORECASE), uniq_concat(value("OP")), {"remove": True})
+    parser.add_handler("extras", regex.compile(r"\bOPv?(\d+)?\b"), uniq_concat(value("OP")), {"remove": True})
     parser.add_handler("extras", regex.compile(r"\bDeleted.*Scenes?\b", regex.IGNORECASE), uniq_concat(value("Deleted Scene")), {"remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Featurettes?)\b|\bFeaturettes?\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Featurette")), {"skipFromTitle": True, "remove": False})
     parser.add_handler("extras", regex.compile(r"(?:(?<=\b(?:19\d{2}|20\d{2})\b.*)\b(?:Sample)\b|\b(?:Sample)\b(?!.*\b(?:19\d{2}|20\d{2})\b))", regex.IGNORECASE), uniq_concat(value("Sample")), {"skipFromTitle": True, "remove": False})
@@ -638,7 +638,7 @@ def add_defaults(parser: Parser):
     parser.add_handler("size", regex.compile(r"\b(\d+(\.\d+)?\s?(MB|GB|TB))\b", regex.IGNORECASE), none, {"remove": True})
 
     # Site
-    parser.add_handler("site", regex.compile(r"\b(?:www?.?)?(?:\w+\-)?\w+[\.\s](?:com|org|net|ms|tv|mx|co|party|vip|nu|pics)\b", regex.IGNORECASE), value("$1"), {"remove": True})
+    parser.add_handler("site", regex.compile(r"\b(?:www?.?)?(?:\w+\-)?\w+[\.\s](?:com|org|net|ms|tv|mx|co|\.party|vip|nu|pics)\b", regex.IGNORECASE), value("$1"), {"remove": True})
     parser.add_handler("site", regex.compile(r"rarbg|torrentleech|(?:the)?piratebay", regex.IGNORECASE), value("$1"), {"remove": True})
     parser.add_handler("site", regex.compile(r"\[([^\]]+\.[^\]]+)\](?=\.\w{2,4}$|\s)", regex.IGNORECASE), value("$1"), {"remove": True})
 

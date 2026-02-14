@@ -1678,22 +1678,48 @@ def parser():
         "container": "mp4",
         "complete": True,
     }),
+    ("Jack-of-All-Trades Party Of None S01E01 DUBBED 1080p WEB H264-SKYANiME", {
+        "codec": "avc",
+        "dubbed": True,
+        "scene": True,
+        "episodes": [1],
+        "group": "SKYANiME",
+        "languages": [],
+        "quality": "WEB",
+        "resolution": "1080p",
+        "seasons": [1],
+        "title": "Jack-of-All-Trades Party Of None"
+    }),
+    ("[LostYears] takt op.Destiny (WEB 1080p x264 AAC) [Dual-Audio]", {
+        "codec": "avc",
+        "audio": ["AAC"],
+        "dubbed": True,
+        "episodes": [],
+        "group": "LostYears",
+        "languages": [],
+        "quality": "WEB",
+        "resolution": "1080p",
+        "seasons": [],
+        "title": "takt op.Destiny"
+    }),
 ])
 def test_random_releases_parse(parser, release_name, expected_output):
     assert parser.parse(release_name) == expected_output
 
 
-@pytest.mark.parametrize("release_name, expected", [
-    ("Breaking.Bad.S01.720p.BRRip.Hindi-English.ESUB - Cukister", {
-        "episodes": [],
-        "group": "Cukister",
-        "languages": ["en", "hi"],
-        "quality": "BRRip",
-        "resolution": "720p",
-        "seasons": [1],
-        # "site": "Breaking.Bad.S01.720p.BRRip.Hindi-English.ESUB",
-        "title": "Breaking Bad"
-    }),
-])
-def test_debug_releases_parse(parser, release_name, expected):
-    assert parser.parse(release_name) == expected
+# @pytest.mark.parametrize("release_name, expected", [
+#     ("[LostYears] takt op.Destiny (WEB 1080p x264 AAC) [Dual-Audio]", {
+#         "codec": "avc",
+#         "audio": ["AAC"],
+#         "dubbed": True,
+#         "episodes": [],
+#         "group": "LostYears",
+#         "languages": [],
+#         "quality": "WEB",
+#         "resolution": "1080p",
+#         "seasons": [],
+#         "title": "takt op.Destiny"
+#     }),
+# ])
+# def test_debug_releases_parse(parser, release_name, expected):
+#     assert parser.parse(release_name) == expected
